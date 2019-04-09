@@ -62,6 +62,7 @@ namespace Backend
             }
 
             app.UseHttpsRedirection();
+            app.UseCors(builder => builder.AllowAnyOrigin());
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
