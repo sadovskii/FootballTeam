@@ -53,22 +53,22 @@ namespace Backend.Controllers
         }
 
         // GET: api/GeneralInformation/5/Fluorography
-        [HttpGet("{id}", Name = "GetFluorography")]
+        [HttpGet("{id}/Fluorography")]
         public IActionResult GetWithFluorography(int id)
         {
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _generalInformationRepository.GetFluorographyById(id);
+            var elem = _generalInformationRepository.GetFluorographyById(id).Fluorographies;
 
-            if (elem != null && elem.Fluorographies != null)
-                return Ok(elem);
+            if (elem == null)
+                elem = new List<Fluorography>();
 
-            return NotFound();
+            return Ok(elem);
         }
 
         // GET: api/GeneralInformation/5/VaccinationStatus
-        [HttpGet("{id}", Name = "GetVaccinationStatus")]
+        [HttpGet("{id}/VaccinationStatus")]
         public IActionResult GetWithVaccinationStatus(int id)
         {
             if (id == 0)
@@ -83,7 +83,7 @@ namespace Backend.Controllers
         }
 
         // GET: api/GeneralInformation/5/SurgicalIntervention
-        [HttpGet("{id}", Name = "GetSurgicalIntervention")]
+        [HttpGet("{id}/SurgicalIntervention")]
         public IActionResult GetWithSurgicalIntervention(int id)
         {
             if (id == 0)
@@ -99,7 +99,7 @@ namespace Backend.Controllers
         #endregion
 
         #region POST
-        // POST: api/Patients/5/Fluorography
+        // POST: api/GeneralInformation/5/Fluorography
         [HttpPost("{id}/Fluorography")]
         public IActionResult PostWithGeneralInformation(int id, [FromBody] Fluorography fluorography)
         {
@@ -125,7 +125,7 @@ namespace Backend.Controllers
             }
         }
 
-        // POST: api/Patients/5/VaccinationStatus
+        // POST: api/GeneralInformation/5/VaccinationStatus
         [HttpPost("{id}/VaccinationStatus")]
         public IActionResult PostWithMedicalExamination(int id, [FromBody] VaccinationStatus vaccinationStatus)
         {
@@ -156,7 +156,7 @@ namespace Backend.Controllers
             
         }
 
-        // POST: api/Patients/5/SurgicalIntervention
+        // POST: api/GeneralInformation/5/SurgicalIntervention
         [HttpPost("{id}/SurgicalIntervention")]
         public IActionResult PostWithInjuriesDiseases(int id, [FromBody] SurgicalIntervention surgicalIntervention)
         {

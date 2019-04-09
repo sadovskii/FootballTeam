@@ -164,9 +164,9 @@ namespace Backend.Controllers
 
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return StatusCode(500, "Internal server error");
+                return StatusCode(500, "Internal server error" + ex.Message);
             }
         }
 

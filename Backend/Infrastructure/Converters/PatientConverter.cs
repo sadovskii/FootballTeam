@@ -4,45 +4,48 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Backend.Infrastructure.Converters.GeneralInformationConverters;
+using Backend.Infrastructure.Converters.InjuriesDiseasesConverters;
+using Backend.Infrastructure.Converters.MedicalExaminationConverters;
 
 namespace Backend.Infrastructure.Converters
 {
     internal static class PatientConverter
     {
-        public static Patient ViewToEntity(this PatientView patientView)
+        public static Patient ViewToEntity(this PatientView view)
         {
             return new Patient
             {
-                Id = patientView.Id,
-                Name = patientView.Name,
-                Photo = patientView.Photo,
-                //GeneralInformation = patientView.GeneralInformation,
-                //InjuriesDiseases = patientView.InjuriesDiseases,
-                //MedicalExaminations = patientView.MedicalExaminations
+                Id = view.Id,
+                Name = view.Name,
+                Photo = view.Photo,
+                GeneralInformation = view.GeneralInformation.ViewToEntity(),
+                InjuriesDiseases = view.InjuriesDiseases.ViewToEntity(),
+                MedicalExaminations = view.MedicalExaminations.ViewToEntity()
             };
         }
 
-        public static List<Patient> ViewToEntity(this IEnumerable<PatientView> PatientViews)
+        public static List<Patient> ViewToEntity(this IEnumerable<PatientView> views)
         {
-            return PatientViews.Select(t => t.ViewToEntity()).ToList();
+            return views.Select(t => t.ViewToEntity()).ToList();
         }
 
-        public static PatientView EntityToView(this Patient WordsAndTranslationPair)
+        public static PatientView EntityToView(this Patient entity)
         {
             return new PatientView
             {
-                Id = WordsAndTranslationPair.Id,
-                Name = WordsAndTranslationPair.Name,
-                Photo = WordsAndTranslationPair.Photo,
-                //GeneralInformation = WordsAndTranslationPair.GeneralInformation,
-                //InjuriesDiseases = WordsAndTranslationPair.InjuriesDiseases,
-                //MedicalExaminations = WordsAndTranslationPair.MedicalExaminations
+                Id = entity.Id,
+                Name = entity.Name,
+                Photo = entity.Photo,
+                GeneralInformation = entity.GeneralInformation.EntityToView(),
+                InjuriesDiseases = entity.InjuriesDiseases.EntityToView(),
+                MedicalExaminations = entity.MedicalExaminations.EntityToView()
             };
         }
 
-        public static List<PatientView> EntityToView(this IEnumerable<Patient> Patients)
+        public static List<PatientView> EntityToView(this IEnumerable<Patient> entities)
         {
-            var a = Patients.Select(t => t.EntityToView());
+            var a = entities.Select(t => t.EntityToView());
             return a.ToList();
         }
     }
