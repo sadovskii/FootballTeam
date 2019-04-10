@@ -12,35 +12,44 @@ namespace Backend.Infrastructure.Converters.Common.InstrumentalStudies
     {
         public static MRI ViewToEntity(this MRIView view)
         {
-            return new MRI
+            if (view != null)
             {
-                Id = view.Id,
-                Info = view.Info,
-                InjuriesDiseasesId = view.InjuriesDiseasesId,
-                InjuriesDiseases = view.InjuriesDiseases.ViewToEntity()
-            };
+                return new MRI
+                {
+                    Id = view.Id,
+                    Info = view.Info,
+                    InjuriesDiseasesId = view.InjuriesDiseasesId,
+                    InjuriesDiseases = view.InjuriesDiseases.ViewToEntity()
+                };
+            }
+
+            return null;
         }
 
         public static List<MRI> ViewToEntity(this IEnumerable<MRIView> views)
         {
-            return views.Select(t => t.ViewToEntity()).ToList();
+            return views?.Select(t => t.ViewToEntity()).ToList();
         }
 
         public static MRIView EntityToView(this MRI entity)
         {
-            return new MRIView
+            if (entity != null)
             {
-                Id = entity.Id,
-                Info = entity.Info,
-                InjuriesDiseasesId = entity.InjuriesDiseasesId,
-                InjuriesDiseases = entity.InjuriesDiseases.EntityToView()
-            };
+                return new MRIView
+                {
+                    Id = entity.Id,
+                    Info = entity.Info,
+                    InjuriesDiseasesId = entity.InjuriesDiseasesId,
+                    InjuriesDiseases = entity.InjuriesDiseases.EntityToView()
+                };
+            }
+
+            return null;
         }
 
         public static List<MRIView> EntityToView(this IEnumerable<MRI> entities)
         {
-            var a = entities.Select(t => t.EntityToView());
-            return a.ToList();
+            return entities.Select(t => t.EntityToView()).ToList() ?? new List<MRIView>();
         }
     }
 }

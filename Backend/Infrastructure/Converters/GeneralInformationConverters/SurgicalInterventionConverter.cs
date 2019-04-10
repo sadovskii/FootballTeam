@@ -11,37 +11,46 @@ namespace Backend.Infrastructure.Converters.GeneralInformationConverters
     {
         public static SurgicalIntervention ViewToEntity(this SurgicalInterventionView view)
         {
-            return new SurgicalIntervention
+            if (view != null)
             {
-                Id = view.Id,
-                ProcedureTime = view.ProcedureTime,
-                Diagnosis = view.Diagnosis,
-                InterventionType = view.InterventionType,
-                GeneralInformationId = view.GeneralInformationId
-            };
+                return new SurgicalIntervention
+                {
+                    Id = view.Id,
+                    ProcedureTime = view.ProcedureTime,
+                    Diagnosis = view.Diagnosis,
+                    InterventionType = view.InterventionType,
+                    GeneralInformationId = view.GeneralInformationId
+                };
+            }
+
+            return null;
         }
 
         public static List<SurgicalIntervention> ViewToEntity(this IEnumerable<SurgicalInterventionView> views)
         {
-            return views.Select(t => t.ViewToEntity()).ToList();
+            return views?.Select(t => t.ViewToEntity()).ToList();
         }
 
         public static SurgicalInterventionView EntityToView(this SurgicalIntervention entity)
         {
-            return new SurgicalInterventionView
+            if (entity != null)
             {
-                Id = entity.Id,
-                ProcedureTime = entity.ProcedureTime,
-                Diagnosis = entity.Diagnosis,
-                InterventionType = entity.InterventionType,
-                GeneralInformationId = entity.GeneralInformationId
-            };
+                return new SurgicalInterventionView
+                {
+                    Id = entity.Id,
+                    ProcedureTime = entity.ProcedureTime,
+                    Diagnosis = entity.Diagnosis,
+                    InterventionType = entity.InterventionType,
+                    GeneralInformationId = entity.GeneralInformationId
+                };
+            }
+
+            return null;
         }
 
         public static List<SurgicalInterventionView> EntityToView(this IEnumerable<SurgicalIntervention> entities)
         {
-            var a = entities.Select(t => t.EntityToView());
-            return a.ToList();
+            return entities?.Select(t => t.EntityToView()).ToList() ?? new List<SurgicalInterventionView>();
         }
     }
 }

@@ -11,35 +11,45 @@ namespace Backend.Infrastructure.Converters.GeneralInformationConverters
     {
         public static VaccinationStatus ViewToEntity(this VaccinationStatusView view)
         {
-            return new VaccinationStatus
+            if (view != null)
             {
-                Id = view.Id,
-                ProcedureTime = view.ProcedureTime,
-                Information = view.Information,
-                GeneralInformationId = view.GeneralInformationId
-            };
+                return new VaccinationStatus
+                {
+                    Id = view.Id,
+                    ProcedureTime = view.ProcedureTime,
+                    Information = view.Information,
+                    GeneralInformationId = view.GeneralInformationId
+                };
+            }
+
+            return null;
         }
 
         public static List<VaccinationStatus> ViewToEntity(this IEnumerable<VaccinationStatusView> views)
         {
-            return views.Select(t => t.ViewToEntity()).ToList();
+            return views?.Select(t => t.ViewToEntity()).ToList();
         }
 
         public static VaccinationStatusView EntityToView(this VaccinationStatus entity)
         {
-            return new VaccinationStatusView
+            if (entity != null)
             {
-                Id = entity.Id,
-                ProcedureTime = entity.ProcedureTime,
-                Information = entity.Information,
-                GeneralInformationId = entity.GeneralInformationId
-            };
+                return new VaccinationStatusView
+                {
+                    Id = entity.Id,
+                    ProcedureTime = entity.ProcedureTime,
+                    Information = entity.Information,
+                    GeneralInformationId = entity.GeneralInformationId
+                };
+            }
+
+            return null;
+
         }
 
         public static List<VaccinationStatusView> EntityToView(this IEnumerable<VaccinationStatus> entities)
         {
-            var a = entities.Select(t => t.EntityToView());
-            return a.ToList();
+            return entities.Select(t => t.EntityToView()).ToList() ?? new List<VaccinationStatusView>();
         }
     }
 }

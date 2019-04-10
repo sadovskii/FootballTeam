@@ -12,35 +12,44 @@ namespace Backend.Infrastructure.Converters.Common.LaboratoryResearch
     {
         public static BloodChemistryAnalysis ViewToEntity(this BloodChemistryAnalysisView view)
         {
-            return new BloodChemistryAnalysis
+            if (view != null)
             {
-                Id = view.Id,
-                Info = view.Info,
-                MedicalExaminationId = view.MedicalExaminationId,
-                MedicalExamination = view.MedicalExamination.ViewToEntity()
-            };
+                return new BloodChemistryAnalysis
+                {
+                    Id = view.Id,
+                    Info = view.Info,
+                    MedicalExaminationId = view.MedicalExaminationId,
+                    MedicalExamination = view.MedicalExamination.ViewToEntity()
+                };
+            }
+
+            return null;
         }
 
         public static List<BloodChemistryAnalysis> ViewToEntity(this IEnumerable<BloodChemistryAnalysisView> views)
         {
-            return views.Select(t => t.ViewToEntity()).ToList();
+            return views?.Select(t => t.ViewToEntity()).ToList();
         }
 
         public static BloodChemistryAnalysisView EntityToView(this BloodChemistryAnalysis entity)
         {
-            return new BloodChemistryAnalysisView
+            if (entity != null)
             {
-                Id = entity.Id,
-                Info = entity.Info,
-                MedicalExaminationId = entity.MedicalExaminationId,
-                MedicalExamination = entity.MedicalExamination.EntityToView()
-            };
+                return new BloodChemistryAnalysisView
+                {
+                    Id = entity.Id,
+                    Info = entity.Info,
+                    MedicalExaminationId = entity.MedicalExaminationId,
+                    MedicalExamination = entity.MedicalExamination.EntityToView()
+                };
+            }
+
+            return null;
         }
 
         public static List<BloodChemistryAnalysisView> EntityToView(this IEnumerable<BloodChemistryAnalysis> entities)
         {
-            var a = entities.Select(t => t.EntityToView());
-            return a.ToList();
+            return entities?.Select(t => t.EntityToView()).ToList() ?? new List<BloodChemistryAnalysisView>();
         }
     }
 }

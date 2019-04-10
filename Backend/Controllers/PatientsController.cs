@@ -8,6 +8,14 @@ using Backend.DAL.Entities.GeneralInformationEntities;
 using Backend.DAL.Entities.InjuriesDiseasesEntities;
 using Backend.DAL.Entities.MedicalExaminationEntities;
 using Backend.DAL.Interfaces.Repositories;
+using Backend.Infrastructure.Converters;
+using Backend.Infrastructure.Converters.GeneralInformationConverters;
+using Backend.Infrastructure.Converters.InjuriesDiseasesConverters;
+using Backend.Infrastructure.Converters.MedicalExaminationConverters;
+using Backend.Views;
+using Backend.Views.GeneralInformationEntities;
+using Backend.Views.InjuriesDiseasesEntities;
+using Backend.Views.MedicalExaminationEntities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +25,7 @@ namespace Backend.Controllers
     [ApiController]
     public class PatientsController : ControllerBase
     {
-        IPatientRepository _patientRepository;
+        private readonly IPatientRepository _patientRepository;
 
         public PatientsController(ApplicationContext applicationContext, IPatientRepository patientRepository)
         {
@@ -28,14 +36,12 @@ namespace Backend.Controllers
         [HttpGet]
         public IActionResult GetPatient()
         {
-            var elem = _patientRepository.GetAll();
+            var elem = _patientRepository.GetAll().EntityToView();
 
             if (elem != null)
                 return Ok(elem);
 
             return NotFound();
-
-
         }
 
         // GET: api/Patients/5
@@ -45,7 +51,7 @@ namespace Backend.Controllers
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _patientRepository.GetBy(t => t.Id == id);
+            var elem = _patientRepository.GetBy(t => t.Id == id).EntityToView();
 
             if (elem != null)
                 return Ok(elem);
@@ -61,7 +67,7 @@ namespace Backend.Controllers
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _patientRepository.GetGeneralInformationById(id);
+            var elem = _patientRepository.GetGeneralInformationById(id).EntityToView();
 
             if (elem != null && elem.GeneralInformation != null)
                 return Ok(elem);
@@ -146,7 +152,7 @@ namespace Backend.Controllers
 
         // POST: api/Patients
         [HttpPost]
-        public IActionResult Post([FromBody] Patient patient)
+        public IActionResult Post([FromBody] PatientView patient)
         {
             try
             {
@@ -160,7 +166,7 @@ namespace Backend.Controllers
                     return BadRequest("Invalid model object");
                 }
 
-                _patientRepository.Insert(patient);
+                _patientRepository.Insert(patient.ViewToEntity());
 
                 return Ok();
             }
@@ -172,7 +178,7 @@ namespace Backend.Controllers
 
         // POST: api/Patients/5/GeneralInformation
         [HttpPost("{id}/GeneralInformation")]
-        public IActionResult PostWithGeneralInformation(int id, [FromBody] GeneralInformation generalInformation)
+        public IActionResult PostWithGeneralInformation(int id, [FromBody] GeneralInformationView generalInformationView)
         {
             try
             {
@@ -181,7 +187,7 @@ namespace Backend.Controllers
                 {
                     return BadRequest("id is zero");
                 }
-                if (generalInformation == null)
+                if (generalInformationView == null)
                 {
                     return BadRequest("Owner object is null");
                 }
@@ -191,7 +197,7 @@ namespace Backend.Controllers
                     return BadRequest("Invalid model object");
                 }
 
-                _patientRepository.InsertGeneralInformation(id, generalInformation);
+                _patientRepository.InsertGeneralInformation(id, generalInformationView.ViewToEntity());
 
                 return Ok();
             }
@@ -203,7 +209,7 @@ namespace Backend.Controllers
 
         // POST: api/Patients/5/InjuriesDiseases
         [HttpPost("{id}/MedicalExamination")]
-        public IActionResult PostWithMedicalExamination(int id, [FromBody] MedicalExamination medicalExamination)
+        public IActionResult PostWithMedicalExamination(int id, [FromBody] MedicalExaminationView medicalExaminationView)
         {
             try
             {
@@ -212,7 +218,7 @@ namespace Backend.Controllers
                 {
                     return BadRequest("id is zero");
                 }
-                if (medicalExamination == null)
+                if (medicalExaminationView == null)
                 {
                     return BadRequest("Owner object is null");
                 }
@@ -222,7 +228,7 @@ namespace Backend.Controllers
                     return BadRequest("Invalid model object");
                 }
 
-                _patientRepository.InsertMedicalExamination(id, medicalExamination);
+                _patientRepository.InsertMedicalExamination(id, medicalExaminationView.ViewToEntity());
 
                 return Ok();
             }
@@ -234,7 +240,7 @@ namespace Backend.Controllers
 
         // POST: api/Patients/5/InjuriesDiseases
         [HttpPost("{id}/InjuriesDiseases")]
-        public IActionResult PostWithInjuriesDiseases(int id, [FromBody] InjuriesDiseases injuriesDiseases)
+        public IActionResult PostWithInjuriesDiseases(int id, [FromBody] InjuriesDiseasesView injuriesDiseasesView)
         {
             try
             {
@@ -243,7 +249,7 @@ namespace Backend.Controllers
                 {
                     return BadRequest("id is zero");
                 }
-                if (injuriesDiseases == null)
+                if (injuriesDiseasesView == null)
                 {
                     return BadRequest("Owner object is null");
                 }
@@ -253,7 +259,7 @@ namespace Backend.Controllers
                     return BadRequest("Invalid model object");
                 }
 
-                _patientRepository.InsertInjuriesDiseases(id, injuriesDiseases);
+                _patientRepository.InsertInjuriesDiseases(id, injuriesDiseasesView.ViewToEntity());
 
                 return Ok();
             }

@@ -4,9 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Backend.DAL.Entities.InjuriesDiseasesEntities;
+using Backend.DAL.Entities.MedicalExaminationEntities;
 using Backend.Infrastructure.Converters.GeneralInformationConverters;
 using Backend.Infrastructure.Converters.InjuriesDiseasesConverters;
 using Backend.Infrastructure.Converters.MedicalExaminationConverters;
+using Backend.Views.InjuriesDiseasesEntities;
+using Backend.Views.MedicalExaminationEntities;
+using Microsoft.CodeAnalysis.Emit;
 
 namespace Backend.Infrastructure.Converters
 {
@@ -14,39 +19,54 @@ namespace Backend.Infrastructure.Converters
     {
         public static Patient ViewToEntity(this PatientView view)
         {
-            return new Patient
+            if (view != null)
             {
-                Id = view.Id,
-                Name = view.Name,
-                Photo = view.Photo,
-                GeneralInformation = view.GeneralInformation.ViewToEntity(),
-                InjuriesDiseases = view.InjuriesDiseases.ViewToEntity(),
-                MedicalExaminations = view.MedicalExaminations.ViewToEntity()
-            };
+                return new Patient
+                {
+                    Id = view.Id,
+                    Name = view.Name,
+                    Photo = view.Photo,
+                    GeneralInformation = view.GeneralInformation.ViewToEntity(),
+                    InjuriesDiseases = view.InjuriesDiseases.ViewToEntity() ?? new List<InjuriesDiseases>(),
+                    MedicalExaminations = view.MedicalExaminations.ViewToEntity() ?? new List<MedicalExamination>()
+                };
+            }
+
+            return null;
         }
 
         public static List<Patient> ViewToEntity(this IEnumerable<PatientView> views)
         {
-            return views.Select(t => t.ViewToEntity()).ToList();
+            if (views != null)
+                return views.Select(t => t.ViewToEntity()).ToList();
+            
+            return new List<Patient>();
         }
 
         public static PatientView EntityToView(this Patient entity)
         {
-            return new PatientView
+            if (entity != null)
             {
-                Id = entity.Id,
-                Name = entity.Name,
-                Photo = entity.Photo,
-                GeneralInformation = entity.GeneralInformation.EntityToView(),
-                InjuriesDiseases = entity.InjuriesDiseases.EntityToView(),
-                MedicalExaminations = entity.MedicalExaminations.EntityToView()
-            };
+                return new PatientView
+                {
+                    Id = entity.Id,
+                    Name = entity.Name,
+                    Photo = entity.Photo,
+                    GeneralInformation = entity.GeneralInformation.EntityToView(),
+                    InjuriesDiseases = entity.InjuriesDiseases.EntityToView() ?? new List<InjuriesDiseasesView>(),
+                    MedicalExaminations = entity.MedicalExaminations.EntityToView() ?? new List<MedicalExaminationView>()
+                };
+            }
+
+            return null;
         }
 
         public static List<PatientView> EntityToView(this IEnumerable<Patient> entities)
         {
-            var a = entities.Select(t => t.EntityToView());
-            return a.ToList();
+            if (entities != null)
+                return entities.Select(t => t.EntityToView()).ToList();
+            
+            return new List<PatientView>();
         }
     }
 }

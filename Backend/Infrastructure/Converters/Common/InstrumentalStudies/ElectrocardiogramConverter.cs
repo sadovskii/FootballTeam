@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Backend.Infrastructure.Converters.MedicalExaminationConverters;
 
 namespace Backend.Infrastructure.Converters.Common.InstrumentalStudies
 {
@@ -11,35 +12,45 @@ namespace Backend.Infrastructure.Converters.Common.InstrumentalStudies
     {
         public static Electrocardiogram ViewToEntity(this ElectrocardiogramView view)
         {
-            return new Electrocardiogram
+            if (view != null)
             {
-                Id = view.Id,
-                Info = view.Info,
-                MedicalExaminationId = view.MedicalExaminationId,
-                //MedicalExamination = view.MedicalExamination,
-            };
+                return new Electrocardiogram
+                {
+                    Id = view.Id,
+                    Info = view.Info,
+                    MedicalExaminationId = view.MedicalExaminationId,
+                    MedicalExamination = view.MedicalExamination.ViewToEntity(),
+                };
+            }
+
+            return null;
+
         }
 
         public static List<Electrocardiogram> ViewToEntity(this IEnumerable<ElectrocardiogramView> views)
         {
-            return views.Select(t => t.ViewToEntity()).ToList();
+            return views?.Select(t => t.ViewToEntity()).ToList();
         }
 
         public static ElectrocardiogramView EntityToView(this Electrocardiogram entity)
         {
-            return new ElectrocardiogramView
+            if (entity != null)
             {
-                Id = entity.Id,
-                Info = entity.Info,
-                MedicalExaminationId = entity.MedicalExaminationId,
-                //MedicalExamination = entity.MedicalExamination,
-            };
+                return new ElectrocardiogramView
+                {
+                    Id = entity.Id,
+                    Info = entity.Info,
+                    MedicalExaminationId = entity.MedicalExaminationId,
+                    MedicalExamination = entity.MedicalExamination.EntityToView(),
+                };
+            }
+
+            return null;
         }
 
         public static List<ElectrocardiogramView> EntityToView(this IEnumerable<Electrocardiogram> entities)
         {
-            var a = entities.Select(t => t.EntityToView());
-            return a.ToList();
+            return entities.Select(t => t.EntityToView()).ToList() ?? new List<ElectrocardiogramView>();
         }
     }
 }

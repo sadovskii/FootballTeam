@@ -4,6 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Backend.DAL.Entities.Common.InstrumentalStudies;
+using Backend.Infrastructure.Converters.Common.InstrumentalStudies;
+using Backend.Views.Common.InstrumentalStudies;
 
 namespace Backend.Infrastructure.Converters.InjuriesDiseasesConverters
 {
@@ -11,49 +14,58 @@ namespace Backend.Infrastructure.Converters.InjuriesDiseasesConverters
     {
         public static InjuriesDiseases ViewToEntity(this InjuriesDiseasesView view)
         {
-            return new InjuriesDiseases
+            if (view != null)
             {
-                Id = view.Id,
-                DateInjuriesOrDiseases = view.DateInjuriesOrDiseases,
-                ReleasedInMainGroup = view.ReleasedInMainGroup,
-                DisabilityCountDay = view.DisabilityCountDay,
-                Diagnosis = view.Diagnosis,
-                DrugTherapy = view.DrugTherapy,
-                PhysiotherapyTreatment = view.PhysiotherapyTreatment,
-                Other = view.Other,
-                PatientId = view.PatientId,
-                //MRIs = view.MRIs,
-                //HeartUltrasounds = view.HeartUltrasounds
-            };
+                return new InjuriesDiseases
+                {
+                    Id = view.Id,
+                    DateInjuriesOrDiseases = view.DateInjuriesOrDiseases,
+                    ReleasedInMainGroup = view.ReleasedInMainGroup,
+                    DisabilityCountDay = view.DisabilityCountDay,
+                    Diagnosis = view.Diagnosis,
+                    DrugTherapy = view.DrugTherapy,
+                    PhysiotherapyTreatment = view.PhysiotherapyTreatment,
+                    Other = view.Other,
+                    PatientId = view.PatientId,
+                    MRIs = view.MRIs.ViewToEntity(),
+                    HeartUltrasounds = view.HeartUltrasounds.ViewToEntity() ?? new List<HeartUltrasound>()
+                };
+            }
+
+            return null;
         }
 
         public static List<InjuriesDiseases> ViewToEntity(this IEnumerable<InjuriesDiseasesView> views)
         {
-            return views.Select(t => t.ViewToEntity()).ToList();
+            return views?.Select(t => t.ViewToEntity()).ToList();
         }
 
         public static InjuriesDiseasesView EntityToView(this InjuriesDiseases entity)
         {
-            return new InjuriesDiseasesView
+            if (entity != null)
             {
-                Id = entity.Id,
-                DateInjuriesOrDiseases = entity.DateInjuriesOrDiseases,
-                ReleasedInMainGroup = entity.ReleasedInMainGroup,
-                DisabilityCountDay = entity.DisabilityCountDay,
-                Diagnosis = entity.Diagnosis,
-                DrugTherapy = entity.DrugTherapy,
-                PhysiotherapyTreatment = entity.PhysiotherapyTreatment,
-                Other = entity.Other,
-                PatientId = entity.PatientId,
-                //MRIs = entity.MRIs,
-                //HeartUltrasounds = entity.HeartUltrasounds
-            };
+                return new InjuriesDiseasesView
+                {
+                    Id = entity.Id,
+                    DateInjuriesOrDiseases = entity.DateInjuriesOrDiseases,
+                    ReleasedInMainGroup = entity.ReleasedInMainGroup,
+                    DisabilityCountDay = entity.DisabilityCountDay,
+                    Diagnosis = entity.Diagnosis,
+                    DrugTherapy = entity.DrugTherapy,
+                    PhysiotherapyTreatment = entity.PhysiotherapyTreatment,
+                    Other = entity.Other,
+                    PatientId = entity.PatientId,
+                    MRIs = entity.MRIs.EntityToView(),
+                    HeartUltrasounds = entity.HeartUltrasounds.EntityToView() ?? new List<HeartUltrasoundView>()
+                };
+            }
+
+            return null;
         }
 
         public static List<InjuriesDiseasesView> EntityToView(this IEnumerable<InjuriesDiseases> entities)
         {
-            var a = entities.Select(t => t.EntityToView());
-            return a.ToList();
+            return entities?.Select(t => t.EntityToView()).ToList() ?? new List<InjuriesDiseasesView>();
         }
     }
 }

@@ -12,35 +12,44 @@ namespace Backend.Infrastructure.Converters.Common.LaboratoryResearch
     {
         public static GeneralUrineAnalysis ViewToEntity(this GeneralUrineAnalysisView view)
         {
-            return new GeneralUrineAnalysis
+            if (view != null)
             {
-                Id = view.Id,
-                Info = view.Info,
-                MedicalExaminationId = view.MedicalExaminationId,
-                MedicalExamination = view.MedicalExamination.ViewToEntity()
-            };
+                return new GeneralUrineAnalysis
+                {
+                    Id = view.Id,
+                    Info = view.Info,
+                    MedicalExaminationId = view.MedicalExaminationId,
+                    MedicalExamination = view.MedicalExamination.ViewToEntity()
+                };
+            }
+
+            return null;
         }
 
         public static List<GeneralUrineAnalysis> ViewToEntity(this IEnumerable<GeneralUrineAnalysisView> views)
         {
-            return views.Select(t => t.ViewToEntity()).ToList();
+            return views?.Select(t => t.ViewToEntity()).ToList();
         }
 
         public static GeneralUrineAnalysisView EntityToView(this GeneralUrineAnalysis entity)
         {
-            return new GeneralUrineAnalysisView
+            if (entity != null)
             {
-                Id = entity.Id,
-                Info = entity.Info,
-                MedicalExaminationId = entity.MedicalExaminationId,
-                MedicalExamination = entity.MedicalExamination.EntityToView()
-            };
+                return new GeneralUrineAnalysisView
+                {
+                    Id = entity.Id,
+                    Info = entity.Info,
+                    MedicalExaminationId = entity.MedicalExaminationId,
+                    MedicalExamination = entity.MedicalExamination.EntityToView()
+                };
+            }
+
+            return null;
         }
 
         public static List<GeneralUrineAnalysisView> EntityToView(this IEnumerable<GeneralUrineAnalysis> entities)
         {
-            var a = entities.Select(t => t.EntityToView());
-            return a.ToList();
+            return entities?.Select(t => t.EntityToView()).ToList() ?? new List<GeneralUrineAnalysisView>();
         }
     }
 }
