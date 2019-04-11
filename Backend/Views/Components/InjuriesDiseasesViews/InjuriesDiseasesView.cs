@@ -1,12 +1,13 @@
 ﻿using Backend.Infrastructure.Enums;
-using Backend.Views.Common.InstrumentalStudies;
+using Backend.Views.Base;
+using Backend.Views.Common.InstrumentalStudies.Components;
+using Backend.Views.Components;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
-namespace Backend.Views.InjuriesDiseasesEntities
+namespace Backend.Views.InjuriesDiseasesEntities.Components
 {
-    public class InjuriesDiseasesView
+    public class InjuriesDiseasesView : BaseResponse
     {
         public int Id { get; set; }
         public DateTime DateInjuriesOrDiseases { get; set; }

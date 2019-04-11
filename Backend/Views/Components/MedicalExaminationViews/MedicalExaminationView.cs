@@ -1,13 +1,13 @@
-﻿using Backend.Views.Common.InstrumentalStudies;
-using Backend.Views.Common.LaboratoryResearch;
+﻿using Backend.Views.Base;
+using Backend.Views.Common.InstrumentalStudies.Components;
+using Backend.Views.Common.LaboratoryResearch.Components;
+using Backend.Views.Components;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
 
-namespace Backend.Views.MedicalExaminationEntities
+namespace Backend.Views.MedicalExaminationEntities.Components
 {
-    public class MedicalExaminationView
+    public class MedicalExaminationView : BaseResponse
     {
         public int Id { get; set; }
         public DateTime ProcedureTime { get; set; }

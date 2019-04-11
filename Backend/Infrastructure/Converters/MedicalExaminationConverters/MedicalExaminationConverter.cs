@@ -8,8 +8,9 @@ using Backend.DAL.Entities.Common.InstrumentalStudies;
 using Backend.DAL.Entities.Common.LaboratoryResearch;
 using Backend.Infrastructure.Converters.Common.InstrumentalStudies;
 using Backend.Infrastructure.Converters.Common.LaboratoryResearch;
-using Backend.Views.Common.InstrumentalStudies;
-using Backend.Views.Common.LaboratoryResearch;
+using Backend.Views.Common.InstrumentalStudies.Components;
+using Backend.Views.Common.LaboratoryResearch.Components;
+using Backend.Views.MedicalExaminationEntities.Components;
 
 namespace Backend.Infrastructure.Converters.MedicalExaminationConverters
 {

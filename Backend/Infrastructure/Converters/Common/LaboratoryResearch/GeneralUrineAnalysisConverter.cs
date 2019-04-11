@@ -1,6 +1,6 @@
 ﻿using Backend.DAL.Entities.Common.LaboratoryResearch;
 using Backend.Infrastructure.Converters.MedicalExaminationConverters;
-using Backend.Views.Common.LaboratoryResearch;
+using Backend.Views.Common.LaboratoryResearch.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;

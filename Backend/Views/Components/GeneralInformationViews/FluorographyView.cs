@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using Backend.Views.Base;
+using System;
 
-namespace Backend.Views.GeneralInformationEntities
+namespace Backend.Views.GeneralInformationEntities.Components
 {
-    public class FluorographyView
+    public class FluorographyView : BaseResponse
     {
         public int Id { get; set; }
         public DateTime ProcedureTime { get; set; }

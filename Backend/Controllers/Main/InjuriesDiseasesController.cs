@@ -7,8 +7,8 @@ using Backend.DAL.Entities.InjuriesDiseasesEntities;
 using Backend.DAL.Interfaces.Repositories;
 using Backend.Infrastructure.Converters.Common.InstrumentalStudies;
 using Backend.Infrastructure.Converters.InjuriesDiseasesConverters;
-using Backend.Views.Common.InstrumentalStudies;
-using Backend.Views.InjuriesDiseasesEntities;
+using Backend.Views.Common.InstrumentalStudies.Components;
+using Backend.Views.InjuriesDiseasesEntities.Components;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

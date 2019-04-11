@@ -1,12 +1,12 @@
 ﻿using Backend.DAL.Entities.InjuriesDiseasesEntities;
-using Backend.Views.InjuriesDiseasesEntities;
+using Backend.Views.InjuriesDiseasesEntities.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Backend.DAL.Entities.Common.InstrumentalStudies;
 using Backend.Infrastructure.Converters.Common.InstrumentalStudies;
-using Backend.Views.Common.InstrumentalStudies;
+using Backend.Views.Common.InstrumentalStudies.Components;
 
 namespace Backend.Infrastructure.Converters.InjuriesDiseasesConverters
 {

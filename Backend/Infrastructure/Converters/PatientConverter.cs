@@ -9,9 +9,10 @@ using Backend.DAL.Entities.MedicalExaminationEntities;
 using Backend.Infrastructure.Converters.GeneralInformationConverters;
 using Backend.Infrastructure.Converters.InjuriesDiseasesConverters;
 using Backend.Infrastructure.Converters.MedicalExaminationConverters;
-using Backend.Views.InjuriesDiseasesEntities;
-using Backend.Views.MedicalExaminationEntities;
+using Backend.Views.InjuriesDiseasesEntities.Components;
+using Backend.Views.MedicalExaminationEntities.Components;
 using Microsoft.CodeAnalysis.Emit;
+using Backend.Views.Components;
 
 namespace Backend.Infrastructure.Converters
 {

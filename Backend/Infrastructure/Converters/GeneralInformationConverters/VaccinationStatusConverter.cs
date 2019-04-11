@@ -1,5 +1,5 @@
 ﻿using Backend.DAL.Entities.GeneralInformationEntities;
-using Backend.Views.GeneralInformationEntities;
+using Backend.Views.GeneralInformationEntities.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,7 +49,7 @@ namespace Backend.Infrastructure.Converters.GeneralInformationConverters
 
         public static List<VaccinationStatusView> EntityToView(this IEnumerable<VaccinationStatus> entities)
         {
-            return entities.Select(t => t.EntityToView()).ToList() ?? new List<VaccinationStatusView>();
+            return entities?.Select(t => t.EntityToView()).ToList() ?? new List<VaccinationStatusView>();
         }
     }
 }

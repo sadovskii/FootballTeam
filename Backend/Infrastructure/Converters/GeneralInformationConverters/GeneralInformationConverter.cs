@@ -1,5 +1,5 @@
 ﻿using Backend.DAL.Entities.GeneralInformationEntities;
-using Backend.Views.GeneralInformationEntities;
+using Backend.Views.GeneralInformationEntities.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +16,7 @@ namespace Backend.Infrastructure.Converters.GeneralInformationConverters
                 return new GeneralInformation
                 {
                     Id = view.Id,
-                    Bithday = view.Bithday,
+                    Bithday = view.Birthday,
                     Weight = view.Weight,
                     Height = view.Height,
                     ArterialPressure = view.ArterialPressure,
@@ -44,7 +44,7 @@ namespace Backend.Infrastructure.Converters.GeneralInformationConverters
                 return new GeneralInformationView
                 {
                     Id = entity.Id,
-                    Bithday = entity.Bithday,
+                    Birthday = entity.Bithday,
                     Weight = entity.Weight,
                     Height = entity.Height,
                     ArterialPressure = entity.ArterialPressure,

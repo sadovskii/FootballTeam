@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Backend.Views.Base;
+using Backend.Views.Components;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
 
-namespace Backend.Views.GeneralInformationEntities
+namespace Backend.Views.GeneralInformationEntities.Components
 {
-    public class GeneralInformationView
+    public class GeneralInformationView : BaseResponse
     {
         public int Id { get; set; }
-        public DateTime Bithday { get; set; }
+        public DateTime Birthday { get; set; }
         public double Weight { get; set; }
         public double Height { get; set; }      
         public double ArterialPressure { get; set; }

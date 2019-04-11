@@ -1,22 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Backend.DAL.EF;
-using Backend.DAL.Entities;
-using Backend.DAL.Entities.GeneralInformationEntities;
-using Backend.DAL.Entities.InjuriesDiseasesEntities;
-using Backend.DAL.Entities.MedicalExaminationEntities;
 using Backend.DAL.Interfaces.Repositories;
 using Backend.Infrastructure.Converters;
 using Backend.Infrastructure.Converters.GeneralInformationConverters;
 using Backend.Infrastructure.Converters.InjuriesDiseasesConverters;
 using Backend.Infrastructure.Converters.MedicalExaminationConverters;
-using Backend.Views;
-using Backend.Views.GeneralInformationEntities;
-using Backend.Views.InjuriesDiseasesEntities;
-using Backend.Views.MedicalExaminationEntities;
-using Microsoft.AspNetCore.Http;
+using Backend.Views.Components;
+using Backend.Views.GeneralInformationEntities.Components;
+using Backend.Views.InjuriesDiseasesEntities.Components;
+using Backend.Views.MedicalExaminationEntities.Components;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers.Main
@@ -67,9 +59,9 @@ namespace Backend.Controllers.Main
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _patientRepository.GetGeneralInformationById(id).EntityToView();
+            var elem = _patientRepository.GetGeneralInformationById(id).GeneralInformation.EntityToView();
 
-            if (elem != null && elem.GeneralInformation != null)
+            if (elem != null)
                 return Ok(elem);
 
             return NotFound();
@@ -97,9 +89,9 @@ namespace Backend.Controllers.Main
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _patientRepository.GetMedicalExaminationById(id).EntityToView();
+            var elem = _patientRepository.GetMedicalExaminationById(id).MedicalExaminations.EntityToView();
 
-            if (elem != null && elem.MedicalExaminations != null)
+            if (elem != null)
                 return Ok(elem);
 
             return NotFound();
@@ -127,9 +119,9 @@ namespace Backend.Controllers.Main
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _patientRepository.GetInjuriesDiseasesById(id).EntityToView();
+            var elem = _patientRepository.GetInjuriesDiseasesById(id).InjuriesDiseases.EntityToView();
 
-            if (elem != null && elem.InjuriesDiseases != null)
+            if (elem != null)
                 return Ok(elem);
 
             return NotFound();
@@ -278,53 +270,37 @@ namespace Backend.Controllers.Main
                 if (!ModelState.IsValid)
                     return BadRequest("Invalid data.");
 
-                _patientRepository.Update(patientView.ViewToEntity());
-            }
-            catch
-            {
-                return BadRequest();
-            }
+                var elem = _patientRepository.GetBy(t => t.Id == patientView.Id);
 
-            return Ok();
-        }
-
-        // PUT: api/Patients/5/GeneralInformation
-        [HttpPut("{id}/GeneralInformation")]
-        public IActionResult PutGeneralInformation(int id, [FromBody] GeneralInformationView generalInformationView)
-        {
-            try
-            {
-                if (!ModelState.IsValid)
-                    return BadRequest("Invalid data.");
-
-                var elem = _patientRepository.GetGeneralInformationById(id);
-
-                if(elem.GeneralInformation.Id == generalInformationView.Id)
+                if (elem != null)
                 {
-                    elem.GeneralInformation.Bithday = generalInformationView.Bithday;
-                    elem.GeneralInformation.ArterialPressure = generalInformationView.ArterialPressure;
-                    elem.GeneralInformation.BloodType = generalInformationView.BloodType;
-                    elem.GeneralInformation. = generalInformationView.Bithday;
-                    elem.GeneralInformation.Bithday = generalInformationView.Bithday;
+                    elem.Name = patientView.Name;
+                    elem.Photo = patientView.Photo;
+
+                    _patientRepository.Update(elem);
+
+                    return Ok();
                 }
 
-                _patientRepository.Update(elem);
+                return NotFound();
+
             }
             catch
             {
                 return BadRequest();
             }
-
-            return Ok();
         }
-
-
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
-            _patientRepository.Delete(id);
+            var elem = _patientRepository.GetBy(t => t.Id == id);
+
+            if(elem != null)
+                _patientRepository.Delete(id);
+
+            return NotFound();
         }
     }
 }

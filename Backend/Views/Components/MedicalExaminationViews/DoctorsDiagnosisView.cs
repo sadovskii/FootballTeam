@@ -1,11 +1,9 @@
 ﻿using Backend.Infrastructure.Enums;
-using Backend.Views.Common;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+using Backend.Views.Base;
 
-namespace Backend.Views.MedicalExaminationEntities
+namespace Backend.Views.MedicalExaminationEntities.Components
 {
-    public class DoctorsDiagnosisView
+    public class DoctorsDiagnosisView : BaseResponse
     {
         public int Id { get; set; }
         public string Diagnosis { get; set; }

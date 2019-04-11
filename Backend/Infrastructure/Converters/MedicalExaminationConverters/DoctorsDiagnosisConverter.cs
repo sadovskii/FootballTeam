@@ -1,6 +1,6 @@
 ﻿using Backend.DAL.Entities.MedicalExaminationEntities;
 using Backend.Infrastructure.Enums;
-using Backend.Views.MedicalExaminationEntities;
+using Backend.Views.MedicalExaminationEntities.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;

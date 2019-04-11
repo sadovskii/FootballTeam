@@ -1,19 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Backend.DAL.EF;
-using Backend.DAL.Entities.Common.InstrumentalStudies;
-using Backend.DAL.Entities.Common.LaboratoryResearch;
-using Backend.DAL.Entities.MedicalExaminationEntities;
 using Backend.DAL.Interfaces.Repositories;
 using Backend.Infrastructure.Converters.Common.InstrumentalStudies;
 using Backend.Infrastructure.Converters.Common.LaboratoryResearch;
 using Backend.Infrastructure.Converters.MedicalExaminationConverters;
-using Backend.Views.Common.InstrumentalStudies;
-using Backend.Views.Common.LaboratoryResearch;
-using Backend.Views.MedicalExaminationEntities;
-using Microsoft.AspNetCore.Http;
+using Backend.Views.Common.InstrumentalStudies.Components;
+using Backend.Views.Common.LaboratoryResearch.Components;
+using Backend.Views.MedicalExaminationEntities.Components;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers.Main

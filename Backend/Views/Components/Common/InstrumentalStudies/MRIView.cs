@@ -1,9 +1,9 @@
-﻿using Backend.Views.InjuriesDiseasesEntities;
-using System.ComponentModel.DataAnnotations;
+﻿using Backend.Views.Base;
+using Backend.Views.InjuriesDiseasesEntities.Components;
 
-namespace Backend.Views.Common.InstrumentalStudies
+namespace Backend.Views.Common.InstrumentalStudies.Components
 {
-    public class MRIView
+    public class MRIView : BaseResponse
     {
         public int Id { get; set; }
         public string Info { get; set; }

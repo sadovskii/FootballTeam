@@ -1,5 +1,5 @@
 ﻿using Backend.DAL.Entities.Common.InstrumentalStudies;
-using Backend.Views.Common.InstrumentalStudies;
+using Backend.Views.Common.InstrumentalStudies.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;

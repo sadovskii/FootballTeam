@@ -9,7 +9,7 @@ using Backend.DAL.Entities.InjuriesDiseasesEntities;
 using Backend.DAL.Entities.MedicalExaminationEntities;
 using Backend.DAL.Interfaces.Repositories;
 using Backend.Infrastructure.Converters.GeneralInformationConverters;
-using Backend.Views.GeneralInformationEntities;
+using Backend.Views.GeneralInformationEntities.Components;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -61,7 +61,7 @@ namespace Backend.Controllers.Main
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _generalInformationRepository.GetFluorographyById(id).Fluorographies.EntityToView();
+            var elem = _generalInformationRepository.GetFluorographyById(id)?.Fluorographies.EntityToView();
 
             return Ok(elem);
         }
@@ -73,9 +73,9 @@ namespace Backend.Controllers.Main
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _generalInformationRepository.GetVaccinationStatusById(id).EntityToView();
+            var elem = _generalInformationRepository.GetVaccinationStatusById(id)?.VaccinationStatuses?.EntityToView();
 
-            if (elem != null && elem.VaccinationStatuses != null)
+            if (elem != null)
                 return Ok(elem);
 
             return NotFound();
@@ -88,9 +88,9 @@ namespace Backend.Controllers.Main
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _generalInformationRepository.GetSurgicalInterventionById(id).EntityToView();
+            var elem = _generalInformationRepository.GetSurgicalInterventionById(id)?.SurgicalIntervention.EntityToView();
 
-            if (elem != null && elem.SurgicalIntervention != null)
+            if (elem != null)
                 return Ok(elem);
 
             return NotFound();
@@ -188,28 +188,46 @@ namespace Backend.Controllers.Main
 
         // PUT: api/GeneralInformation
         [HttpPut]
-        public IActionResult Put([FromBody] GeneralInformationView valueView)
+        public IActionResult Put([FromBody] GeneralInformationView generalInformationView)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest("Invalid data.");
 
-                _generalInformationRepository.Update(valueView.ViewToEntity());
+                var elem = _generalInformationRepository.GetBy(t => t.Id == generalInformationView.Id);
+
+                if (generalInformationView.Id == elem.Id)
+                {
+                    elem.Bithday = generalInformationView.Birthday;
+                    elem.Weight = generalInformationView.Weight;
+                    elem.Height = generalInformationView.Height;
+                    elem.ArterialPressure = generalInformationView.ArterialPressure;
+                    elem.BloodType = generalInformationView.BloodType;
+
+                    _generalInformationRepository.Update(elem);
+
+                    return Ok();
+                }
+
+                return NotFound();
             }
             catch
             {
                 return BadRequest();
             }
-
-            return Ok();
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
-            _generalInformationRepository.Delete(id);
+            var elem = _generalInformationRepository.GetBy(t => t.Id == id);
+
+            if (elem != null)
+                _generalInformationRepository.Delete(id);
+
+            return NotFound();
         }
     }
 }
