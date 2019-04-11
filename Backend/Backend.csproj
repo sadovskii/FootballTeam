@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Controllers\Operations\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

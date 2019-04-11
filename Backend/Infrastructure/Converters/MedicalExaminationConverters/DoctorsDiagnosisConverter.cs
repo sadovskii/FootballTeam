@@ -1,4 +1,5 @@
 ﻿using Backend.DAL.Entities.MedicalExaminationEntities;
+using Backend.Infrastructure.Enums;
 using Backend.Views.MedicalExaminationEntities;
 using System;
 using System.Collections.Generic;
@@ -18,8 +19,7 @@ namespace Backend.Infrastructure.Converters.MedicalExaminationConverters
                     Id = view.Id,
                     Diagnosis = view.Diagnosis,
                     MedicalExaminationId = view.MedicalExaminationId,
-                    MedicalProfessionId = view.MedicalProfessionId,
-                    //MedicalProfession = view.MedicalProfession.ViewToEntity(),
+                    MedicalProfessionId = (int)view.MedicalProfession,
                     MedicalExamination = view.MedicalExamination.ViewToEntity()
                 };
             }
@@ -42,8 +42,7 @@ namespace Backend.Infrastructure.Converters.MedicalExaminationConverters
                     Id = entity.Id,
                     Diagnosis = entity.Diagnosis,
                     MedicalExaminationId = entity.MedicalExaminationId,
-                    MedicalProfessionId = entity.MedicalProfessionId,
-                    //MedicalProfession = entity.MedicalProfession,
+                    MedicalProfession = (MedicalProfession)entity.MedicalProfessionId,
                     MedicalExamination = entity.MedicalExamination.EntityToView()
                 };
             }

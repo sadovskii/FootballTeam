@@ -8,10 +8,12 @@ using Backend.DAL.Entities.GeneralInformationEntities;
 using Backend.DAL.Entities.InjuriesDiseasesEntities;
 using Backend.DAL.Entities.MedicalExaminationEntities;
 using Backend.DAL.Interfaces.Repositories;
+using Backend.Infrastructure.Converters.GeneralInformationConverters;
+using Backend.Views.GeneralInformationEntities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Backend.Controllers
+namespace Backend.Controllers.Main
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -28,7 +30,7 @@ namespace Backend.Controllers
         [HttpGet]
         public IActionResult GetGeneralInformation()
         {
-            var elem = _generalInformationRepository.GetAll();
+            var elem = _generalInformationRepository.GetAll().EntityToView();
 
             if (elem != null)
                 return Ok(elem);
@@ -44,7 +46,7 @@ namespace Backend.Controllers
             if(id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _generalInformationRepository.GetBy(t => t.Id == id);
+            var elem = _generalInformationRepository.GetBy(t => t.Id == id).EntityToView();
 
             if (elem != null)
                 return Ok(elem);
@@ -59,10 +61,7 @@ namespace Backend.Controllers
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _generalInformationRepository.GetFluorographyById(id).Fluorographies;
-
-            if (elem == null)
-                elem = new List<Fluorography>();
+            var elem = _generalInformationRepository.GetFluorographyById(id).Fluorographies.EntityToView();
 
             return Ok(elem);
         }
@@ -74,7 +73,7 @@ namespace Backend.Controllers
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _generalInformationRepository.GetVaccinationStatusById(id);
+            var elem = _generalInformationRepository.GetVaccinationStatusById(id).EntityToView();
 
             if (elem != null && elem.VaccinationStatuses != null)
                 return Ok(elem);
@@ -89,7 +88,7 @@ namespace Backend.Controllers
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _generalInformationRepository.GetSurgicalInterventionById(id);
+            var elem = _generalInformationRepository.GetSurgicalInterventionById(id).EntityToView();
 
             if (elem != null && elem.SurgicalIntervention != null)
                 return Ok(elem);
@@ -101,11 +100,11 @@ namespace Backend.Controllers
         #region POST
         // POST: api/GeneralInformation/5/Fluorography
         [HttpPost("{id}/Fluorography")]
-        public IActionResult PostWithGeneralInformation(int id, [FromBody] Fluorography fluorography)
+        public IActionResult PostWithGeneralInformation(int id, [FromBody] FluorographyView fluorographyView)
         {
             try
             {
-                if (fluorography == null)
+                if (fluorographyView == null)
                 {
                     return BadRequest("Owner object is null");
                 }
@@ -115,7 +114,7 @@ namespace Backend.Controllers
                     return BadRequest("Invalid model object");
                 }
 
-                _generalInformationRepository.InsertFluorography(id, fluorography);
+                _generalInformationRepository.InsertFluorography(id, fluorographyView.ViewToEntity());
 
                 return Ok();
             }
@@ -127,7 +126,7 @@ namespace Backend.Controllers
 
         // POST: api/GeneralInformation/5/VaccinationStatus
         [HttpPost("{id}/VaccinationStatus")]
-        public IActionResult PostWithMedicalExamination(int id, [FromBody] VaccinationStatus vaccinationStatus)
+        public IActionResult PostWithMedicalExamination(int id, [FromBody] VaccinationStatusView vaccinationStatusView)
         {
             try
             {
@@ -135,7 +134,7 @@ namespace Backend.Controllers
                 {
                     return BadRequest("id is zero");
                 }
-                if (vaccinationStatus == null)
+                if (vaccinationStatusView == null)
                 {
                     return BadRequest("Owner object is null");
                 }
@@ -145,7 +144,7 @@ namespace Backend.Controllers
                     return BadRequest("Invalid model object");
                 }
 
-                _generalInformationRepository.InsertVaccinationStatus(id, vaccinationStatus);
+                _generalInformationRepository.InsertVaccinationStatus(id, vaccinationStatusView.ViewToEntity());
 
                 return Ok();
             }
@@ -158,7 +157,7 @@ namespace Backend.Controllers
 
         // POST: api/GeneralInformation/5/SurgicalIntervention
         [HttpPost("{id}/SurgicalIntervention")]
-        public IActionResult PostWithInjuriesDiseases(int id, [FromBody] SurgicalIntervention surgicalIntervention)
+        public IActionResult PostWithInjuriesDiseases(int id, [FromBody] SurgicalInterventionView surgicalInterventionView)
         {
             try
             {
@@ -166,7 +165,7 @@ namespace Backend.Controllers
                 {
                     return BadRequest("id is zero");
                 }
-                if (surgicalIntervention == null)
+                if (surgicalInterventionView == null)
                 {
                     return BadRequest("Owner object is null");
                 }
@@ -176,7 +175,7 @@ namespace Backend.Controllers
                     return BadRequest("Invalid model object");
                 }
 
-                _generalInformationRepository.InserSurgicalIntervention(id, surgicalIntervention);
+                _generalInformationRepository.InserSurgicalIntervention(id, surgicalInterventionView.ViewToEntity());
 
                 return Ok();
             }
@@ -187,17 +186,30 @@ namespace Backend.Controllers
         }
         #endregion
 
-        // PUT: api/GeneralInformation/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] GeneralInformation value)
+        // PUT: api/GeneralInformation
+        [HttpPut]
+        public IActionResult Put([FromBody] GeneralInformationView valueView)
         {
-            
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest("Invalid data.");
+
+                _generalInformationRepository.Update(valueView.ViewToEntity());
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
+            return Ok();
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            _generalInformationRepository.Delete(id);
         }
     }
 }

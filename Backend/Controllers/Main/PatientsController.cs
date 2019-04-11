@@ -19,7 +19,7 @@ using Backend.Views.MedicalExaminationEntities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Backend.Controllers
+namespace Backend.Controllers.Main
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -82,7 +82,7 @@ namespace Backend.Controllers
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _patientRepository.GetGeneralInformationByIdFull(id);
+            var elem = _patientRepository.GetGeneralInformationByIdFull(id).EntityToView();
 
             if (elem != null)
                 return Ok(elem);
@@ -97,7 +97,7 @@ namespace Backend.Controllers
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _patientRepository.GetMedicalExaminationById(id);
+            var elem = _patientRepository.GetMedicalExaminationById(id).EntityToView();
 
             if (elem != null && elem.MedicalExaminations != null)
                 return Ok(elem);
@@ -112,7 +112,7 @@ namespace Backend.Controllers
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _patientRepository.GetMedicalExaminationByIdFull(id);
+            var elem = _patientRepository.GetMedicalExaminationByIdFull(id).EntityToView();
 
             if (elem != null)
                 return Ok(elem);
@@ -127,7 +127,7 @@ namespace Backend.Controllers
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _patientRepository.GetInjuriesDiseasesById(id);
+            var elem = _patientRepository.GetInjuriesDiseasesById(id).EntityToView();
 
             if (elem != null && elem.InjuriesDiseases != null)
                 return Ok(elem);
@@ -142,7 +142,7 @@ namespace Backend.Controllers
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _patientRepository.GetInjuriesDiseasesByIdFull(id);
+            var elem = _patientRepository.GetInjuriesDiseasesByIdFull(id).EntityToView();
 
             if (elem != null)
                 return Ok(elem);
@@ -269,37 +269,54 @@ namespace Backend.Controllers
             }
         }
 
-        // PUT: api/Patients/5
-        [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Patient patient)
+        // PUT: api/Patients
+        [HttpPut]
+        public IActionResult Put([FromBody] PatientView patientView)
         {
             try
             {
-                _patientRepository.Update(patient);
+                if (!ModelState.IsValid)
+                    return BadRequest("Invalid data.");
+
+                _patientRepository.Update(patientView.ViewToEntity());
             }
             catch
             {
                 return BadRequest();
             }
+
             return Ok();
         }
 
+        // PUT: api/Patients/5/GeneralInformation
+        [HttpPut("{id}/GeneralInformation")]
+        public IActionResult PutGeneralInformation(int id, [FromBody] GeneralInformationView generalInformationView)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest("Invalid data.");
 
+                var elem = _patientRepository.GetGeneralInformationById(id);
 
+                if(elem.GeneralInformation.Id == generalInformationView.Id)
+                {
+                    elem.GeneralInformation.Bithday = generalInformationView.Bithday;
+                    elem.GeneralInformation.ArterialPressure = generalInformationView.ArterialPressure;
+                    elem.GeneralInformation.BloodType = generalInformationView.BloodType;
+                    elem.GeneralInformation. = generalInformationView.Bithday;
+                    elem.GeneralInformation.Bithday = generalInformationView.Bithday;
+                }
 
+                _patientRepository.Update(elem);
+            }
+            catch
+            {
+                return BadRequest();
+            }
 
-
-
-
-
-
-
-
-
-
-
-
-
+            return Ok();
+        }
 
 
 

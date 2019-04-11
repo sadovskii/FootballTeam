@@ -5,10 +5,14 @@ using System.Threading.Tasks;
 using Backend.DAL.Entities.Common.InstrumentalStudies;
 using Backend.DAL.Entities.InjuriesDiseasesEntities;
 using Backend.DAL.Interfaces.Repositories;
+using Backend.Infrastructure.Converters.Common.InstrumentalStudies;
+using Backend.Infrastructure.Converters.InjuriesDiseasesConverters;
+using Backend.Views.Common.InstrumentalStudies;
+using Backend.Views.InjuriesDiseasesEntities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Backend.Controllers
+namespace Backend.Controllers.Main
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -25,7 +29,7 @@ namespace Backend.Controllers
         [HttpGet]
         public IActionResult GetInjuriesDiseases()
         {
-            var elem = _injuriesDiseasesRepository.GetAll();
+            var elem = _injuriesDiseasesRepository.GetAll().EntityToView();
 
             if (elem != null)
                 return Ok(elem);
@@ -35,12 +39,12 @@ namespace Backend.Controllers
 
         // GET: api/InjuriesDiseases/5
         [HttpGet("{id}")]
-        public IActionResult GetGetMedicalExamination(int id)
+        public IActionResult GetInjuriesDiseases(int id)
         {
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _injuriesDiseasesRepository.GetBy(t => t.Id == id);
+            var elem = _injuriesDiseasesRepository.GetBy(t => t.Id == id).EntityToView();
 
             if (elem != null)
                 return Ok(elem);
@@ -49,30 +53,30 @@ namespace Backend.Controllers
         }
 
         // GET: api/InjuriesDiseases/5/MRIs
-        [HttpGet("{id}", Name = "MRIs")]
+        [HttpGet("{id}/MRIs")]
         public IActionResult GetWithMRI(int id)
         {
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _injuriesDiseasesRepository.GetMRIById(id);
+            var elem = _injuriesDiseasesRepository.GetMRIById(id).EntityToView();
 
-            if (elem != null && elem.MRIs != null)
+            if (elem != null)
                 return Ok(elem);
 
             return NotFound();
         }
 
         // GET: api/GeneralInformation/5/HeartUltrasounds
-        [HttpGet("{id}", Name = "HeartUltrasounds")]
+        [HttpGet("{id}/HeartUltrasounds")]
         public IActionResult GetWithHeartUltrasound(int id)
         {
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _injuriesDiseasesRepository.GetHeartUltrasoundById(id);
+            var elem = _injuriesDiseasesRepository.GetHeartUltrasoundById(id).EntityToView();
 
-            if (elem != null && elem.HeartUltrasounds != null)
+            if (elem != null)
                 return Ok(elem);
 
             return NotFound();
@@ -80,7 +84,7 @@ namespace Backend.Controllers
 
         // POST: api/Patients/5/MRI
         [HttpPost("{id}/MRI")]
-        public IActionResult PostWithMRI(int id, [FromBody] MRI mri)
+        public IActionResult PostWithMRI(int id, [FromBody] MRIView mriView)
         {
             try
             {
@@ -89,7 +93,7 @@ namespace Backend.Controllers
                 {
                     return BadRequest("id is zero");
                 }
-                if (mri == null)
+                if (mriView == null)
                 {
                     return BadRequest("Owner object is null");
                 }
@@ -99,7 +103,7 @@ namespace Backend.Controllers
                     return BadRequest("Invalid model object");
                 }
 
-                _injuriesDiseasesRepository.InsertMRI(id, mri);
+                _injuriesDiseasesRepository.InsertMRI(id, mriView.ViewToEntity());
 
                 return Ok();
             }
@@ -111,21 +115,59 @@ namespace Backend.Controllers
 
         // POST: api/Patients/5/HeartUltrasound
         [HttpPost("{id}/HeartUltrasound")]
-        public void PostWithHeartUltrasound(int id, [FromBody] HeartUltrasound heartUltrasound)
+        public IActionResult PostWithHeartUltrasound(int id, [FromBody] HeartUltrasoundView heartUltrasoundView)
         {
-            _injuriesDiseasesRepository.InsertHeartUltrasound(id, heartUltrasound);
+            try
+            {
+
+                if (id == 0)
+                {
+                    return BadRequest("id is zero");
+                }
+                if (heartUltrasoundView == null)
+                {
+                    return BadRequest("Owner object is null");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Invalid model object");
+                }
+
+                _injuriesDiseasesRepository.InsertHeartUltrasound(id, heartUltrasoundView.ViewToEntity());
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, string.Format("Internal server error. Message error: {0}", ex.Message));
+            }
         }
 
         // PUT: api/InjuriesDiseases/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public IActionResult Put([FromBody] InjuriesDiseasesView injuriesDiseasesView)
         {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest("Invalid data.");
+
+                _injuriesDiseasesRepository.Update(injuriesDiseasesView.ViewToEntity());
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
+            return Ok();
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            _injuriesDiseasesRepository.Delete(id);
         }
     }
 }

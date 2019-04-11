@@ -7,7 +7,6 @@ namespace Backend.Views.GeneralInformationEntities
 {
     public class FluorographyView
     {
-        [Key]
         public int Id { get; set; }
         public DateTime ProcedureTime { get; set; }
         public string Information { get; set; }

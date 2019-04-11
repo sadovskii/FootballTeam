@@ -64,9 +64,9 @@ namespace Backend.DAL.Repositories
         public void Update(T entity)
         {
             if (entity == null)
-            {
                 throw new ArgumentNullException("entity");
-            }
+
+
             entities.Update(entity);
             context.SaveChanges();
         }
@@ -75,5 +75,7 @@ namespace Backend.DAL.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public abstract void Delete(int id);
     }
 }

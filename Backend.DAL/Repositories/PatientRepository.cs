@@ -31,7 +31,7 @@ namespace Backend.DAL.Repositories
         public Patient GetMedicalExaminationByIdFull(int id)
         {
             return context.Patients
-                .Include(t => t.MedicalExaminations).ThenInclude(t => t.DoctorsDiagnoses).ThenInclude(t => t.MedicalProfession)
+                .Include(t => t.MedicalExaminations).ThenInclude(t => t.DoctorsDiagnoses)
                 .Include(t => t.MedicalExaminations).ThenInclude(t => t.BloodChemistryAnalyses)
                 .Include(t => t.MedicalExaminations).ThenInclude(t => t.GeneralBloodAnalyses)
                 .Include(t => t.MedicalExaminations).ThenInclude(t => t.GeneralUrineAnalyses)
@@ -104,7 +104,7 @@ namespace Backend.DAL.Repositories
                 entity.InjuriesDiseases.Add(generalInformation);
         }
 
-        public void Delete(int id)
+        public override void Delete(int id)
         {
             var entity = context.Patients.FirstOrDefault(t => t.Id == id);
 

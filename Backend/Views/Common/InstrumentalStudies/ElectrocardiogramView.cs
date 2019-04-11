@@ -5,7 +5,6 @@ namespace Backend.Views.Common.InstrumentalStudies
 {
     public class ElectrocardiogramView
     {
-        [Key]
         public int Id { get; set; }
         public string Info { get; set; }
 

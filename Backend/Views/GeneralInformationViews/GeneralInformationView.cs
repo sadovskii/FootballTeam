@@ -7,7 +7,6 @@ namespace Backend.Views.GeneralInformationEntities
 {
     public class GeneralInformationView
     {
-        [Key]
         public int Id { get; set; }
         public DateTime Bithday { get; set; }
         public double Weight { get; set; }

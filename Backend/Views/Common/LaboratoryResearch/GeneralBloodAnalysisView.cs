@@ -5,7 +5,6 @@ namespace Backend.Views.Common.LaboratoryResearch
 {
     public class GeneralBloodAnalysisView
     {
-        [Key]
         public int Id { get; set; }
         public string Info { get; set; }
 

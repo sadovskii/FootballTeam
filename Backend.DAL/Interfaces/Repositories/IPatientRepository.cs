@@ -22,6 +22,5 @@ namespace Backend.DAL.Interfaces.Repositories
         void InsertGeneralInformation(int id, GeneralInformation generalInformation);
         void InsertMedicalExamination(int id, MedicalExamination medicalExamination);
         void InsertInjuriesDiseases(int id, InjuriesDiseases injuriesDiseases);
-        void Delete(int id);
     }
 }
