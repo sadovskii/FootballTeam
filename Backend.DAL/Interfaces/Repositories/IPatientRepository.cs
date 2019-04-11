@@ -19,6 +19,7 @@ namespace Backend.DAL.Interfaces.Repositories
         Patient GetInjuriesDiseasesByIdFull(int id);
 
 
+        void InsertWithDefaultGeneralInformation(Patient patient);
         void InsertGeneralInformation(int id, GeneralInformation generalInformation);
         void InsertMedicalExamination(int id, MedicalExamination medicalExamination);
         void InsertInjuriesDiseases(int id, InjuriesDiseases injuriesDiseases);

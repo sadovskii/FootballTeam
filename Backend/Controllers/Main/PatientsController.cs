@@ -5,6 +5,7 @@ using Backend.Infrastructure.Converters;
 using Backend.Infrastructure.Converters.GeneralInformationConverters;
 using Backend.Infrastructure.Converters.InjuriesDiseasesConverters;
 using Backend.Infrastructure.Converters.MedicalExaminationConverters;
+using Backend.Infrastructure.Helpers;
 using Backend.Views.Components;
 using Backend.Views.GeneralInformationEntities.Components;
 using Backend.Views.InjuriesDiseasesEntities.Components;
@@ -31,7 +32,10 @@ namespace Backend.Controllers.Main
             var elem = _patientRepository.GetAll().EntityToView();
 
             if (elem != null)
+            {
                 return Ok(elem);
+            }
+                
 
             return NotFound();
         }
@@ -158,7 +162,7 @@ namespace Backend.Controllers.Main
                     return BadRequest("Invalid model object");
                 }
 
-                _patientRepository.Insert(patient.ViewToEntity());
+                _patientRepository.InsertWithDefaultGeneralInformation(patient.ViewToEntity());
 
                 return Ok();
             }
@@ -250,6 +254,8 @@ namespace Backend.Controllers.Main
                 {
                     return BadRequest("Invalid model object");
                 }
+
+                injuriesDiseasesView.Id = 0;
 
                 _patientRepository.InsertInjuriesDiseases(id, injuriesDiseasesView.ViewToEntity());
 

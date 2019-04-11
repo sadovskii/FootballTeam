@@ -49,7 +49,7 @@ namespace Backend.Infrastructure.Converters.Common.InstrumentalStudies
 
         public static List<MRIView> EntityToView(this IEnumerable<MRI> entities)
         {
-            return entities.Select(t => t.EntityToView()).ToList() ?? new List<MRIView>();
+            return entities?.Select(t => t.EntityToView()).ToList() ?? new List<MRIView>();
         }
     }
 }

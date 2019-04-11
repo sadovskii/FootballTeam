@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
-using System.Threading.Tasks;
-using Backend.DAL.EF;
-using Backend.DAL.Entities.GeneralInformationEntities;
-using Backend.DAL.Entities.InjuriesDiseasesEntities;
-using Backend.DAL.Entities.MedicalExaminationEntities;
+﻿using Backend.DAL.EF;
 using Backend.DAL.Interfaces.Repositories;
 using Backend.Infrastructure.Converters.GeneralInformationConverters;
 using Backend.Views.GeneralInformationEntities.Components;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Backend.Controllers.Main
 {
@@ -186,7 +178,7 @@ namespace Backend.Controllers.Main
         }
         #endregion
 
-        // PUT: api/GeneralInformation
+        // PUT: api/GeneralInformation/6
         [HttpPut]
         public IActionResult Put([FromBody] GeneralInformationView generalInformationView)
         {
@@ -197,7 +189,7 @@ namespace Backend.Controllers.Main
 
                 var elem = _generalInformationRepository.GetBy(t => t.Id == generalInformationView.Id);
 
-                if (generalInformationView.Id == elem.Id)
+                if (elem != null)
                 {
                     elem.Bithday = generalInformationView.Birthday;
                     elem.Weight = generalInformationView.Weight;
@@ -212,9 +204,9 @@ namespace Backend.Controllers.Main
 
                 return NotFound();
             }
-            catch
+            catch(Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
         }
 

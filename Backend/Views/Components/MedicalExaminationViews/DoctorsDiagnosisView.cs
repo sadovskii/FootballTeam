@@ -1,9 +1,8 @@
 ﻿using Backend.Infrastructure.Enums;
-using Backend.Views.Base;
 
 namespace Backend.Views.MedicalExaminationEntities.Components
 {
-    public class DoctorsDiagnosisView : BaseResponse
+    public class DoctorsDiagnosisView
     {
         public int Id { get; set; }
         public string Diagnosis { get; set; }

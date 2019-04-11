@@ -1,9 +1,8 @@
-﻿using Backend.Views.Base;
-using System;
+﻿using System;
 
 namespace Backend.Views.GeneralInformationEntities.Components
 {
-    public class SurgicalInterventionView : BaseResponse
+    public class SurgicalInterventionView
     {
         public int Id { get; set; }
         public DateTime ProcedureTime { get; set; }

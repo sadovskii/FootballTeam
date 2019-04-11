@@ -1,13 +1,14 @@
 ﻿using Backend.Infrastructure.Enums;
-using Backend.Views.Base;
 using Backend.Views.Common.InstrumentalStudies.Components;
 using Backend.Views.Components;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 
 namespace Backend.Views.InjuriesDiseasesEntities.Components
 {
-    public class InjuriesDiseasesView : BaseResponse
+    public class InjuriesDiseasesView
     {
         public int Id { get; set; }
         public DateTime DateInjuriesOrDiseases { get; set; }
@@ -20,6 +21,8 @@ namespace Backend.Views.InjuriesDiseasesEntities.Components
 
         public int PatientId { get; set; }
         public PatientView Patient { get; set; }
+
+        [JsonConverter(typeof(StringEnumConverter))]
         public DisabilityType DisabilityType { get; set; }
         public ICollection<MRIView> MRIs { get; set; }
         public ICollection<HeartUltrasoundView> HeartUltrasounds { get; set; }

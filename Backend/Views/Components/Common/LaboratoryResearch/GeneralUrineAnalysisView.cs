@@ -1,9 +1,8 @@
-﻿using Backend.Views.Base;
-using Backend.Views.MedicalExaminationEntities.Components;
+﻿using Backend.Views.MedicalExaminationEntities.Components;
 
 namespace Backend.Views.Common.LaboratoryResearch.Components
 {
-    public class GeneralUrineAnalysisView : BaseResponse
+    public class GeneralUrineAnalysisView
     {
         public int Id { get; set; }
         public string Info { get; set; }

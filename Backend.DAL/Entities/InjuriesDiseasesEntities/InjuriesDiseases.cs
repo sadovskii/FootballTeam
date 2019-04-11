@@ -17,6 +17,7 @@ namespace Backend.DAL.Entities.InjuriesDiseasesEntities
 
         public int PatientId { get; set; }
         public Patient Patient { get; set; }
+        public int DisabilityTypeId { get; set; }
         public DisabilityType DisabilityType { get; set; }
         public ICollection<MRI> MRIs { get; set; }
         public ICollection<HeartUltrasound> HeartUltrasounds { get; set; }

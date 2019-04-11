@@ -1,9 +1,8 @@
-﻿using Backend.Views.Base;
-using Backend.Views.MedicalExaminationEntities.Components;
+﻿using Backend.Views.MedicalExaminationEntities.Components;
 
 namespace Backend.Views.Common.InstrumentalStudies.Components
 {
-    public class HeartUltrasoundView : BaseResponse
+    public class HeartUltrasoundView
     {
         public int Id { get; set; }
         public string Info { get; set; }

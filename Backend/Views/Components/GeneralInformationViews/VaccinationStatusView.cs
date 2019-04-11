@@ -1,10 +1,9 @@
-﻿using Backend.Views.Base;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Backend.Views.GeneralInformationEntities.Components
 {
-    public class VaccinationStatusView : BaseResponse
+    public class VaccinationStatusView
     {
         [Key]
         public int Id { get; set; } 

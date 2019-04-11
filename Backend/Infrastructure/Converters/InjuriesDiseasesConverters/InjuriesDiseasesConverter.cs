@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Backend.DAL.Entities.Common.InstrumentalStudies;
 using Backend.Infrastructure.Converters.Common.InstrumentalStudies;
 using Backend.Views.Common.InstrumentalStudies.Components;
+using Enums = Backend.Infrastructure.Enums;
 
 namespace Backend.Infrastructure.Converters.InjuriesDiseasesConverters
 {
@@ -26,6 +27,7 @@ namespace Backend.Infrastructure.Converters.InjuriesDiseasesConverters
                     DrugTherapy = view.DrugTherapy,
                     PhysiotherapyTreatment = view.PhysiotherapyTreatment,
                     Other = view.Other,
+                    DisabilityTypeId = (int)view.DisabilityType,
                     PatientId = view.PatientId,
                     MRIs = view.MRIs.ViewToEntity(),
                     HeartUltrasounds = view.HeartUltrasounds.ViewToEntity() ?? new List<HeartUltrasound>()
@@ -54,6 +56,7 @@ namespace Backend.Infrastructure.Converters.InjuriesDiseasesConverters
                     DrugTherapy = entity.DrugTherapy,
                     PhysiotherapyTreatment = entity.PhysiotherapyTreatment,
                     Other = entity.Other,
+                    DisabilityType = (Enums.DisabilityType)entity.DisabilityTypeId,
                     PatientId = entity.PatientId,
                     MRIs = entity.MRIs.EntityToView(),
                     HeartUltrasounds = entity.HeartUltrasounds.EntityToView() ?? new List<HeartUltrasoundView>()

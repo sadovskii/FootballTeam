@@ -1,12 +1,11 @@
-﻿using Backend.Views.Base;
-using Backend.Views.GeneralInformationEntities.Components;
+﻿using Backend.Views.GeneralInformationEntities.Components;
 using Backend.Views.InjuriesDiseasesEntities.Components;
 using Backend.Views.MedicalExaminationEntities.Components;
 using System.Collections.Generic;
 
 namespace Backend.Views.Components
 {
-    public class PatientView : BaseResponse
+    public class PatientView
     {
         public int Id { get; set; }
         public string Name { get; set; }

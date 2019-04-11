@@ -10,6 +10,11 @@ namespace Backend.DAL.Entities
 {
     public class Patient : BaseEntity
     {
+        public Patient()
+        {
+            this.InjuriesDiseases = new HashSet<InjuriesDiseases>();
+        }
+
         public string Name { get; set; }
         public string Photo { get; set; }
 

@@ -1,12 +1,8 @@
-﻿using Backend.Views.Base;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Backend.Views.TestingEntities.Components
 {
-    public class TestingView : BaseResponse
+    public class TestingView
     {
         [Key]
         public int Id { get; set; }

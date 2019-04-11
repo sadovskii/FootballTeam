@@ -1,11 +1,10 @@
-﻿using Backend.Views.Base;
-using Backend.Views.Components;
+﻿using Backend.Views.Components;
 using System;
 using System.Collections.Generic;
 
 namespace Backend.Views.GeneralInformationEntities.Components
 {
-    public class GeneralInformationView : BaseResponse
+    public class GeneralInformationView
     {
         public int Id { get; set; }
         public DateTime Birthday { get; set; }

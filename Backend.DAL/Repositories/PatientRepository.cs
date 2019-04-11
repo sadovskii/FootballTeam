@@ -69,7 +69,19 @@ namespace Backend.DAL.Repositories
                 .Include(t => t.InjuriesDiseases)
                 .FirstOrDefault(t => t.Id == id);
         }
-            
+
+        public void InsertWithDefaultGeneralInformation(Patient patient)
+        {
+            if (patient == null)
+                throw new NullReferenceException();
+
+            patient.Id = 0;
+            patient.GeneralInformation = new GeneralInformation(){ BloodType = String.Empty};
+
+            Insert(patient);
+        }
+
+
         public void InsertGeneralInformation(int id, GeneralInformation generalInformation)
         {
             var entity = context.Patients.FirstOrDefault(t => t.Id == id);
@@ -88,8 +100,9 @@ namespace Backend.DAL.Repositories
 
             if (entity == null)
                 throw new NullReferenceException();
-            else
-                entity.MedicalExaminations.Add(generalInformation);
+
+            generalInformation.Id = 0;
+            entity.MedicalExaminations.Add(generalInformation);
 
             context.SaveChanges();
         }
@@ -100,8 +113,10 @@ namespace Backend.DAL.Repositories
 
             if (entity == null)
                 throw new NullReferenceException();
-            else
-                entity.InjuriesDiseases.Add(generalInformation);
+
+            entity.InjuriesDiseases.Add(generalInformation);
+
+            context.SaveChanges();
         }
 
         public override void Delete(int id)

@@ -1,9 +1,8 @@
-﻿using Backend.Views.Base;
-using System;
+﻿using System;
 
 namespace Backend.Views.GeneralInformationEntities.Components
 {
-    public class FluorographyView : BaseResponse
+    public class FluorographyView
     {
         public int Id { get; set; }
         public DateTime ProcedureTime { get; set; }
