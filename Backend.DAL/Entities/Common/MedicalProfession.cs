@@ -1,8 +1,4 @@
-﻿using Backend.DAL.Entities.MedicalExaminationEntities;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-
-namespace Backend.DAL.Entities.Common
+﻿namespace Backend.DAL.Entities.Common
 {
     public class MedicalProfession : BaseEntity
     {

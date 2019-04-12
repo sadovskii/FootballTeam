@@ -10,6 +10,5 @@ namespace Backend.Views.GeneralInformationEntities.Components
         public string InterventionType { get; set; }
 
         public int GeneralInformationId { get; set; }
-        public GeneralInformationView GeneralInformation { get; set; }
     }
 }

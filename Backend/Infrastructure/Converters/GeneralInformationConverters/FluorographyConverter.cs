@@ -17,8 +17,7 @@ namespace Backend.Infrastructure.Converters.GeneralInformationConverters
                 {
                     Id = view.Id,
                     ProcedureTime = view.ProcedureTime,
-                    Information = view.Information,
-                    GeneralInformationId = view.GeneralInformationId
+                    Information = view.Information
                 };
             }
 
@@ -38,8 +37,7 @@ namespace Backend.Infrastructure.Converters.GeneralInformationConverters
                 {
                     Id = entity.Id,
                     ProcedureTime = entity.ProcedureTime,
-                    Information = entity.Information,
-                    GeneralInformationId = entity.GeneralInformationId
+                    Information = entity.Information
                 };
             }
 

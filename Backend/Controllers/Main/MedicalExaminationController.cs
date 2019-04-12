@@ -57,9 +57,9 @@ namespace Backend.Controllers.Main
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _medicalExaminationRepository.GetDoctorsDiagnosisById(id).EntityToView();
+            var elem = _medicalExaminationRepository.GetWithDoctorsDiagnosisById(id).DoctorsDiagnoses.EntityToView();
 
-            if (elem != null && elem != null)
+            if (elem != null)
                 return Ok(elem);
 
             return NotFound();
@@ -72,7 +72,7 @@ namespace Backend.Controllers.Main
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _medicalExaminationRepository.GetBloodChemistryAnalysisById(id).EntityToView();
+            var elem = _medicalExaminationRepository.GetWithBloodChemistryAnalysisById(id).EntityToView();
 
             if (elem != null && elem != null)
                 return Ok(elem);
@@ -87,7 +87,7 @@ namespace Backend.Controllers.Main
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _medicalExaminationRepository.GetGeneralBloodAnalysisById(id).EntityToView();
+            var elem = _medicalExaminationRepository.GetWithGeneralBloodAnalysisById(id).EntityToView();
 
             if (elem != null && elem != null)
                 return Ok(elem);
@@ -102,7 +102,7 @@ namespace Backend.Controllers.Main
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _medicalExaminationRepository.GetGeneralUrineAnalysisById(id).EntityToView();
+            var elem = _medicalExaminationRepository.GetWithGeneralUrineAnalysisById(id).EntityToView();
 
             if (elem != null && elem != null)
                 return Ok(elem);
@@ -117,7 +117,7 @@ namespace Backend.Controllers.Main
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _medicalExaminationRepository.GetHeartUltrasoundById(id).EntityToView();
+            var elem = _medicalExaminationRepository.GetWithHeartUltrasoundById(id).EntityToView();
 
             if (elem != null && elem != null)
                 return Ok(elem);
@@ -132,7 +132,7 @@ namespace Backend.Controllers.Main
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _medicalExaminationRepository.GetElectrocardiogramById(id).EntityToView();
+            var elem = _medicalExaminationRepository.GetWithElectrocardiogramById(id).EntityToView();
 
             if (elem != null && elem != null)
                 return Ok(elem);
@@ -140,32 +140,6 @@ namespace Backend.Controllers.Main
             return NotFound();
         }
         #endregion
-
-        // POST: api/MedicalExamination
-        [HttpPost]
-        public IActionResult Post([FromBody] MedicalExaminationView medicalExaminationView)
-        {
-            try
-            {
-                if (medicalExaminationView == null)
-                {
-                    return BadRequest("Owner object is null");
-                }
-
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest("Invalid model object");
-                }
-
-                _medicalExaminationRepository.Insert(medicalExaminationView.ViewToEntity());
-
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, "Internal server error" + ex.Message);
-            }
-        }
 
         // POST: api/Patients/5/DoctorsDiagnosis
         [HttpPost("{id}/DoctorsDiagnosis")]

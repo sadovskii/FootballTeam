@@ -14,6 +14,6 @@ namespace Backend.DAL.Interfaces.Repositories
         GeneralInformation GetSurgicalInterventionById(int id);
         void InsertFluorography(int id, Fluorography fluorography);
         void InsertVaccinationStatus(int id, VaccinationStatus vaccinationStatus);
-        void InserSurgicalIntervention(int id, SurgicalIntervention surgicalIntervention);
+        void InsertSurgicalIntervention(int id, SurgicalIntervention surgicalIntervention);
     }
 }

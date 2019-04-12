@@ -19,8 +19,7 @@ namespace Backend.Infrastructure.Converters.MedicalExaminationConverters
                     Id = view.Id,
                     Diagnosis = view.Diagnosis,
                     MedicalExaminationId = view.MedicalExaminationId,
-                    MedicalProfessionId = (int)view.MedicalProfession,
-                    MedicalExamination = view.MedicalExamination.ViewToEntity()
+                    MedicalProfessionId = (int)view.MedicalProfession
                 };
             }
 
@@ -42,8 +41,7 @@ namespace Backend.Infrastructure.Converters.MedicalExaminationConverters
                     Id = entity.Id,
                     Diagnosis = entity.Diagnosis,
                     MedicalExaminationId = entity.MedicalExaminationId,
-                    MedicalProfession = (MedicalProfession)entity.MedicalProfessionId,
-                    MedicalExamination = entity.MedicalExamination.EntityToView()
+                    MedicalProfession = (MedicalProfession)entity.MedicalProfessionId
                 };
             }
 

@@ -76,7 +76,7 @@ namespace Backend.DAL.Repositories
                 throw new NullReferenceException();
 
             patient.Id = 0;
-            patient.GeneralInformation = new GeneralInformation(){ BloodType = String.Empty};
+            patient.GeneralInformation = new GeneralInformation(){ BloodType = string.Empty, Bithday = DateTime.Now };
 
             Insert(patient);
         }

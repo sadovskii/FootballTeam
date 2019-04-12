@@ -15,5 +15,7 @@ namespace Backend.DAL.Interfaces.Repositories
         void InsertMRI(int id, MRI mri);
 
 
+
+
     }
 }

@@ -29,46 +29,45 @@ namespace Backend.DAL.Repositories
                 .FirstOrDefault(t => t.Id == id);
         }
 
-        public List<BloodChemistryAnalysis> GetBloodChemistryAnalysisById(int id)
+        public MedicalExamination GetWithBloodChemistryAnalysisById(int id)
         {
             return context.MedicalExaminations
-                .FirstOrDefault(t => t.Id == id).BloodChemistryAnalyses
-                .ToList();
+                .Include(t => t.BloodChemistryAnalyses)
+                .FirstOrDefault(t => t.Id == id);
         }
 
-        public List<DoctorsDiagnosis> GetDoctorsDiagnosisById(int id)
+        public MedicalExamination GetWithDoctorsDiagnosisById(int id)
         {
             return context.MedicalExaminations
-                .FirstOrDefault(t => t.Id == id).DoctorsDiagnoses
-                .ToList();
+                .Include(t => t.DoctorsDiagnoses)
+                .FirstOrDefault(t => t.Id == id);
         }
 
-        public List<Electrocardiogram> GetElectrocardiogramById(int id)
+        public MedicalExamination GetWithElectrocardiogramById(int id)
         {
             return context.MedicalExaminations
-                .FirstOrDefault(t => t.Id == id).Electrocardiograms
-                .ToList();
+                .Include(t => t.Electrocardiograms)
+                .FirstOrDefault(t => t.Id == id);
         }
 
-        public List<GeneralBloodAnalysis> GetGeneralBloodAnalysisById(int id)
+        public MedicalExamination GetWithGeneralBloodAnalysisById(int id)
         {
             return context.MedicalExaminations
-               .FirstOrDefault(t => t.Id == id).GeneralBloodAnalyses
-               .ToList();
+                .Include(t => t.GeneralBloodAnalyses)
+               .FirstOrDefault(t => t.Id == id);
         }
 
-        public List<GeneralUrineAnalysis> GetGeneralUrineAnalysisById(int id)
+        public MedicalExamination GetWithGeneralUrineAnalysisById(int id)
         {
             return context.MedicalExaminations
-               .FirstOrDefault(t => t.Id == id).GeneralUrineAnalyses
-               .ToList();
+                .Include(t => t.GeneralUrineAnalyses)
+               .FirstOrDefault(t => t.Id == id);
         }
 
-        public List<HeartUltrasound> GetHeartUltrasoundById(int id)
+        public MedicalExamination GetWithHeartUltrasoundById(int id)
         {
             return context.MedicalExaminations
-               .FirstOrDefault(t => t.Id == id).HeartUltrasounds
-               .ToList();
+               .FirstOrDefault(t => t.Id == id);
         }
 
         public void InsertBloodChemistryAnalysis(int id, BloodChemistryAnalysis bloodChemistryAnalysis)
@@ -77,8 +76,10 @@ namespace Backend.DAL.Repositories
 
             if (entity == null)
                 throw new NullReferenceException();
-            else
-                entity.BloodChemistryAnalyses.Add(bloodChemistryAnalysis);
+
+            bloodChemistryAnalysis.Id = 0;
+            entity.BloodChemistryAnalyses.Add(bloodChemistryAnalysis);
+
 
             context.SaveChanges();
         }
@@ -89,8 +90,9 @@ namespace Backend.DAL.Repositories
 
             if (entity == null)
                 throw new NullReferenceException();
-            else
-                entity.DoctorsDiagnoses.Add(doctorsDiagnosis);
+
+            doctorsDiagnosis.Id = 0;
+            entity.DoctorsDiagnoses.Add(doctorsDiagnosis);
 
             context.SaveChanges();
         }
@@ -101,8 +103,9 @@ namespace Backend.DAL.Repositories
 
             if (entity == null)
                 throw new NullReferenceException();
-            else
-                entity.Electrocardiograms.Add(electrocardiogram);
+
+            electrocardiogram.Id = 0;
+            entity.Electrocardiograms.Add(electrocardiogram);
 
             context.SaveChanges();
         }
@@ -113,8 +116,9 @@ namespace Backend.DAL.Repositories
 
             if (entity == null)
                 throw new NullReferenceException();
-            else
-                entity.GeneralBloodAnalyses.Add(generalBloodAnalysis);
+
+            generalBloodAnalysis.Id = 0;
+            entity.GeneralBloodAnalyses.Add(generalBloodAnalysis);
 
             context.SaveChanges();
         }
@@ -125,8 +129,9 @@ namespace Backend.DAL.Repositories
 
             if (entity == null)
                 throw new NullReferenceException();
-            else
-                entity.GeneralUrineAnalyses.Add(generalUrineAnalysis);
+
+            generalUrineAnalysis.Id = 0;
+            entity.GeneralUrineAnalyses.Add(generalUrineAnalysis);
 
             context.SaveChanges();
         }
@@ -137,8 +142,9 @@ namespace Backend.DAL.Repositories
 
             if (entity == null)
                 throw new NullReferenceException();
-            else
-                entity.HeartUltrasounds.Add(heartUltrasound);
+
+            heartUltrasound.Id = 0;
+            entity.HeartUltrasounds.Add(heartUltrasound);
 
             context.SaveChanges();
         }

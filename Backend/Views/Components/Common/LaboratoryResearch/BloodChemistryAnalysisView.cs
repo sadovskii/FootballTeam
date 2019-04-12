@@ -8,6 +8,5 @@ namespace Backend.Views.Common.LaboratoryResearch.Components
         public string Info { get; set; }
 
         public int MedicalExaminationId { get; set; }
-        public MedicalExaminationView MedicalExamination { get; set; }
     }
 }

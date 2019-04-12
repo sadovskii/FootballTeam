@@ -41,8 +41,10 @@ namespace Backend.DAL.Repositories
 
             if (entity == null)
                 throw new NullReferenceException();
-            else
-                entity.HeartUltrasounds.Add(heartUltrasound);
+
+            heartUltrasound.Id = 0;
+            entity.HeartUltrasounds.Add(heartUltrasound);
+
 
             context.SaveChanges();
         }
@@ -53,8 +55,10 @@ namespace Backend.DAL.Repositories
 
             if (entity == null)
                 throw new NullReferenceException();
-            else
-                entity.MRIs.Add(mri);
+
+            mri.Id = 0;
+            entity.MRIs.Add(mri);
+
 
             context.SaveChanges();
         }

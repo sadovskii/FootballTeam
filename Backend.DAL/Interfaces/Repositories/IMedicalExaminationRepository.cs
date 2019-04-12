@@ -11,12 +11,12 @@ namespace Backend.DAL.Interfaces.Repositories
     {
         MedicalExamination GetFullById(int id);
 
-        List<DoctorsDiagnosis> GetDoctorsDiagnosisById(int id);
-        List<BloodChemistryAnalysis> GetBloodChemistryAnalysisById(int id);
-        List<GeneralBloodAnalysis> GetGeneralBloodAnalysisById(int id);
-        List<GeneralUrineAnalysis> GetGeneralUrineAnalysisById(int id);
-        List<HeartUltrasound> GetHeartUltrasoundById(int id);
-        List<Electrocardiogram> GetElectrocardiogramById(int id);
+        MedicalExamination GetWithDoctorsDiagnosisById(int id);
+        MedicalExamination GetWithBloodChemistryAnalysisById(int id);
+        MedicalExamination GetWithGeneralBloodAnalysisById(int id);
+        MedicalExamination GetWithGeneralUrineAnalysisById(int id);
+        MedicalExamination GetWithHeartUltrasoundById(int id);
+        MedicalExamination GetWithElectrocardiogramById(int id);
 
         void InsertDoctorsDiagnosis(int id, DoctorsDiagnosis doctorsDiagnosis);
         void InsertBloodChemistryAnalysis(int id, BloodChemistryAnalysis bloodChemistryAnalysis);

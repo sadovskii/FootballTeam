@@ -32,10 +32,7 @@ namespace Backend.Controllers.Main
             var elem = _patientRepository.GetAll().EntityToView();
 
             if (elem != null)
-            {
-                return Ok(elem);
-            }
-                
+                return Ok(elem);               
 
             return NotFound();
         }
@@ -203,7 +200,7 @@ namespace Backend.Controllers.Main
             }
         }
 
-        // POST: api/Patients/5/InjuriesDiseases
+        // POST: api/Patients/5/MedicalExamination
         [HttpPost("{id}/MedicalExamination")]
         public IActionResult PostWithMedicalExamination(int id, [FromBody] MedicalExaminationView medicalExaminationView)
         {

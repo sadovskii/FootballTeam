@@ -167,7 +167,7 @@ namespace Backend.Controllers.Main
                     return BadRequest("Invalid model object");
                 }
 
-                _generalInformationRepository.InserSurgicalIntervention(id, surgicalInterventionView.ViewToEntity());
+                _generalInformationRepository.InsertSurgicalIntervention(id, surgicalInterventionView.ViewToEntity());
 
                 return Ok();
             }

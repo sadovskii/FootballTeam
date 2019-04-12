@@ -5,9 +5,13 @@ using System.Threading.Tasks;
 
 namespace Backend.Views.Base
 {
-    public class BaseResponse<T>
-    {
-        public T elem { get; set; }
-        public StatusInfo StatusInfo { get; set; }
+    public class BaseResponse<T> : BaseResponse
+    { 
+        public T Elem { get; set; }
     }
+
+    public class BaseResponse
+    {
+        public StatusInfo StatusInfo { get; set; }
+    }   
 }

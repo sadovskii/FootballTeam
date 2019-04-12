@@ -25,13 +25,7 @@ namespace Backend.Infrastructure.Converters.MedicalExaminationConverters
                     Id = view.Id,
                     ProcedureTime = view.ProcedureTime,
                     Allowance = view.Allowance,
-                    PatientId = view.PatientId,
-                    DoctorsDiagnoses = view.DoctorsDiagnoses.ViewToEntity() ?? new List<DoctorsDiagnosis>(),
-                    BloodChemistryAnalyses = view.BloodChemistryAnalyses.ViewToEntity() ?? new List<BloodChemistryAnalysis>(),
-                    GeneralBloodAnalyses = view.GeneralBloodAnalyses.ViewToEntity() ?? new List<GeneralBloodAnalysis>(),
-                    GeneralUrineAnalyses = view.GeneralUrineAnalyses.ViewToEntity() ?? new List<GeneralUrineAnalysis>(),
-                    HeartUltrasounds = view.HeartUltrasounds.ViewToEntity() ?? new List<HeartUltrasound>(),
-                    Electrocardiograms = view.Electrocardiograms.ViewToEntity() ?? new List<Electrocardiogram>()
+                    PatientId = view.PatientId
                 };
             }
 
@@ -52,13 +46,7 @@ namespace Backend.Infrastructure.Converters.MedicalExaminationConverters
                     Id = entity.Id,
                     ProcedureTime = entity.ProcedureTime,
                     Allowance = entity.Allowance,
-                    PatientId = entity.PatientId,
-                    DoctorsDiagnoses = entity.DoctorsDiagnoses.EntityToView() ?? new List<DoctorsDiagnosisView>(),
-                    BloodChemistryAnalyses = entity.BloodChemistryAnalyses.EntityToView() ?? new List<BloodChemistryAnalysisView>(),
-                    GeneralBloodAnalyses = entity.GeneralBloodAnalyses.EntityToView() ?? new List<GeneralBloodAnalysisView>(),
-                    GeneralUrineAnalyses = entity.GeneralUrineAnalyses.EntityToView() ?? new List<GeneralUrineAnalysisView>(),
-                    HeartUltrasounds = entity.HeartUltrasounds.EntityToView() ?? new List<HeartUltrasoundView>(),
-                    Electrocardiograms = entity.Electrocardiograms.EntityToView() ?? new List<ElectrocardiogramView>()
+                    PatientId = entity.PatientId
                 };
             }
 

@@ -9,6 +9,17 @@ namespace Backend.DAL.Entities.MedicalExaminationEntities
 {
     public class MedicalExamination : BaseEntity
     {
+        public MedicalExamination()
+        {
+            this.DoctorsDiagnoses = new HashSet<DoctorsDiagnosis>();
+            this.BloodChemistryAnalyses = new List<BloodChemistryAnalysis>();
+            this.GeneralBloodAnalyses = new List<GeneralBloodAnalysis>();
+            this.GeneralUrineAnalyses = new List<GeneralUrineAnalysis>();
+            this.HeartUltrasounds = new List<HeartUltrasound>();
+            this.Electrocardiograms = new List<Electrocardiogram>();
+        }
+
+
         public DateTime ProcedureTime { get; set; }
         public bool Allowance { get; set; }
 

@@ -27,29 +27,33 @@ namespace Backend.DAL.Repositories
         public GeneralInformation GetFluorographyById(int id)
         {
             return context.GeneralInformation
+                .Include(t => t.Fluorographies)
                 .FirstOrDefault(t => t.Id == id);
         }
 
         public GeneralInformation GetSurgicalInterventionById(int id)
         {
             return context.GeneralInformation
+                .Include(t => t.SurgicalIntervention)
                 .FirstOrDefault(t => t.Id == id);
         }
 
         public GeneralInformation GetVaccinationStatusById(int id)
         {
             return context.GeneralInformation
+                .Include(t => t.VaccinationStatuses)
                 .FirstOrDefault(t => t.Id == id);
         }
 
-        public void InserSurgicalIntervention(int id, SurgicalIntervention surgicalIntervention)
+        public void InsertSurgicalIntervention(int id, SurgicalIntervention surgicalIntervention)
         {
             var entity = context.GeneralInformation.FirstOrDefault(t => t.Id == id);
 
             if (entity == null)
                 throw new NullReferenceException();
-            else
-                entity.SurgicalIntervention.Add(surgicalIntervention);
+
+            surgicalIntervention.Id = 0;
+            entity.SurgicalIntervention.Add(surgicalIntervention);
 
             context.SaveChanges();
         }
@@ -60,8 +64,9 @@ namespace Backend.DAL.Repositories
 
             if (entity == null)
                 throw new NullReferenceException();
-            else
-                entity.Fluorographies.Add(fluorography);
+
+            fluorography.Id = 0;
+            entity.Fluorographies.Add(fluorography);
 
             context.SaveChanges();
         }
@@ -72,8 +77,9 @@ namespace Backend.DAL.Repositories
 
             if (entity == null)
                 throw new NullReferenceException();
-            else
-                entity.VaccinationStatuses.Add(vaccinationStatus);
+
+            vaccinationStatus.Id = 0;
+            entity.VaccinationStatuses.Add(vaccinationStatus);
 
             context.SaveChanges();
         }

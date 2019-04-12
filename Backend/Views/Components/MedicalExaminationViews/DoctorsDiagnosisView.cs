@@ -1,4 +1,6 @@
 ﻿using Backend.Infrastructure.Enums;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Backend.Views.MedicalExaminationEntities.Components
 {
@@ -8,7 +10,8 @@ namespace Backend.Views.MedicalExaminationEntities.Components
         public string Diagnosis { get; set; }
 
         public int MedicalExaminationId { get; set; }
-        public MedicalExaminationView MedicalExamination { get; set; }
+
+        [JsonConverter(typeof(StringEnumConverter))]
         public MedicalProfession MedicalProfession { get; set; }
     }
 }

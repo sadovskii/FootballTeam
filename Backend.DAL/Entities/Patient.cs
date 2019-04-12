@@ -13,6 +13,7 @@ namespace Backend.DAL.Entities
         public Patient()
         {
             this.InjuriesDiseases = new HashSet<InjuriesDiseases>();
+            this.MedicalExaminations = new List<MedicalExamination>();
         }
 
         public string Name { get; set; }

@@ -7,6 +7,13 @@ namespace Backend.DAL.Entities.GeneralInformationEntities
 {
     public class GeneralInformation : BaseEntity
     {
+        public GeneralInformation()
+        {
+            this.Fluorographies = new HashSet<Fluorography>();
+            this.VaccinationStatuses = new HashSet<VaccinationStatus>();
+            this.SurgicalIntervention = new HashSet<SurgicalIntervention>();
+        }
+
         public DateTime Bithday { get; set; }
         public double Weight { get; set; }
         public double Height { get; set; }      
