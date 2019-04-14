@@ -35,6 +35,12 @@ namespace Backend.DAL.Repositories
                 .FirstOrDefault(t => t.Id == id);
         }
 
+        public InjuriesDiseases GetRadiographyById(int id)
+        {
+            return context.InjuriesDiseases
+                .FirstOrDefault(t => t.Id == id);
+        }
+
         public void InsertHeartUltrasound(int id, HeartUltrasound heartUltrasound)
         {
             var entity = context.InjuriesDiseases.FirstOrDefault(t => t.Id == id);
@@ -63,17 +69,17 @@ namespace Backend.DAL.Repositories
             context.SaveChanges();
         }
 
-        public override void Delete(int id)
+        public void InsertRadiography(int id, Radiography radiography)
         {
             var entity = context.InjuriesDiseases.FirstOrDefault(t => t.Id == id);
 
             if (entity == null)
                 throw new NullReferenceException();
-            else
-                Delete(entity);
+
+            radiography.Id = 0;
+            entity.Radiographies.Add(radiography);
 
             context.SaveChanges();
         }
-
     }
 }

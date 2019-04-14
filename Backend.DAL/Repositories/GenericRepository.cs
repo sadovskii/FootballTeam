@@ -76,6 +76,17 @@ namespace Backend.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public abstract void Delete(int id);
+        public void Delete(int id)
+        {
+            var elem = GetBy(t => t.Id == id);
+
+            if (elem != null)
+            {
+                entities.Remove(elem);
+                context.SaveChanges();
+            }
+            else
+                throw new NullReferenceException();
+        }
     }
 }

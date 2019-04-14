@@ -7,6 +7,13 @@ namespace Backend.DAL.Entities.InjuriesDiseasesEntities
 {
     public class InjuriesDiseases : BaseEntity
     {
+        public InjuriesDiseases()
+        {
+            this.MRIs = new HashSet<MRI>();
+            this.HeartUltrasounds = new List<HeartUltrasound>();
+            this.Radiographies = new List<Radiography>();
+        }
+
         public DateTime DateInjuriesOrDiseases { get; set; }
         public DateTime ReleasedInMainGroup { get; set; }
         public int DisabilityCountDay { get; set; }
@@ -21,6 +28,7 @@ namespace Backend.DAL.Entities.InjuriesDiseasesEntities
         public DisabilityType DisabilityType { get; set; }
         public ICollection<MRI> MRIs { get; set; }
         public ICollection<HeartUltrasound> HeartUltrasounds { get; set; }
+        public ICollection<Radiography> Radiographies { get; set; }
 
 
     }

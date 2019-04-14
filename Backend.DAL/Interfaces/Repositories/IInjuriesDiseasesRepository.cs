@@ -10,7 +10,9 @@ namespace Backend.DAL.Interfaces.Repositories
     {
         InjuriesDiseases GetMRIById(int id);
         InjuriesDiseases GetHeartUltrasoundById(int id);
+        InjuriesDiseases GetRadiographyById(int id);
 
+        void InsertRadiography(int id, Radiography radiography);
         void InsertHeartUltrasound(int id, HeartUltrasound heartUltrasound);
         void InsertMRI(int id, MRI mri);
 

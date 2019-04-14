@@ -88,8 +88,9 @@ namespace Backend.DAL.Repositories
 
             if (entity == null)
                 throw new NullReferenceException();
-            else
-                entity.GeneralInformation = generalInformation;
+
+            generalInformation.Id = 0;
+            entity.GeneralInformation = generalInformation;
 
             context.SaveChanges();
         }
@@ -115,18 +116,6 @@ namespace Backend.DAL.Repositories
                 throw new NullReferenceException();
 
             entity.InjuriesDiseases.Add(generalInformation);
-
-            context.SaveChanges();
-        }
-
-        public override void Delete(int id)
-        {
-            var entity = context.Patients.FirstOrDefault(t => t.Id == id);
-
-            if (entity == null)
-                throw new NullReferenceException();
-            else
-                Delete(entity);
 
             context.SaveChanges();
         }

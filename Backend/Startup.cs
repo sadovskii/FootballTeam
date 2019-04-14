@@ -4,7 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Backend.DAL.EF;
 using Backend.DAL.Interfaces.Repositories;
+using Backend.DAL.Interfaces.Repositories.Other.GeneralInformation;
+using Backend.DAL.Interfaces.Repositories.Other.InjuriesDiseases;
+using Backend.DAL.Interfaces.Repositories.Other.MedicalExamination;
 using Backend.DAL.Repositories;
+using Backend.DAL.Repositories.Other.GeneralInformation;
+using Backend.DAL.Repositories.Other.InjuriesDiseases;
+using Backend.DAL.Repositories.Other.MedicalExamination;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -41,6 +47,17 @@ namespace Backend
             services.AddScoped<IGeneralInformationRepository, GeneralInformationRepository>();
             services.AddScoped<IInjuriesDiseasesRepository, InjuriesDiseasesRepository>();
             services.AddScoped<IMedicalExaminationRepository, MedicalExaminationRepository>();
+            services.AddScoped<IFluorographyRepository, FluorographyRepository>();
+            services.AddScoped<ISurgicalInterventionRepository, SurgicalInterventionRepository>();
+            services.AddScoped<IVaccinationStatusRepository, VaccinationStatusRepository>();
+            services.AddScoped<IHeartUltrasoundRepository, HeartUltrasoundRepository>();
+            services.AddScoped<IMRIRepository, MRIRepository>();
+            services.AddScoped<IBloodChemistryAnalysisRepository, BloodChemistryAnalysisRepository>();
+            services.AddScoped<IDoctorsDiagnosisRepository, DoctorsDiagnosisRepository>();
+            services.AddScoped<IElectrocardiogramRepository, ElectrocardiogramRepository>();
+            services.AddScoped<IGeneralBloodAnalysisRepository, GeneralBloodAnalysisRepository>();
+            services.AddScoped<IGeneralUrineAnalysisRepository, GeneralUrineAnalysisRepository>();
+
 
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)

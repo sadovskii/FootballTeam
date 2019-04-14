@@ -92,7 +92,7 @@ namespace Backend.Controllers.Main
         #region POST
         // POST: api/GeneralInformation/5/Fluorography
         [HttpPost("{id}/Fluorography")]
-        public IActionResult PostWithGeneralInformation(int id, [FromBody] FluorographyView fluorographyView)
+        public IActionResult PostFluorography(int id, [FromBody] FluorographyView fluorographyView)
         {
             try
             {
@@ -118,7 +118,7 @@ namespace Backend.Controllers.Main
 
         // POST: api/GeneralInformation/5/VaccinationStatus
         [HttpPost("{id}/VaccinationStatus")]
-        public IActionResult PostWithMedicalExamination(int id, [FromBody] VaccinationStatusView vaccinationStatusView)
+        public IActionResult PostVaccinationStatus(int id, [FromBody] VaccinationStatusView vaccinationStatusView)
         {
             try
             {
@@ -149,7 +149,7 @@ namespace Backend.Controllers.Main
 
         // POST: api/GeneralInformation/5/SurgicalIntervention
         [HttpPost("{id}/SurgicalIntervention")]
-        public IActionResult PostWithInjuriesDiseases(int id, [FromBody] SurgicalInterventionView surgicalInterventionView)
+        public IActionResult PostSurgicalIntervention(int id, [FromBody] SurgicalInterventionView surgicalInterventionView)
         {
             try
             {

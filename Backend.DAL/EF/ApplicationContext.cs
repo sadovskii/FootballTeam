@@ -1,4 +1,5 @@
 ﻿using Backend.DAL.Entities;
+using Backend.DAL.Entities.Common;
 using Backend.DAL.Entities.Common.InstrumentalStudies;
 using Backend.DAL.Entities.Common.LaboratoryResearch;
 using Backend.DAL.Entities.GeneralInformationEntities;
@@ -28,6 +29,8 @@ namespace Backend.DAL.EF
         public DbSet<GeneralBloodAnalysis> GeneralBloodAnalyses { get; set; }
         public DbSet<GeneralUrineAnalysis> GeneralUrineAnalyses { get; set; }
         public DbSet<Electrocardiogram> Electrocardiograms { get; set; }
+        public DbSet<Radiography> Radiographies { get; set; }
+        public DbSet<MedicalProfession> medicalProfessions { get; set; }
 
 
 

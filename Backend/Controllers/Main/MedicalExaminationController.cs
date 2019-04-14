@@ -50,7 +50,7 @@ namespace Backend.Controllers.Main
             return NotFound();
         }
 
-        // GET: api/Patients/5/DoctorsDiagnosis
+        // GET: api/MedicalExamination/5/DoctorsDiagnosis
         [HttpGet("{id}/DoctorsDiagnosis")]
         public IActionResult GetDoctorsDiagnosis(int id)
         {
@@ -65,14 +65,14 @@ namespace Backend.Controllers.Main
             return NotFound();
         }
 
-        // GET: api/Patients/5/BloodChemistryAnalysis
+        // GET: api/MedicalExamination/5/BloodChemistryAnalysis
         [HttpGet("{id}/BloodChemistryAnalysis")]
         public IActionResult GetBloodChemistryAnalysis(int id)
         {
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _medicalExaminationRepository.GetWithBloodChemistryAnalysisById(id).EntityToView();
+            var elem = _medicalExaminationRepository.GetWithBloodChemistryAnalysisById(id).BloodChemistryAnalyses.EntityToView();
 
             if (elem != null && elem != null)
                 return Ok(elem);
@@ -80,14 +80,14 @@ namespace Backend.Controllers.Main
             return NotFound();
         }
 
-        // GET: api/Patients/5/GeneralBloodAnalysis
+        // GET: api/MedicalExamination/5/GeneralBloodAnalysis
         [HttpGet("{id}/GeneralBloodAnalysis")]
         public IActionResult GetGeneralBloodAnalysis(int id)
         {
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _medicalExaminationRepository.GetWithGeneralBloodAnalysisById(id).EntityToView();
+            var elem = _medicalExaminationRepository.GetWithGeneralBloodAnalysisById(id).GeneralBloodAnalyses.EntityToView();
 
             if (elem != null && elem != null)
                 return Ok(elem);
@@ -95,14 +95,14 @@ namespace Backend.Controllers.Main
             return NotFound();
         }
 
-        // GET: api/Patients/5/GeneralUrineAnalysis
+        // GET: api/MedicalExamination/5/GeneralUrineAnalysis
         [HttpGet("{id}/GeneralUrineAnalysis")]
         public IActionResult GetGeneralUrineAnalysis(int id)
         {
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _medicalExaminationRepository.GetWithGeneralUrineAnalysisById(id).EntityToView();
+            var elem = _medicalExaminationRepository.GetWithGeneralUrineAnalysisById(id).GeneralUrineAnalyses.EntityToView();
 
             if (elem != null && elem != null)
                 return Ok(elem);
@@ -110,14 +110,14 @@ namespace Backend.Controllers.Main
             return NotFound();
         }
 
-        // GET: api/Patients/5/HeartUltrasound
+        // GET: api/MedicalExamination/5/HeartUltrasound
         [HttpGet("{id}/HeartUltrasound")]
         public IActionResult GetHeartUltrasound(int id)
         {
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _medicalExaminationRepository.GetWithHeartUltrasoundById(id).EntityToView();
+            var elem = _medicalExaminationRepository.GetWithHeartUltrasoundById(id).HeartUltrasounds.EntityToView();
 
             if (elem != null && elem != null)
                 return Ok(elem);
@@ -125,14 +125,14 @@ namespace Backend.Controllers.Main
             return NotFound();
         }
 
-        // GET: api/Patients/5/Electrocardiogram
+        // GET: api/MedicalExamination/5/Electrocardiogram
         [HttpGet("{id}/Electrocardiogram")]
         public IActionResult GetElectrocardiogram(int id)
         {
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _medicalExaminationRepository.GetWithElectrocardiogramById(id).EntityToView();
+            var elem = _medicalExaminationRepository.GetWithElectrocardiogramById(id).Electrocardiograms.EntityToView();
 
             if (elem != null && elem != null)
                 return Ok(elem);
@@ -141,7 +141,7 @@ namespace Backend.Controllers.Main
         }
         #endregion
 
-        // POST: api/Patients/5/DoctorsDiagnosis
+        // POST: api/MedicalExamination/5/DoctorsDiagnosis
         [HttpPost("{id}/DoctorsDiagnosis")]
         public IActionResult PostWithDoctorsDiagnosis(int id, [FromBody] DoctorsDiagnosisView doctorsDiagnosisView)
         {
@@ -172,7 +172,7 @@ namespace Backend.Controllers.Main
             }
         }
 
-        // POST: api/Patients/5/BloodChemistryAnalysis
+        // POST: api/MedicalExamination/5/BloodChemistryAnalysis
         [HttpPost("{id}/BloodChemistryAnalysis")]
         public IActionResult PostWithBloodChemistryAnalysis(int id, [FromBody] BloodChemistryAnalysisView bloodChemistryAnalysisView)
         {
@@ -203,7 +203,7 @@ namespace Backend.Controllers.Main
             }
         }
 
-        // POST: api/Patients/5/GeneralBloodAnalysis
+        // POST: api/MedicalExamination/5/GeneralBloodAnalysis
         [HttpPost("{id}/GeneralBloodAnalysis")]
         public IActionResult PostWithGeneralBloodAnalysis(int id, [FromBody] GeneralBloodAnalysisView generalBloodAnalysisView)
         {
@@ -234,7 +234,7 @@ namespace Backend.Controllers.Main
             }
         }
 
-        // POST: api/Patients/5/GeneralUrineAnalysis
+        // POST: api/MedicalExamination/5/GeneralUrineAnalysis
         [HttpPost("{id}/GeneralUrineAnalysis")]
         public IActionResult PostWithGeneralUrineAnalysis(int id, [FromBody] GeneralUrineAnalysisView generalUrineAnalysisView)
         {
@@ -265,7 +265,7 @@ namespace Backend.Controllers.Main
             }
         }
 
-        // POST: api/Patients/5/HeartUltrasound
+        // POST: api/MedicalExamination/5/HeartUltrasound
         [HttpPost("{id}/HeartUltrasound")]
         public IActionResult PostWithHeartUltrasound(int id, [FromBody] HeartUltrasoundView heartUltrasoundView)
         {
@@ -295,7 +295,7 @@ namespace Backend.Controllers.Main
             }
         }
 
-        // POST: api/Patients/5/Electrocardiogram
+        // POST: api/MedicalExamination/5/Electrocardiogram
         [HttpPost("{id}/Electrocardiogram")]
         public IActionResult PostWithElectrocardiogram(int id, [FromBody] ElectrocardiogramView electrocardiogramView)
         {
@@ -327,12 +327,17 @@ namespace Backend.Controllers.Main
 
         // PUT: api/MedicalExamination/5
         [HttpPut]
-        public IActionResult Put(int id, [FromBody] MedicalExaminationView medicalExaminationView)
+        public IActionResult Put(MedicalExaminationView medicalExaminationView)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest("Invalid data.");
+
+                var elem = _medicalExaminationRepository.GetBy(t => t.Id == medicalExaminationView.Id);
+
+                elem.ProcedureTime = medicalExaminationView.ProcedureTime;
+                elem.Allowance = medicalExaminationView.Allowance;
 
                 _medicalExaminationRepository.Update(medicalExaminationView.ViewToEntity());
             }

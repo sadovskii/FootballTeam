@@ -1,9 +1,4 @@
 ﻿using Backend.DAL.Entities.GeneralInformationEntities;
-using Backend.DAL.Entities.InjuriesDiseasesEntities;
-using Backend.DAL.Entities.MedicalExaminationEntities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Backend.DAL.Interfaces.Repositories
 {

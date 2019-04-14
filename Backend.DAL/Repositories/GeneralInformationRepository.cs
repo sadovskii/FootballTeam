@@ -83,17 +83,5 @@ namespace Backend.DAL.Repositories
 
             context.SaveChanges();
         }
-
-        public override void Delete(int id)
-        {
-            var entity = context.GeneralInformation.FirstOrDefault(t => t.Id == id);
-
-            if (entity == null)
-                throw new NullReferenceException();
-            else
-                Delete(entity);
-
-            context.SaveChanges();
-        }
     }
 }
