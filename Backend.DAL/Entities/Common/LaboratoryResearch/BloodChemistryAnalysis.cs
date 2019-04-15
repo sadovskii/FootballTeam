@@ -7,7 +7,6 @@ namespace Backend.DAL.Entities.Common.LaboratoryResearch
     {
         public string Info { get; set; }
 
-
         public int MedicalExaminationId { get; set; }
         public MedicalExamination MedicalExamination { get; set; }
     }

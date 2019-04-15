@@ -10,5 +10,7 @@ namespace Backend.DAL.Entities.Common.InstrumentalStudies
 
         public int MedicalExaminationId { get; set; }
         public MedicalExamination MedicalExamination { get; set; }
+
+
     }
 }

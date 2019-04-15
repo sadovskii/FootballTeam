@@ -191,7 +191,7 @@ namespace Backend.Controllers.Main
             }
         }
 
-        // PUT: api/InjuriesDiseases/5
+        // PUT: api/InjuriesDiseases
         [HttpPut]
         public IActionResult Put([FromBody] InjuriesDiseasesView injuriesDiseasesView)
         {
@@ -200,26 +200,15 @@ namespace Backend.Controllers.Main
                 if (!ModelState.IsValid)
                     return BadRequest("Invalid data.");
 
-                var elem = _injuriesDiseasesRepository.GetBy(t => t.Id == injuriesDiseasesView.Id);
+                if (_injuriesDiseasesRepository.UpdateFull(injuriesDiseasesView.ViewToEntity()))
+                    return Ok();
 
-                elem.DateInjuriesOrDiseases = injuriesDiseasesView.DateInjuriesOrDiseases;
-                elem.ReleasedInMainGroup = injuriesDiseasesView.ReleasedInMainGroup;
-                elem.Diagnosis = injuriesDiseasesView.Diagnosis;
-                elem.DisabilityCountDay = injuriesDiseasesView.DisabilityCountDay;
-                elem.DisabilityTypeId = (int)injuriesDiseasesView.DisabilityType;
-                elem.DrugTherapy = injuriesDiseasesView.DrugTherapy;
-                elem.PhysiotherapyTreatment = injuriesDiseasesView.PhysiotherapyTreatment;
-                elem.Other = injuriesDiseasesView.Other;
-
-
-                _injuriesDiseasesRepository.Update(injuriesDiseasesView.ViewToEntity());
+                return NotFound();
             }
             catch
             {
                 return BadRequest();
             }
-
-            return Ok();
         }
 
         // DELETE: api/ApiWithActions/5

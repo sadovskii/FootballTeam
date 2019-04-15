@@ -41,81 +41,11 @@ namespace Backend.DAL.EF
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            #region Main
             builder.Entity<Patient>().ToTable(nameof(Patient))
                 .HasOne(a => a.GeneralInformation)
                 .WithOne(t => t.Patient)
                 .HasForeignKey<GeneralInformation>(e => e.PatientId)
                 .OnDelete(DeleteBehavior.Cascade);
-
-            builder.Entity<InjuriesDiseases>()
-                .HasOne(t => t.Patient)
-                .WithMany(c => c.InjuriesDiseases)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            builder.Entity<MedicalExamination>()
-                .HasOne(t => t.Patient)
-                .WithMany(c => c.MedicalExaminations)
-                .OnDelete(DeleteBehavior.Cascade);
-            #endregion
-
-            #region Other GeneralInfo
-            builder.Entity<Fluorography>()
-                .HasOne(t => t.GeneralInformation)
-                .WithMany(c => c.Fluorographies)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            builder.Entity<VaccinationStatus>()
-                .HasOne(t => t.GeneralInformation)
-                .WithMany(c => c.VaccinationStatuses)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            builder.Entity<SurgicalIntervention>()
-                .HasOne(t => t.GeneralInformation)
-                .WithMany(c => c.SurgicalIntervention)
-                .OnDelete(DeleteBehavior.Cascade);
-            #endregion
-
-            #region Other InjuriesDiseases 
-            builder.Entity<MRI>()
-                .HasOne(t => t.InjuriesDiseases)
-                .WithMany(c => c.MRIs)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            builder.Entity<Radiography>()
-                .HasOne(t => t.InjuriesDiseases)
-                .WithMany(c => c.Radiographies)
-                .OnDelete(DeleteBehavior.Cascade);
-            #endregion
-
-            #region Other MedicalExamination
-            builder.Entity<DoctorsDiagnosis>()
-                .HasOne(t => t.MedicalExamination)
-                .WithMany(c => c.DoctorsDiagnoses)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            builder.Entity<BloodChemistryAnalysis>()
-                .HasOne(t => t.MedicalExamination)
-                .WithMany(c => c.BloodChemistryAnalyses)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            builder.Entity<GeneralBloodAnalysis>()
-                .HasOne(t => t.MedicalExamination)
-                .WithMany(c => c.GeneralBloodAnalyses)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            builder.Entity<GeneralUrineAnalysis>()
-                .HasOne(t => t.MedicalExamination)
-                .WithMany(c => c.GeneralUrineAnalyses)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            builder.Entity<Electrocardiogram>()
-                .HasOne(t => t.MedicalExamination)
-                .WithMany(c => c.Electrocardiograms)
-                .OnDelete(DeleteBehavior.Cascade);
-            #endregion
-
-
 
             builder.Entity<GeneralInformation>().ToTable(nameof(GeneralInformation));
             builder.Entity<Fluorography>().ToTable(nameof(Fluorography));

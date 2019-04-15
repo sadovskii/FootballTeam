@@ -81,5 +81,46 @@ namespace Backend.DAL.Repositories
 
             context.SaveChanges();
         }
+
+        public bool UpdateFull(InjuriesDiseases injuriesDiseases)
+        {
+            var entity = GetFullById(injuriesDiseases.Id);
+
+            if (entity != null)
+            {
+                entity.DateInjuriesOrDiseases = injuriesDiseases.DateInjuriesOrDiseases;
+                entity.ReleasedInMainGroup = injuriesDiseases.ReleasedInMainGroup;
+                entity.Diagnosis = injuriesDiseases.Diagnosis;
+                entity.DisabilityCountDay = injuriesDiseases.DisabilityCountDay;
+                entity.DisabilityTypeId = injuriesDiseases.DisabilityTypeId;
+                entity.DrugTherapy = injuriesDiseases.DrugTherapy;
+                entity.PhysiotherapyTreatment = injuriesDiseases.PhysiotherapyTreatment;
+                entity.Other = injuriesDiseases.Other;
+
+                if (injuriesDiseases.MRIs != null)
+                    foreach (var a in entity.MRIs)
+                        foreach (var b in injuriesDiseases.MRIs)
+                            if (a.Id == b.Id)
+                                a.Info = b.Info;
+
+                if (injuriesDiseases.HeartUltrasounds != null)
+                    foreach (var a in entity.HeartUltrasounds)
+                        foreach (var b in injuriesDiseases.HeartUltrasounds)
+                            if (a.Id == b.Id)
+                                a.Info = b.Info;
+
+                if (injuriesDiseases.Radiographies != null)
+                    foreach (var a in entity.Radiographies)
+                        foreach (var b in injuriesDiseases.Radiographies)
+                            if (a.Id == b.Id)
+                                a.Info = b.Info;
+
+                Update(entity);
+                context.SaveChanges();
+                return true;
+            }
+
+            return false;
+        }
     }
 }

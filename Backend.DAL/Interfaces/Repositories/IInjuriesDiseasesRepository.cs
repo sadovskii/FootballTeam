@@ -16,8 +16,6 @@ namespace Backend.DAL.Interfaces.Repositories
         void InsertHeartUltrasound(int id, HeartUltrasound heartUltrasound);
         void InsertMRI(int id, MRI mri);
 
-
-
-
+        bool UpdateFull(InjuriesDiseases injuriesDiseases);
     }
 }

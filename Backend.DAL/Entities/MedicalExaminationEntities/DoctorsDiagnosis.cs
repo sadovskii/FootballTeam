@@ -11,6 +11,5 @@ namespace Backend.DAL.Entities.MedicalExaminationEntities
         public int MedicalExaminationId { get; set; }
         public int MedicalProfessionId { get; set; }
         public MedicalProfession MedicalProfession { get; set; }
-        public MedicalExamination MedicalExamination { get; set; }
     }
 }

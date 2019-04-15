@@ -148,5 +148,62 @@ namespace Backend.DAL.Repositories
 
             context.SaveChanges();
         }
+
+        public bool UpdateFull(MedicalExamination medicalExamination)
+        {
+            var entity = GetFullById(medicalExamination.Id);
+
+            if(entity != null)
+            {
+                entity.ProcedureTime = medicalExamination.ProcedureTime;
+                entity.Allowance = medicalExamination.Allowance;
+
+                if(medicalExamination.DoctorsDiagnoses != null)
+                    foreach (var a in entity.DoctorsDiagnoses)
+                        foreach (var b in medicalExamination.DoctorsDiagnoses)
+                            if (a.Id == b.Id)
+                            {
+                                a.Diagnosis = b.Diagnosis;
+                                a.MedicalProfessionId = b.MedicalProfessionId;
+                            }
+
+                if (medicalExamination.BloodChemistryAnalyses != null)
+                    foreach (var a in entity.BloodChemistryAnalyses)
+                        foreach (var b in medicalExamination.BloodChemistryAnalyses)
+                            if (a.Id == b.Id)
+                                a.Info = b.Info;
+
+                if (medicalExamination.Electrocardiograms != null)
+                    foreach (var a in entity.Electrocardiograms)
+                        foreach (var b in medicalExamination.Electrocardiograms)
+                            if (a.Id == b.Id)
+                                a.Info = b.Info;
+
+                if (medicalExamination.GeneralBloodAnalyses != null)
+                    foreach (var a in entity.GeneralBloodAnalyses)
+                        foreach (var b in medicalExamination.GeneralBloodAnalyses)
+                            if (a.Id == b.Id)
+                                a.Info = b.Info;
+
+                if (medicalExamination.GeneralUrineAnalyses != null)
+                    foreach (var a in entity.GeneralUrineAnalyses)
+                        foreach (var b in medicalExamination.GeneralUrineAnalyses)
+                            if (a.Id == b.Id)
+                                a.Info = b.Info;
+
+                if (medicalExamination.HeartUltrasounds != null)
+                    foreach (var a in entity.HeartUltrasounds)
+                        foreach (var b in medicalExamination.HeartUltrasounds)
+                            if (a.Id == b.Id)
+                                a.Info = b.Info;
+
+
+                Update(entity);
+                context.SaveChanges();
+                return true;
+            }
+
+            return false;
+        }
     }
 }

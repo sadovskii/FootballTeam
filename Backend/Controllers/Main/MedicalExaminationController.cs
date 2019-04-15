@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Backend.DAL.EF;
 using Backend.DAL.Interfaces.Repositories;
 using Backend.Infrastructure.Converters.Common.InstrumentalStudies;
@@ -325,7 +326,7 @@ namespace Backend.Controllers.Main
             }
         }
 
-        // PUT: api/MedicalExamination/5
+        // PUT: api/MedicalExamination
         [HttpPut]
         public IActionResult Put(MedicalExaminationView medicalExaminationView)
         {
@@ -334,17 +335,12 @@ namespace Backend.Controllers.Main
                 if (!ModelState.IsValid)
                     return BadRequest("Invalid data.");
 
-                var elem = _medicalExaminationRepository.GetBy(t => t.Id == medicalExaminationView.Id);
-
-                if (elem != null)
-                {
-                    _medicalExaminationRepository.Update(medicalExaminationView.ViewToEntity());
+                if (_medicalExaminationRepository.UpdateFull(medicalExaminationView.ViewToEntity()))
                     return Ok();
-                }
 
                 return NotFound();
             }
-            catch
+            catch(Exception ex)
             {
                 return BadRequest();
             }
