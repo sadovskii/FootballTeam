@@ -217,7 +217,10 @@ namespace Backend.Controllers.Main
             var elem = _generalInformationRepository.GetBy(t => t.Id == id);
 
             if (elem != null)
-                _generalInformationRepository.Delete(id);
+            {
+                _generalInformationRepository.Delete(elem);
+                return Ok();
+            }
 
             return NotFound();
         }

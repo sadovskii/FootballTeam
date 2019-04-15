@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Backend.DAL.EF;
 using Backend.DAL.Interfaces.Repositories.Other.InjuriesDiseases;
 using Backend.Infrastructure.Converters.Common.InstrumentalStudies;
-using Backend.Views.Common.InstrumentalStudies.Components;
+using Backend.Views.Components.Common.InstrumentalStudies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,19 +13,20 @@ namespace Backend.Controllers.Other.InjuriesDiseases
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MRIController : ControllerBase
+    public class RadiographyController : ControllerBase
     {
-        private readonly IMRIRepository _MRIRepository;
+        private readonly IRadiographyRepository _radiographyRepository;
 
-        public MRIController(ApplicationContext applicationContext, IMRIRepository MRIRepository)
+        public RadiographyController(ApplicationContext applicationContext, IRadiographyRepository radiographyRepository)
         {
-            _MRIRepository = MRIRepository;
+            _radiographyRepository = radiographyRepository;
         }
-        // GET: api/MRI
+
+        // GET: api/Radiography
         [HttpGet]
-        public IActionResult GetHeartUltrasound()
+        public IActionResult Get()
         {
-            var elem = _MRIRepository.GetAll().EntityToView();
+            var elem = _radiographyRepository.GetAll().EntityToView();
 
             if (elem != null)
                 return Ok(elem);
@@ -33,14 +34,14 @@ namespace Backend.Controllers.Other.InjuriesDiseases
             return NotFound();
         }
 
-        // GET: api/MRI/5
-        [HttpGet("{id}")]
-        public IActionResult GetHeartUltrasound(int id)
+        // GET: api/Radiography/5
+        [HttpGet("{id}", Name = "Get")]
+        public IActionResult Get(int id)
         {
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _MRIRepository.GetBy(t => t.Id == id).EntityToView();
+            var elem = _radiographyRepository.GetBy(t => t.Id == id).EntityToView();
 
             if (elem != null)
                 return Ok(elem);
@@ -48,13 +49,13 @@ namespace Backend.Controllers.Other.InjuriesDiseases
             return NotFound();
         }
 
-        // POST: api/MRI
+        // POST: api/Radiography
         [HttpPost]
-        public IActionResult PostHeartUltrasound([FromBody] MRIView mri)
+        public IActionResult Post([FromBody] RadiographyView radiography)
         {
             try
             {
-                if (mri == null)
+                if (radiography == null)
                 {
                     return BadRequest("Owner object is null");
                 }
@@ -64,8 +65,8 @@ namespace Backend.Controllers.Other.InjuriesDiseases
                     return BadRequest("Invalid model object");
                 }
 
-                mri.Id = 0;
-                _MRIRepository.Insert(mri.ViewToEntity());
+                radiography.Id = 0;
+                _radiographyRepository.Insert(radiography.ViewToEntity());
 
                 return Ok();
             }
@@ -75,27 +76,28 @@ namespace Backend.Controllers.Other.InjuriesDiseases
             }
         }
 
-        // PUT: api/MRI
-        [HttpPut]
-        public IActionResult PutHeartUltrasound([FromBody] MRIView mri)
+        // PUT: api/Radiography/5
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, [FromBody] RadiographyView radiography)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest("Invalid data.");
 
-                var elem = _MRIRepository.GetBy(t => t.Id == mri.Id);
+                var elem = _radiographyRepository.GetBy(t => t.Id == radiography.Id);
 
                 if (elem != null)
                 {
-                    elem.Info = mri.Info;
+                    elem.Info = radiography.Info;
 
-                    _MRIRepository.Update(elem);
+                    _radiographyRepository.Update(elem);
 
                     return Ok();
                 }
 
                 return NotFound();
+
             }
             catch
             {
@@ -105,13 +107,13 @@ namespace Backend.Controllers.Other.InjuriesDiseases
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public IActionResult DeleteHeartUltrasound(int id)
+        public IActionResult Delete(int id)
         {
-            var elem = _MRIRepository.GetBy(t => t.Id == id);
+            var elem = _radiographyRepository.GetBy(t => t.Id == id);
 
             if (elem != null)
             {
-                _MRIRepository.Delete(elem);
+                _radiographyRepository.Delete(elem);
                 return Ok();
             }
 

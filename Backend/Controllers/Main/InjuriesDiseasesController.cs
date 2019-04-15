@@ -224,9 +224,17 @@ namespace Backend.Controllers.Main
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
-            _injuriesDiseasesRepository.Delete(id);
+            var elem = _injuriesDiseasesRepository.GetBy(t => t.Id == id);
+
+            if (elem != null)
+            {
+                _injuriesDiseasesRepository.Delete(elem);
+                return Ok();
+            }
+
+            return NotFound();
         }
     }
 }

@@ -112,7 +112,10 @@ namespace Backend.Controllers.Other.InjuriesDiseases
             var elem = _heartUltrasoundRepository.GetBy(t => t.Id == id);
 
             if (elem != null)
-                _heartUltrasoundRepository.Delete(id);
+            {
+                _heartUltrasoundRepository.Delete(elem);
+                return Ok();
+            }
 
             return NotFound();
         }

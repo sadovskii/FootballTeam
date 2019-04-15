@@ -336,24 +336,35 @@ namespace Backend.Controllers.Main
 
                 var elem = _medicalExaminationRepository.GetBy(t => t.Id == medicalExaminationView.Id);
 
-                elem.ProcedureTime = medicalExaminationView.ProcedureTime;
-                elem.Allowance = medicalExaminationView.Allowance;
+                if (elem != null)
+                {
+                    _medicalExaminationRepository.Update(medicalExaminationView.ViewToEntity());
+                    return Ok();
+                }
 
-                _medicalExaminationRepository.Update(medicalExaminationView.ViewToEntity());
+                return NotFound();
             }
             catch
             {
                 return BadRequest();
             }
 
-            return Ok();
+            
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
-            _medicalExaminationRepository.Delete(id);
+            var elem = _medicalExaminationRepository.GetBy(t => t.Id == id);
+
+            if (elem != null)
+            {
+                _medicalExaminationRepository.Delete(elem);
+                return Ok();
+            }
+
+            return NotFound();
         }
     }
 }

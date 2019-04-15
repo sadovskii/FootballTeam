@@ -25,7 +25,13 @@ namespace Backend.Infrastructure.Converters.MedicalExaminationConverters
                     Id = view.Id,
                     ProcedureTime = view.ProcedureTime,
                     Allowance = view.Allowance,
-                    PatientId = view.PatientId
+                    PatientId = view.PatientId,
+                    DoctorsDiagnoses = view.DoctorsDiagnoses.ViewToEntity(),
+                    BloodChemistryAnalyses = view.BloodChemistryAnalyses.ViewToEntity(),
+                    GeneralBloodAnalyses = view.GeneralBloodAnalyses.ViewToEntity(),
+                    GeneralUrineAnalyses = view.GeneralUrineAnalyses.ViewToEntity(),
+                    HeartUltrasounds = view.HeartUltrasounds.ViewToEntity(),
+                    Electrocardiograms = view.Electrocardiograms.ViewToEntity()
                 };
             }
 
@@ -46,7 +52,13 @@ namespace Backend.Infrastructure.Converters.MedicalExaminationConverters
                     Id = entity.Id,
                     ProcedureTime = entity.ProcedureTime,
                     Allowance = entity.Allowance,
-                    PatientId = entity.PatientId
+                    PatientId = entity.PatientId,
+                    DoctorsDiagnoses = entity.DoctorsDiagnoses.EntityToView(),
+                    BloodChemistryAnalyses = entity.BloodChemistryAnalyses.EntityToView(),
+                    GeneralBloodAnalyses = entity.GeneralBloodAnalyses.EntityToView(),
+                    GeneralUrineAnalyses = entity.GeneralUrineAnalyses.EntityToView(),
+                    HeartUltrasounds = entity.HeartUltrasounds.EntityToView(),
+                    Electrocardiograms = entity.Electrocardiograms.EntityToView()
                 };
             }
 

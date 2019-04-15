@@ -300,8 +300,11 @@ namespace Backend.Controllers.Main
         {
             var elem = _patientRepository.GetBy(t => t.Id == id);
 
-            if(elem != null)
-                _patientRepository.Delete(id);
+            if (elem != null)
+            {
+                _patientRepository.Delete(elem);
+                return Ok();
+            }
 
             return NotFound();
         }

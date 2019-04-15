@@ -114,7 +114,10 @@ namespace Backend.Controllers.Other.GeneralInformation
             var elem = _surgicalInterventionRepository.GetBy(t => t.Id == id);
 
             if (elem != null)
-                _surgicalInterventionRepository.Delete(id);
+            {
+                _surgicalInterventionRepository.Delete(elem);
+                return Ok();
+            }
 
             return NotFound();
         }

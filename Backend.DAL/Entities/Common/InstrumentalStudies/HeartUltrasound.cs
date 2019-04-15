@@ -1,4 +1,5 @@
-﻿using Backend.DAL.Entities.MedicalExaminationEntities;
+﻿using Backend.DAL.Entities.InjuriesDiseasesEntities;
+using Backend.DAL.Entities.MedicalExaminationEntities;
 using System.ComponentModel.DataAnnotations;
 
 namespace Backend.DAL.Entities.Common.InstrumentalStudies

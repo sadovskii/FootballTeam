@@ -15,7 +15,7 @@ namespace Backend.DAL.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -44,7 +44,7 @@ namespace Backend.DAL.Migrations
 
                     b.Property<string>("Info");
 
-                    b.Property<int?>("InjuriesDiseasesId");
+                    b.Property<int>("InjuriesDiseasesId");
 
                     b.Property<int>("MedicalExaminationId");
 
@@ -152,7 +152,7 @@ namespace Backend.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("medicalProfessions");
+                    b.ToTable("MedicalProfessions");
                 });
 
             modelBuilder.Entity("Backend.DAL.Entities.GeneralInformationEntities.Fluorography", b =>
@@ -351,14 +351,13 @@ namespace Backend.DAL.Migrations
 
             modelBuilder.Entity("Backend.DAL.Entities.Common.InstrumentalStudies.HeartUltrasound", b =>
                 {
-                    b.HasOne("Backend.DAL.Entities.InjuriesDiseasesEntities.InjuriesDiseases")
+                    b.HasOne("Backend.DAL.Entities.InjuriesDiseasesEntities.InjuriesDiseases", "InjuriesDiseases")
                         .WithMany("HeartUltrasounds")
                         .HasForeignKey("InjuriesDiseasesId");
 
                     b.HasOne("Backend.DAL.Entities.MedicalExaminationEntities.MedicalExamination", "MedicalExamination")
                         .WithMany("HeartUltrasounds")
-                        .HasForeignKey("MedicalExaminationId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("MedicalExaminationId");
                 });
 
             modelBuilder.Entity("Backend.DAL.Entities.Common.InstrumentalStudies.MRI", b =>
@@ -372,7 +371,7 @@ namespace Backend.DAL.Migrations
             modelBuilder.Entity("Backend.DAL.Entities.Common.InstrumentalStudies.Radiography", b =>
                 {
                     b.HasOne("Backend.DAL.Entities.InjuriesDiseasesEntities.InjuriesDiseases", "InjuriesDiseases")
-                        .WithMany()
+                        .WithMany("Radiographies")
                         .HasForeignKey("InjuriesDiseasesId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

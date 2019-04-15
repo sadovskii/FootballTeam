@@ -113,7 +113,10 @@ namespace Backend.Controllers.Other.GeneralInformation
             var elem = _fluorographyRepository.GetBy(t => t.Id == id);
 
             if (elem != null)
-                _fluorographyRepository.Delete(id);
+            {
+                _fluorographyRepository.Delete(elem);
+                return Ok();
+            }
 
             return NotFound();
         }

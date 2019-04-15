@@ -113,7 +113,10 @@ namespace Backend.Controllers.Other.GeneralInformation
             var elem = _vaccinationStatusRepository.GetBy(t => t.Id == id);
 
             if (elem != null)
-                _vaccinationStatusRepository.Delete(id);
+            {
+                _vaccinationStatusRepository.Delete(elem);
+                return Ok();
+            }
 
             return NotFound();
         }

@@ -112,7 +112,10 @@ namespace Backend.Controllers.Other.MedicalExamination
             var elem = _generalBloodAnalysisRepository.GetBy(t => t.Id == id);
 
             if (elem != null)
-                _generalBloodAnalysisRepository.Delete(id);
+            {
+                _generalBloodAnalysisRepository.Delete(elem);
+                return Ok();
+            }
 
             return NotFound();
         }

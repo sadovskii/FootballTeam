@@ -113,7 +113,10 @@ namespace Backend.Controllers.Other.MedicalExamination
             var elem = _doctorsDiagnosisRepository.GetBy(t => t.Id == id);
 
             if (elem != null)
-                _doctorsDiagnosisRepository.Delete(id);
+            {
+                _doctorsDiagnosisRepository.Delete(elem);
+                return Ok();
+            }
 
             return NotFound();
         }

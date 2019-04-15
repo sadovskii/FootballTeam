@@ -112,7 +112,10 @@ namespace Backend.Controllers.Other.MedicalExamination
             var elem = _electrocardiogramRepository.GetBy(t => t.Id == id);
 
             if (elem != null)
-                _electrocardiogramRepository.Delete(id);
+            {
+                _electrocardiogramRepository.Delete(elem);
+                return Ok();
+            }
 
             return NotFound();
         }

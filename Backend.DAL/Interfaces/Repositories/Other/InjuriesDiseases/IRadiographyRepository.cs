@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Backend.DAL.Interfaces.Repositories.Other.InjuriesDiseases
 {
-    interface IRadiographyRepository : IGenericRepository<Radiography>
+    public interface IRadiographyRepository : IGenericRepository<Radiography>
     {
     }
 }
