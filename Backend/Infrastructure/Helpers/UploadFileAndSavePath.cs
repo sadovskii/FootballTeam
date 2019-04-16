@@ -52,10 +52,10 @@ namespace Backend.Infrastructure.Helpers
                     a.Info = "images/" + await _imageHandler.UploadImagePath(a.File);
         }
 
-        public async void UloadFile(PatientView patient)
+        public async Task UloadFile(PatientView patient)
         {
             if (patient.File != null)
-                patient.Photo = "images/" + await _imageHandler.UploadImagePath(patient.File);
+                patient.Photo = await _imageHandler.UploadImagePath(patient.File);
         }
     }
 }

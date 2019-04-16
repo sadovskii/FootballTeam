@@ -22,7 +22,7 @@ namespace Backend.BLL.Implementation
             return "Invalid image file";
         }
 
-        /// <summary>
+        /// <summary>   
         /// Method to check if file is image file
         /// </summary>
         /// <param name="file"></param>
@@ -64,7 +64,7 @@ namespace Backend.BLL.Implementation
                 return e.Message;
             }
 
-            return fileName;
+            return "images/" + fileName;
         }
     }
 }

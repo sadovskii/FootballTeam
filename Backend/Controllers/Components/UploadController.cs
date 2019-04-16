@@ -29,7 +29,15 @@ namespace Backend.Controllers.Components
         [HttpPost]
         public async Task<IActionResult> UploadImage(IFormFile file)
         {
-            return await _imageHandler.UploadImage(file);
+            try
+            {
+                var a = await _imageHandler.UploadImage(file);
+                return Ok(a);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
     }
 }

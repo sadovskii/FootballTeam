@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Backend.BLL.Interfaces;
 using Backend.DAL.EF;
 using Backend.DAL.Interfaces.Repositories;
@@ -11,6 +13,7 @@ using Backend.Views.Components;
 using Backend.Views.GeneralInformationEntities.Components;
 using Backend.Views.InjuriesDiseasesEntities.Components;
 using Backend.Views.MedicalExaminationEntities.Components;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers.Main
@@ -148,7 +151,7 @@ namespace Backend.Controllers.Main
 
         // POST: api/Patients
         [HttpPost]
-        public IActionResult Post([FromBody] PatientView patient)
+        public async Task<IActionResult> Post([FromForm] PatientView patient )
         {
             try
             {
@@ -162,7 +165,7 @@ namespace Backend.Controllers.Main
                 {
                     return BadRequest("Invalid model object");
                 }
-                _uploadFileAndSavePath.UloadFile(patient);
+                await _uploadFileAndSavePath.UloadFile(patient);
 
                 _patientRepository.InsertWithDefaultGeneralInformation(patient.ViewToEntity());
 
