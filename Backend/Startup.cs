@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Backend.BLL.Implementation;
+using Backend.BLL.Interfaces;
 using Backend.DAL.EF;
 using Backend.DAL.Interfaces.Repositories;
 using Backend.DAL.Interfaces.Repositories.Other.GeneralInformation;
@@ -61,6 +63,9 @@ namespace Backend
             services.AddScoped<IGeneralBloodAnalysisRepository, GeneralBloodAnalysisRepository>();
             services.AddScoped<IGeneralUrineAnalysisRepository, GeneralUrineAnalysisRepository>();
 
+            services.AddTransient<IImageHandler, ImageHandler>();
+            services.AddTransient<IImageWriter, ImageWriter>();
+
 
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
@@ -87,6 +92,8 @@ namespace Backend
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader());
+
+            app.UseStaticFiles();
 
             app.UseMvc(routes =>
             {

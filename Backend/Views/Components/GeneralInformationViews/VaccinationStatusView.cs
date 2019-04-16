@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Backend.Views.GeneralInformationEntities.Components
@@ -9,7 +10,7 @@ namespace Backend.Views.GeneralInformationEntities.Components
         public int Id { get; set; } 
         public DateTime ProcedureTime { get; set; }
         public string Information { get; set; }
-
+        public IFormFile File { get; set; }
         public int GeneralInformationId { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Backend.BLL.Interfaces;
 using Backend.DAL.EF;
 using Backend.DAL.Interfaces.Repositories;
 using Backend.Infrastructure.Converters;
@@ -19,10 +20,12 @@ namespace Backend.Controllers.Main
     public class PatientsController : ControllerBase
     {
         private readonly IPatientRepository _patientRepository;
+        private readonly UploadFileAndSavePath _uploadFileAndSavePath;
 
-        public PatientsController(ApplicationContext applicationContext, IPatientRepository patientRepository)
+        public PatientsController(IPatientRepository patientRepository, IImageHandler imageHandler)
         {
             _patientRepository = patientRepository;
+            _uploadFileAndSavePath = new UploadFileAndSavePath(imageHandler);
         }
 
         // GET: api/Patients
@@ -149,6 +152,7 @@ namespace Backend.Controllers.Main
         {
             try
             {
+
                 if (patient == null)
                 {
                     return BadRequest("Owner object is null");
@@ -158,6 +162,7 @@ namespace Backend.Controllers.Main
                 {
                     return BadRequest("Invalid model object");
                 }
+                _uploadFileAndSavePath.UloadFile(patient);
 
                 _patientRepository.InsertWithDefaultGeneralInformation(patient.ViewToEntity());
 
@@ -221,6 +226,8 @@ namespace Backend.Controllers.Main
                     return BadRequest("Invalid model object");
                 }
 
+                _uploadFileAndSavePath.UloadFile(medicalExaminationView);
+
                 _patientRepository.InsertMedicalExamination(id, medicalExaminationView.ViewToEntity());
 
                 return Ok();
@@ -251,6 +258,8 @@ namespace Backend.Controllers.Main
                 {
                     return BadRequest("Invalid model object");
                 }
+
+                _uploadFileAndSavePath.UloadFile(injuriesDiseasesView);
 
                 injuriesDiseasesView.Id = 0;
 

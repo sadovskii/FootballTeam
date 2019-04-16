@@ -21,5 +21,18 @@ namespace Backend.BLL.Implementation
             var result = await _imageWriter.UploadImage(file);
             return new ObjectResult(result);
         }
+
+        public async Task<string> UploadImagePath(IFormFile file)
+        {
+            try
+            {
+                return await _imageWriter.UploadImage(file);
+            }
+            catch
+            {
+                return null;
+            }
+            
+        }
     }
 }

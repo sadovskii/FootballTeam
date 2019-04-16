@@ -10,5 +10,7 @@ namespace Backend.BLL.Interfaces
     public interface IImageHandler
     {
         Task<IActionResult> UploadImage(IFormFile file);
+
+        Task<string> UploadImagePath(IFormFile file);
     }
 }
