@@ -44,7 +44,7 @@ namespace Backend.DAL.Repositories
         {
             return context.Patients
                 .Include(t => t.InjuriesDiseases).ThenInclude(t => t.MRIs)
-                .Include(t => t.InjuriesDiseases).ThenInclude(t => t.HeartUltrasounds)
+                .Include(t => t.InjuriesDiseases).ThenInclude(t => t.CommonUltrasounds)
                 .Include(t => t.InjuriesDiseases).ThenInclude(t => t.DisabilityType)
                 .Include(t => t.InjuriesDiseases).ThenInclude(t => t.Radiographies)
                 .FirstOrDefault(t => t.Id == id);
@@ -100,10 +100,6 @@ namespace Backend.DAL.Repositories
         {
             var entity = context.Patients.FirstOrDefault(t => t.Id == id);
 
-            if (medicalExamination.HeartUltrasounds != null)
-                foreach (var a in medicalExamination.HeartUltrasounds)
-                    a.InjuriesDiseasesId = null;
-
             if (entity == null)
                 throw new NullReferenceException();
 
@@ -115,15 +111,12 @@ namespace Backend.DAL.Repositories
 
         public void InsertInjuriesDiseases(int id, InjuriesDiseases injuriesDiseases)
         {
-            if(injuriesDiseases.HeartUltrasounds != null)
-                foreach (var a in injuriesDiseases.HeartUltrasounds)
-                    a.MedicalExaminationId = null;
-
             var entity = context.Patients.FirstOrDefault(t => t.Id == id);
 
             if (entity == null)
                 throw new NullReferenceException();
 
+            injuriesDiseases.Id = 0;
             entity.InjuriesDiseases.Add(injuriesDiseases);
 
             context.SaveChanges();

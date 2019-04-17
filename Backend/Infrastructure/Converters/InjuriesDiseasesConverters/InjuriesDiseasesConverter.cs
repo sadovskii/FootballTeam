@@ -31,7 +31,7 @@ namespace Backend.Infrastructure.Converters.InjuriesDiseasesConverters
                     DisabilityTypeId = (int)view.DisabilityType,
                     PatientId = view.PatientId,
                     MRIs = view.MRIs.ViewToEntity() ?? new List<MRI>(),
-                    HeartUltrasounds = view.HeartUltrasounds.ViewToEntity() ?? new List<HeartUltrasound>(),
+                    CommonUltrasounds = view.CommonUltrasounds.ViewToEntity() ?? new List<CommonUltrasound>(),
                     Radiographies = view.Radiographies.ViewToEntity() ?? new List<Radiography>()
                 };
             }
@@ -61,7 +61,7 @@ namespace Backend.Infrastructure.Converters.InjuriesDiseasesConverters
                     DisabilityType = (Enums.DisabilityType)entity.DisabilityTypeId,
                     PatientId = entity.PatientId,
                     MRIs = entity.MRIs.EntityToView() ?? new List<MRIView>(),
-                    HeartUltrasounds = entity.HeartUltrasounds.EntityToView() ?? new List<HeartUltrasoundView>(),
+                    CommonUltrasounds = entity.CommonUltrasounds.EntityToView() ?? new List<CommonUltrasoundView>(),
                     Radiographies = entity.Radiographies.EntityToView() ?? new List<RadiographyView>()
                 };
             }

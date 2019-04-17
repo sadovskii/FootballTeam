@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Backend.BLL.Interfaces;
@@ -35,10 +36,10 @@ namespace Backend.Controllers.Main
         {
             var elem = _medicalExaminationRepository.GetAll().EntityToView();
 
-            if (elem != null)
-                return Ok(elem);
+            if (elem == null)
+                elem = new List<MedicalExaminationView>();
 
-            return NotFound();
+            return Ok(elem);
         }
 
         // GET: api/MedicalExamination/5
@@ -53,7 +54,7 @@ namespace Backend.Controllers.Main
             if (elem != null)
                 return Ok(elem);
 
-            return NotFound();
+            return NotFound("obj not found");
         }
 
         // GET: api/MedicalExamination/5/DoctorsDiagnosis
@@ -65,10 +66,10 @@ namespace Backend.Controllers.Main
 
             var elem = _medicalExaminationRepository.GetWithDoctorsDiagnosisById(id).DoctorsDiagnoses.EntityToView();
 
-            if (elem != null)
-                return Ok(elem);
+            if (elem == null)
+                elem = new List<DoctorsDiagnosisView>();
 
-            return NotFound();
+            return Ok(elem);
         }
 
         // GET: api/MedicalExamination/5/BloodChemistryAnalysis
@@ -80,10 +81,10 @@ namespace Backend.Controllers.Main
 
             var elem = _medicalExaminationRepository.GetWithBloodChemistryAnalysisById(id).BloodChemistryAnalyses.EntityToView();
 
-            if (elem != null && elem != null)
-                return Ok(elem);
+            if (elem == null)
+                elem = new List<BloodChemistryAnalysisView>();
 
-            return NotFound();
+            return Ok(elem);
         }
 
         // GET: api/MedicalExamination/5/GeneralBloodAnalysis
@@ -95,10 +96,10 @@ namespace Backend.Controllers.Main
 
             var elem = _medicalExaminationRepository.GetWithGeneralBloodAnalysisById(id).GeneralBloodAnalyses.EntityToView();
 
-            if (elem != null && elem != null)
-                return Ok(elem);
+            if (elem == null)
+                elem = new List<GeneralBloodAnalysisView>();
 
-            return NotFound();
+            return Ok(elem);
         }
 
         // GET: api/MedicalExamination/5/GeneralUrineAnalysis
@@ -110,10 +111,10 @@ namespace Backend.Controllers.Main
 
             var elem = _medicalExaminationRepository.GetWithGeneralUrineAnalysisById(id).GeneralUrineAnalyses.EntityToView();
 
-            if (elem != null && elem != null)
-                return Ok(elem);
+            if (elem == null)
+                elem = new List<GeneralUrineAnalysisView>();
 
-            return NotFound();
+            return Ok(elem);
         }
 
         // GET: api/MedicalExamination/5/HeartUltrasound
@@ -125,10 +126,10 @@ namespace Backend.Controllers.Main
 
             var elem = _medicalExaminationRepository.GetWithHeartUltrasoundById(id).HeartUltrasounds.EntityToView();
 
-            if (elem != null && elem != null)
-                return Ok(elem);
+            if (elem == null)
+                elem = new List<HeartUltrasoundView>();
 
-            return NotFound();
+            return Ok(elem);
         }
 
         // GET: api/MedicalExamination/5/Electrocardiogram
@@ -140,10 +141,10 @@ namespace Backend.Controllers.Main
 
             var elem = _medicalExaminationRepository.GetWithElectrocardiogramById(id).Electrocardiograms.EntityToView();
 
-            if (elem != null && elem != null)
-                return Ok(elem);
+            if (elem == null)
+                elem = new List<ElectrocardiogramView>();
 
-            return NotFound();
+            return Ok(elem);
         }
         #endregion
 

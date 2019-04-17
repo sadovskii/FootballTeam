@@ -48,8 +48,8 @@ namespace Backend.Infrastructure.Helpers
                     if (a.File != null)
                         a.Info = await _imageHandler.UploadImagePath(a.File);
 
-            if (injuriesDiseases.HeartUltrasounds != null)
-                    foreach (var a in injuriesDiseases.HeartUltrasounds)
+            if (injuriesDiseases.CommonUltrasounds != null)
+                    foreach (var a in injuriesDiseases.CommonUltrasounds)
                     if (a.File != null)
                         a.Info = await _imageHandler.UploadImagePath(a.File);
 

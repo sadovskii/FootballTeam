@@ -8,7 +8,6 @@ namespace Backend.Views.Common.InstrumentalStudies.Components
         public int Id { get; set; }
         public string Info { get; set; }
         public IFormFile File { get; set; }
-        public int? MedicalExaminationId { get; set; }
-        public int? InjuriesDiseasesId { get; set; }
+        public int MedicalExaminationId { get; set; }
     }
 }

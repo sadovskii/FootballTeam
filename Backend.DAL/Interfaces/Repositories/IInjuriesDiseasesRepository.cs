@@ -13,7 +13,7 @@ namespace Backend.DAL.Interfaces.Repositories
         InjuriesDiseases GetRadiographyById(int id);
 
         void InsertRadiography(int id, Radiography radiography);
-        void InsertHeartUltrasound(int id, HeartUltrasound heartUltrasound);
+        void InsertCommonUltrasound(int id, CommonUltrasound commonUltrasound);
         void InsertMRI(int id, MRI mri);
 
         bool UpdateFull(InjuriesDiseases injuriesDiseases);

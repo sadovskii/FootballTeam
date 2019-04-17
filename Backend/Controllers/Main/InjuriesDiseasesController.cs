@@ -36,10 +36,10 @@ namespace Backend.Controllers.Main
         {
             var elem = _injuriesDiseasesRepository.GetAll().EntityToView();
 
-            if (elem != null)
-                return Ok(elem);
+            if (elem == null)
+                elem = new List<InjuriesDiseasesView>();
 
-            return NotFound();
+            return Ok(elem);
         }
 
         // GET: api/InjuriesDiseases/5
@@ -54,7 +54,7 @@ namespace Backend.Controllers.Main
             if (elem != null)
                 return Ok(elem);
 
-            return NotFound();
+            return NotFound("obj not found");
         }
 
         // GET: api/InjuriesDiseases/5/MRIs
@@ -66,25 +66,25 @@ namespace Backend.Controllers.Main
 
             var elem = _injuriesDiseasesRepository.GetMRIById(id)?.MRIs.EntityToView();
 
-            if (elem != null)
-                return Ok(elem);
+            if (elem == null)
+                elem = new List<MRIView>();
 
-            return NotFound();
+            return Ok(elem);
         }
 
-        // GET: api/InjuriesDiseases/5/HeartUltrasounds
-        [HttpGet("{id}/HeartUltrasounds")]
-        public IActionResult GetWithHeartUltrasound(int id)
+        // GET: api/InjuriesDiseases/5/CommonUltrasounds
+        [HttpGet("{id}/CommonUltrasounds")]
+        public IActionResult GetWithCommonUltrasound(int id)
         {
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _injuriesDiseasesRepository.GetHeartUltrasoundById(id)?.HeartUltrasounds.EntityToView();
+            var elem = _injuriesDiseasesRepository.GetHeartUltrasoundById(id)?.CommonUltrasounds.EntityToView();
 
-            if (elem != null)
-                return Ok(elem);
+            if (elem == null)
+                elem = new List<CommonUltrasoundView>();
 
-            return NotFound();
+            return Ok(elem);
         }
 
         // GET: api/InjuriesDiseases/5/Radiography
@@ -96,10 +96,10 @@ namespace Backend.Controllers.Main
 
             var elem = _injuriesDiseasesRepository.GetRadiographyById(id)?.Radiographies.EntityToView();
 
-            if (elem != null)
-                return Ok(elem);
+            if (elem == null)
+                elem = new List<RadiographyView>();
 
-            return NotFound();
+            return Ok(elem);
         }
 
         // POST: api/Patients/5/MRI
@@ -135,7 +135,7 @@ namespace Backend.Controllers.Main
 
         // POST: api/Patients/5/HeartUltrasound
         [HttpPost("{id}/HeartUltrasound")]
-        public IActionResult PostWithHeartUltrasound(int id, [FromForm] HeartUltrasoundView heartUltrasoundView)
+        public IActionResult PostWithHeartUltrasound(int id, [FromForm] CommonUltrasoundView commonUltrasoundView)
         {
             try
             {
@@ -144,7 +144,7 @@ namespace Backend.Controllers.Main
                 {
                     return BadRequest("id is zero");
                 }
-                if (heartUltrasoundView == null)
+                if (commonUltrasoundView == null)
                 {
                     return BadRequest("Owner object is null");
                 }
@@ -154,7 +154,7 @@ namespace Backend.Controllers.Main
                     return BadRequest("Invalid model object");
                 }
 
-                _injuriesDiseasesRepository.InsertHeartUltrasound(id, heartUltrasoundView.ViewToEntity());
+                _injuriesDiseasesRepository.InsertCommonUltrasound(id, commonUltrasoundView.ViewToEntity());
 
                 return Ok();
             }

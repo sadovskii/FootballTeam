@@ -26,7 +26,7 @@ namespace Backend.DAL.Repositories
         public InjuriesDiseases GetHeartUltrasoundById(int id)
         {
             return context.InjuriesDiseases
-                .Include(t => t.HeartUltrasounds)
+                .Include(t => t.CommonUltrasounds)
                  .FirstOrDefault(t => t.Id == id);
         }
 
@@ -45,16 +45,15 @@ namespace Backend.DAL.Repositories
             return a;
         }
 
-        public void InsertHeartUltrasound(int id, HeartUltrasound heartUltrasound)
+        public void InsertCommonUltrasound(int id, CommonUltrasound commonUltrasound)
         {
             var entity = context.InjuriesDiseases.FirstOrDefault(t => t.Id == id);
 
             if (entity == null)
                 throw new NullReferenceException();
 
-            heartUltrasound.Id = 0;
-            entity.HeartUltrasounds.Add(heartUltrasound);
-
+            commonUltrasound.Id = 0;
+            entity.CommonUltrasounds.Add(commonUltrasound);
 
             context.SaveChanges();
         }
@@ -68,7 +67,6 @@ namespace Backend.DAL.Repositories
 
             mri.Id = 0;
             entity.MRIs.Add(mri);
-
 
             context.SaveChanges();
         }
@@ -107,9 +105,9 @@ namespace Backend.DAL.Repositories
                             if (a.Id == b.Id)
                                 a.Info = b.Info;
 
-                if (injuriesDiseases.HeartUltrasounds != null)
-                    foreach (var a in entity.HeartUltrasounds)
-                        foreach (var b in injuriesDiseases.HeartUltrasounds)
+                if (injuriesDiseases.CommonUltrasounds != null)
+                    foreach (var a in entity.CommonUltrasounds)
+                        foreach (var b in injuriesDiseases.CommonUltrasounds)
                             if (a.Id == b.Id)
                                 a.Info = b.Info;
 

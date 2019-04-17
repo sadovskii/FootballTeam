@@ -23,6 +23,7 @@ namespace Backend.DAL.EF
         public DbSet<DisabilityType> DisabilityTypes { get; set; }
         public DbSet<MRI> MRIs { get; set; }
         public DbSet<HeartUltrasound> HeartUltrasounds { get; set; }
+        public DbSet<CommonUltrasound> CommonUltrasounds { get; set; }
         public DbSet<MedicalExamination> MedicalExaminations { get; set; }
         public DbSet<DoctorsDiagnosis> DoctorsDiagnoses { get; set; }
         public DbSet<BloodChemistryAnalysis> BloodChemistryAnalyses { get; set; }  

@@ -26,7 +26,7 @@ namespace Backend.Views.InjuriesDiseasesEntities.Components
         [JsonConverter(typeof(StringEnumConverter))]
         public DisabilityType DisabilityType { get; set; }
         public ICollection<MRIView> MRIs { get; set; }
-        public ICollection<HeartUltrasoundView> HeartUltrasounds { get; set; }
+        public ICollection<CommonUltrasoundView> CommonUltrasounds { get; set; }
         public ICollection<RadiographyView> Radiographies { get; set; }
 
 

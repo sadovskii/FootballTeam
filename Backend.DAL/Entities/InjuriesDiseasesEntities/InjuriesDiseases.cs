@@ -10,7 +10,7 @@ namespace Backend.DAL.Entities.InjuriesDiseasesEntities
         public InjuriesDiseases()
         {
             this.MRIs = new HashSet<MRI>();
-            this.HeartUltrasounds = new List<HeartUltrasound>();
+            this.CommonUltrasounds = new List<CommonUltrasound>();
             this.Radiographies = new List<Radiography>();
         }
 
@@ -27,7 +27,7 @@ namespace Backend.DAL.Entities.InjuriesDiseasesEntities
         public int DisabilityTypeId { get; set; }
         public DisabilityType DisabilityType { get; set; }
         public ICollection<MRI> MRIs { get; set; }
-        public ICollection<HeartUltrasound> HeartUltrasounds { get; set; }
+        public ICollection<CommonUltrasound> CommonUltrasounds { get; set; }
         public ICollection<Radiography> Radiographies { get; set; }
 
 

@@ -8,12 +8,7 @@ namespace Backend.DAL.Entities.Common.InstrumentalStudies
     {
         public string Info { get; set; }
 
-        public int? MedicalExaminationId { get; set; }
+        public int MedicalExaminationId { get; set; }
         public MedicalExamination MedicalExamination { get; set; }
-
-        public int? InjuriesDiseasesId { get; set; }
-        public InjuriesDiseases InjuriesDiseases { get; set; }
-
-
     }
 }

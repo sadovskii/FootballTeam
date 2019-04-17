@@ -264,8 +264,6 @@ namespace Backend.Controllers.Main
 
                 await _uploadFileAndSavePath.UloadFile(injuriesDiseasesView);
 
-                injuriesDiseasesView.Id = 0;
-
                 _patientRepository.InsertInjuriesDiseases(id, injuriesDiseasesView.ViewToEntity());
 
                 return Ok();
