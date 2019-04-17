@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
+using Backend.Views.Components.Common.InstrumentalStudies;
 
 namespace Backend.Views.InjuriesDiseasesEntities.Components
 {
@@ -26,6 +27,7 @@ namespace Backend.Views.InjuriesDiseasesEntities.Components
         public DisabilityType DisabilityType { get; set; }
         public ICollection<MRIView> MRIs { get; set; }
         public ICollection<HeartUltrasoundView> HeartUltrasounds { get; set; }
+        public ICollection<RadiographyView> Radiographies { get; set; }
 
 
     }

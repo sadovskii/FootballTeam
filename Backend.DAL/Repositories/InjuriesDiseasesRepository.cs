@@ -26,19 +26,23 @@ namespace Backend.DAL.Repositories
         public InjuriesDiseases GetHeartUltrasoundById(int id)
         {
             return context.InjuriesDiseases
+                .Include(t => t.HeartUltrasounds)
                  .FirstOrDefault(t => t.Id == id);
         }
 
         public InjuriesDiseases GetMRIById(int id)
         {
             return context.InjuriesDiseases
+                .Include(t => t.MRIs)
                 .FirstOrDefault(t => t.Id == id);
         }
 
         public InjuriesDiseases GetRadiographyById(int id)
         {
-            return context.InjuriesDiseases
+            var a = context.InjuriesDiseases
+                .Include(t => t.Radiographies)
                 .FirstOrDefault(t => t.Id == id);
+            return a;
         }
 
         public void InsertHeartUltrasound(int id, HeartUltrasound heartUltrasound)

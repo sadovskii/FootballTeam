@@ -151,7 +151,7 @@ namespace Backend.Controllers.Main
 
         // POST: api/Patients
         [HttpPost]
-        public async Task<IActionResult> Post([FromForm] PatientView patient )
+        public async Task<IActionResult> Post(PatientView patient )
         {
             try
             {
@@ -179,7 +179,7 @@ namespace Backend.Controllers.Main
 
         // POST: api/Patients/5/GeneralInformation
         [HttpPost("{id}/GeneralInformation")]
-        public IActionResult PostWithGeneralInformation(int id, [FromBody] GeneralInformationView generalInformationView)
+        public IActionResult PostWithGeneralInformation(int id, [FromForm] GeneralInformationView generalInformationView)
         {
             try
             {
@@ -210,7 +210,7 @@ namespace Backend.Controllers.Main
 
         // POST: api/Patients/5/MedicalExamination
         [HttpPost("{id}/MedicalExamination")]
-        public IActionResult PostWithMedicalExamination(int id, [FromBody] MedicalExaminationView medicalExaminationView)
+        public async Task<IActionResult> PostWithMedicalExamination(int id, [FromForm] MedicalExaminationView medicalExaminationView)
         {
             try
             {
@@ -229,7 +229,7 @@ namespace Backend.Controllers.Main
                     return BadRequest("Invalid model object");
                 }
 
-                _uploadFileAndSavePath.UloadFile(medicalExaminationView);
+                await _uploadFileAndSavePath.UloadFile(medicalExaminationView);
 
                 _patientRepository.InsertMedicalExamination(id, medicalExaminationView.ViewToEntity());
 
@@ -243,7 +243,7 @@ namespace Backend.Controllers.Main
 
         // POST: api/Patients/5/InjuriesDiseases
         [HttpPost("{id}/InjuriesDiseases")]
-        public IActionResult PostWithInjuriesDiseases(int id, [FromBody] InjuriesDiseasesView injuriesDiseasesView)
+        public async Task<IActionResult> PostWithInjuriesDiseases(int id, [FromForm] InjuriesDiseasesView injuriesDiseasesView)
         {
             try
             {
@@ -262,7 +262,7 @@ namespace Backend.Controllers.Main
                     return BadRequest("Invalid model object");
                 }
 
-                _uploadFileAndSavePath.UloadFile(injuriesDiseasesView);
+                await _uploadFileAndSavePath.UloadFile(injuriesDiseasesView);
 
                 injuriesDiseasesView.Id = 0;
 
@@ -278,7 +278,7 @@ namespace Backend.Controllers.Main
 
         // PUT: api/Patients
         [HttpPut]
-        public IActionResult Put([FromBody] PatientView patientView)
+        public async Task<IActionResult> Put([FromForm] PatientView patientView)
         {
             try
             {
@@ -289,6 +289,8 @@ namespace Backend.Controllers.Main
 
                 if (elem != null)
                 {
+                    await _uploadFileAndSavePath.UloadFile(patientView);
+
                     elem.Name = patientView.Name;
                     elem.Photo = patientView.Photo;
 

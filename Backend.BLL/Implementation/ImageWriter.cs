@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using Backend.BLL.Infastructure;
 
 namespace Backend.BLL.Implementation
 {
@@ -52,7 +53,7 @@ namespace Backend.BLL.Implementation
                 var extension = "." + file.FileName.Split('.')[file.FileName.Split('.').Length - 1];
                 fileName = Guid.NewGuid() + extension; //Create a new Name 
                                                        //for the file due to security reasons.
-                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images", fileName);
+                var path = string.Format("{0}{1}", Constants.PathFileFolder, fileName);
 
                 using (var bits = new FileStream(path, FileMode.Create))
                 {

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Backend.DAL.Entities.Common.InstrumentalStudies;
 using Backend.Infrastructure.Converters.Common.InstrumentalStudies;
 using Backend.Views.Common.InstrumentalStudies.Components;
+using Backend.Views.Components.Common.InstrumentalStudies;
 using Enums = Backend.Infrastructure.Enums;
 
 namespace Backend.Infrastructure.Converters.InjuriesDiseasesConverters
@@ -29,8 +30,9 @@ namespace Backend.Infrastructure.Converters.InjuriesDiseasesConverters
                     Other = view.Other,
                     DisabilityTypeId = (int)view.DisabilityType,
                     PatientId = view.PatientId,
-                    MRIs = view.MRIs.ViewToEntity(),
-                    HeartUltrasounds = view.HeartUltrasounds.ViewToEntity() ?? new List<HeartUltrasound>()
+                    MRIs = view.MRIs.ViewToEntity() ?? new List<MRI>(),
+                    HeartUltrasounds = view.HeartUltrasounds.ViewToEntity() ?? new List<HeartUltrasound>(),
+                    Radiographies = view.Radiographies.ViewToEntity() ?? new List<Radiography>()
                 };
             }
 
@@ -58,8 +60,9 @@ namespace Backend.Infrastructure.Converters.InjuriesDiseasesConverters
                     Other = entity.Other,
                     DisabilityType = (Enums.DisabilityType)entity.DisabilityTypeId,
                     PatientId = entity.PatientId,
-                    MRIs = entity.MRIs.EntityToView(),
-                    HeartUltrasounds = entity.HeartUltrasounds.EntityToView() ?? new List<HeartUltrasoundView>()
+                    MRIs = entity.MRIs.EntityToView() ?? new List<MRIView>(),
+                    HeartUltrasounds = entity.HeartUltrasounds.EntityToView() ?? new List<HeartUltrasoundView>(),
+                    Radiographies = entity.Radiographies.EntityToView() ?? new List<RadiographyView>()
                 };
             }
 

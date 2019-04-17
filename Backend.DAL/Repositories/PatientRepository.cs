@@ -46,6 +46,7 @@ namespace Backend.DAL.Repositories
                 .Include(t => t.InjuriesDiseases).ThenInclude(t => t.MRIs)
                 .Include(t => t.InjuriesDiseases).ThenInclude(t => t.HeartUltrasounds)
                 .Include(t => t.InjuriesDiseases).ThenInclude(t => t.DisabilityType)
+                .Include(t => t.InjuriesDiseases).ThenInclude(t => t.Radiographies)
                 .FirstOrDefault(t => t.Id == id);
         }
 
@@ -95,27 +96,35 @@ namespace Backend.DAL.Repositories
             context.SaveChanges();
         }
 
-        public void InsertMedicalExamination(int id, MedicalExamination generalInformation)
+        public void InsertMedicalExamination(int id, MedicalExamination medicalExamination)
         {
             var entity = context.Patients.FirstOrDefault(t => t.Id == id);
+
+            if (medicalExamination.HeartUltrasounds != null)
+                foreach (var a in medicalExamination.HeartUltrasounds)
+                    a.InjuriesDiseasesId = null;
 
             if (entity == null)
                 throw new NullReferenceException();
 
-            generalInformation.Id = 0;
-            entity.MedicalExaminations.Add(generalInformation);
+            medicalExamination.Id = 0;
+            entity.MedicalExaminations.Add(medicalExamination);
 
             context.SaveChanges();
         }
 
-        public void InsertInjuriesDiseases(int id, InjuriesDiseases generalInformation)
+        public void InsertInjuriesDiseases(int id, InjuriesDiseases injuriesDiseases)
         {
+            if(injuriesDiseases.HeartUltrasounds != null)
+                foreach (var a in injuriesDiseases.HeartUltrasounds)
+                    a.MedicalExaminationId = null;
+
             var entity = context.Patients.FirstOrDefault(t => t.Id == id);
 
             if (entity == null)
                 throw new NullReferenceException();
 
-            entity.InjuriesDiseases.Add(generalInformation);
+            entity.InjuriesDiseases.Add(injuriesDiseases);
 
             context.SaveChanges();
         }

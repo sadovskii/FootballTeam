@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Backend.BLL.Interfaces;
 using Backend.DAL.Entities.Common.InstrumentalStudies;
 using Backend.DAL.Entities.InjuriesDiseasesEntities;
 using Backend.DAL.Interfaces.Repositories;
 using Backend.Infrastructure.Converters.Common.InstrumentalStudies;
 using Backend.Infrastructure.Converters.InjuriesDiseasesConverters;
+using Backend.Infrastructure.Helpers;
 using Backend.Views.Common.InstrumentalStudies.Components;
 using Backend.Views.Components.Common.InstrumentalStudies;
 using Backend.Views.InjuriesDiseasesEntities.Components;
@@ -20,10 +22,12 @@ namespace Backend.Controllers.Main
     public class InjuriesDiseasesController : ControllerBase
     {
         IInjuriesDiseasesRepository _injuriesDiseasesRepository;
+        private readonly UploadFileAndSavePath _uploadFileAndSavePath;
 
-        public InjuriesDiseasesController(IInjuriesDiseasesRepository injuriesDiseasesRepository)
+        public InjuriesDiseasesController(IInjuriesDiseasesRepository injuriesDiseasesRepository, IImageHandler imageHandler)
         {
             _injuriesDiseasesRepository = injuriesDiseasesRepository;
+            _uploadFileAndSavePath = new UploadFileAndSavePath(imageHandler);
         }
 
         // GET: api/InjuriesDiseases
@@ -60,7 +64,7 @@ namespace Backend.Controllers.Main
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _injuriesDiseasesRepository.GetMRIById(id).EntityToView();
+            var elem = _injuriesDiseasesRepository.GetMRIById(id)?.MRIs.EntityToView();
 
             if (elem != null)
                 return Ok(elem);
@@ -68,14 +72,14 @@ namespace Backend.Controllers.Main
             return NotFound();
         }
 
-        // GET: api/GeneralInformation/5/HeartUltrasounds
+        // GET: api/InjuriesDiseases/5/HeartUltrasounds
         [HttpGet("{id}/HeartUltrasounds")]
         public IActionResult GetWithHeartUltrasound(int id)
         {
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _injuriesDiseasesRepository.GetHeartUltrasoundById(id).EntityToView();
+            var elem = _injuriesDiseasesRepository.GetHeartUltrasoundById(id)?.HeartUltrasounds.EntityToView();
 
             if (elem != null)
                 return Ok(elem);
@@ -83,14 +87,14 @@ namespace Backend.Controllers.Main
             return NotFound();
         }
 
-        // GET: api/GeneralInformation/5/Radiography
+        // GET: api/InjuriesDiseases/5/Radiography
         [HttpGet("{id}/Radiography")]
         public IActionResult GetWithRadiography(int id)
         {
             if (id == 0)
                 return BadRequest("id is zero");
 
-            var elem = _injuriesDiseasesRepository.GetRadiographyById(id).EntityToView();
+            var elem = _injuriesDiseasesRepository.GetRadiographyById(id)?.Radiographies.EntityToView();
 
             if (elem != null)
                 return Ok(elem);
@@ -100,7 +104,7 @@ namespace Backend.Controllers.Main
 
         // POST: api/Patients/5/MRI
         [HttpPost("{id}/MRI")]
-        public IActionResult PostWithMRI(int id, [FromBody] MRIView mriView)
+        public IActionResult PostWithMRI(int id, [FromForm] MRIView mriView)
         {
             try
             {
@@ -131,7 +135,7 @@ namespace Backend.Controllers.Main
 
         // POST: api/Patients/5/HeartUltrasound
         [HttpPost("{id}/HeartUltrasound")]
-        public IActionResult PostWithHeartUltrasound(int id, [FromBody] HeartUltrasoundView heartUltrasoundView)
+        public IActionResult PostWithHeartUltrasound(int id, [FromForm] HeartUltrasoundView heartUltrasoundView)
         {
             try
             {
@@ -162,7 +166,7 @@ namespace Backend.Controllers.Main
 
         // POST: api/Patients/5/Radiography
         [HttpPost("{id}/Radiography")]
-        public IActionResult PostWithRadiography(int id, [FromBody] RadiographyView radiographyView)
+        public IActionResult PostWithRadiography(int id, [FromForm] RadiographyView radiographyView)
         {
             try
             {
@@ -193,12 +197,14 @@ namespace Backend.Controllers.Main
 
         // PUT: api/InjuriesDiseases
         [HttpPut]
-        public IActionResult Put([FromBody] InjuriesDiseasesView injuriesDiseasesView)
+        public async Task<IActionResult> Put([FromForm] InjuriesDiseasesView injuriesDiseasesView)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest("Invalid data.");
+
+                await _uploadFileAndSavePath.UloadFile(injuriesDiseasesView);
 
                 if (_injuriesDiseasesRepository.UpdateFull(injuriesDiseasesView.ViewToEntity()))
                     return Ok();

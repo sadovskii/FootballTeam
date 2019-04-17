@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
+using Backend.BLL.Interfaces;
 using Backend.DAL.EF;
 using Backend.DAL.Interfaces.Repositories;
 using Backend.Infrastructure.Converters.Common.InstrumentalStudies;
 using Backend.Infrastructure.Converters.Common.LaboratoryResearch;
 using Backend.Infrastructure.Converters.MedicalExaminationConverters;
+using Backend.Infrastructure.Helpers;
 using Backend.Views.Common.InstrumentalStudies.Components;
 using Backend.Views.Common.LaboratoryResearch.Components;
 using Backend.Views.MedicalExaminationEntities.Components;
@@ -17,10 +20,12 @@ namespace Backend.Controllers.Main
     public class MedicalExaminationController : ControllerBase
     {
         IMedicalExaminationRepository _medicalExaminationRepository;
+        private readonly UploadFileAndSavePath _uploadFileAndSavePath;
 
-        public MedicalExaminationController(ApplicationContext applicationContext, IMedicalExaminationRepository medicalExaminationRepository)
+        public MedicalExaminationController(ApplicationContext applicationContext, IMedicalExaminationRepository medicalExaminationRepository, IImageHandler imageHandler)
         {
             _medicalExaminationRepository = medicalExaminationRepository;
+            _uploadFileAndSavePath = new UploadFileAndSavePath(imageHandler);
         }
 
         #region GET
@@ -144,7 +149,7 @@ namespace Backend.Controllers.Main
 
         // POST: api/MedicalExamination/5/DoctorsDiagnosis
         [HttpPost("{id}/DoctorsDiagnosis")]
-        public IActionResult PostWithDoctorsDiagnosis(int id, [FromBody] DoctorsDiagnosisView doctorsDiagnosisView)
+        public IActionResult PostWithDoctorsDiagnosis(int id, [FromForm] DoctorsDiagnosisView doctorsDiagnosisView)
         {
             try
             {
@@ -175,7 +180,7 @@ namespace Backend.Controllers.Main
 
         // POST: api/MedicalExamination/5/BloodChemistryAnalysis
         [HttpPost("{id}/BloodChemistryAnalysis")]
-        public IActionResult PostWithBloodChemistryAnalysis(int id, [FromBody] BloodChemistryAnalysisView bloodChemistryAnalysisView)
+        public IActionResult PostWithBloodChemistryAnalysis(int id, [FromForm] BloodChemistryAnalysisView bloodChemistryAnalysisView)
         {
             try
             {
@@ -206,7 +211,7 @@ namespace Backend.Controllers.Main
 
         // POST: api/MedicalExamination/5/GeneralBloodAnalysis
         [HttpPost("{id}/GeneralBloodAnalysis")]
-        public IActionResult PostWithGeneralBloodAnalysis(int id, [FromBody] GeneralBloodAnalysisView generalBloodAnalysisView)
+        public IActionResult PostWithGeneralBloodAnalysis(int id, [FromForm] GeneralBloodAnalysisView generalBloodAnalysisView)
         {
             try
             {
@@ -237,7 +242,7 @@ namespace Backend.Controllers.Main
 
         // POST: api/MedicalExamination/5/GeneralUrineAnalysis
         [HttpPost("{id}/GeneralUrineAnalysis")]
-        public IActionResult PostWithGeneralUrineAnalysis(int id, [FromBody] GeneralUrineAnalysisView generalUrineAnalysisView)
+        public IActionResult PostWithGeneralUrineAnalysis(int id, [FromForm] GeneralUrineAnalysisView generalUrineAnalysisView)
         {
             try
             {
@@ -268,7 +273,7 @@ namespace Backend.Controllers.Main
 
         // POST: api/MedicalExamination/5/HeartUltrasound
         [HttpPost("{id}/HeartUltrasound")]
-        public IActionResult PostWithHeartUltrasound(int id, [FromBody] HeartUltrasoundView heartUltrasoundView)
+        public IActionResult PostWithHeartUltrasound(int id, [FromForm] HeartUltrasoundView heartUltrasoundView)
         {
             try
             {
@@ -298,7 +303,7 @@ namespace Backend.Controllers.Main
 
         // POST: api/MedicalExamination/5/Electrocardiogram
         [HttpPost("{id}/Electrocardiogram")]
-        public IActionResult PostWithElectrocardiogram(int id, [FromBody] ElectrocardiogramView electrocardiogramView)
+        public IActionResult PostWithElectrocardiogram(int id, [FromForm] ElectrocardiogramView electrocardiogramView)
         {
             try
             {
@@ -328,19 +333,24 @@ namespace Backend.Controllers.Main
 
         // PUT: api/MedicalExamination
         [HttpPut]
-        public IActionResult Put(MedicalExaminationView medicalExaminationView)
+        public async Task<IActionResult> Put([FromForm] MedicalExaminationView medicalExaminationView)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest("Invalid data.");
 
+                if(medicalExaminationView == null)
+                    return BadRequest("medicalExaminationView is null");
+
+                await _uploadFileAndSavePath.UloadFile(medicalExaminationView);
+
                 if (_medicalExaminationRepository.UpdateFull(medicalExaminationView.ViewToEntity()))
                     return Ok();
 
                 return NotFound();
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return BadRequest();
             }

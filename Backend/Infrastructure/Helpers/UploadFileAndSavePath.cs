@@ -18,38 +18,45 @@ namespace Backend.Infrastructure.Helpers
             _imageHandler = imageHandler;
         }
 
-        public async void UloadFile(MedicalExaminationView medicalExamination)
+        public async Task UloadFile(MedicalExaminationView medicalExamination)
         {
-            foreach (var a in medicalExamination.BloodChemistryAnalyses)
-                if (a.File != null)
-                    a.Info = "images/" + await _imageHandler.UploadImagePath(a.File);
+            if(medicalExamination.BloodChemistryAnalyses != null)
+                foreach (var a in medicalExamination.BloodChemistryAnalyses)
+                    if (a.File != null)
+                        a.Info = await _imageHandler.UploadImagePath(a.File);
 
-            foreach (var a in medicalExamination.Electrocardiograms)
-                if (a.File != null)
-                    a.Info = "images/" + await _imageHandler.UploadImagePath(a.File);
+            if (medicalExamination.Electrocardiograms != null)
+                foreach (var a in medicalExamination.Electrocardiograms)
+                    if (a.File != null)
+                        a.Info = await _imageHandler.UploadImagePath(a.File);
 
-            foreach (var a in medicalExamination.GeneralBloodAnalyses)
-                if (a.File != null)
-                    a.Info = "images/" + await _imageHandler.UploadImagePath(a.File);
+            if (medicalExamination.GeneralBloodAnalyses != null)
+                foreach (var a in medicalExamination.GeneralBloodAnalyses)
+                    if (a.File != null)
+                        a.Info = await _imageHandler.UploadImagePath(a.File);
 
-            foreach (var a in medicalExamination.GeneralUrineAnalyses)
-                if (a.File != null)
-                    a.Info = "images/" + await _imageHandler.UploadImagePath(a.File);
-
-            foreach (var a in medicalExamination.Electrocardiograms)
-                if (a.File != null)
-                    a.Info = "images/" + await _imageHandler.UploadImagePath(a.File);
+            if (medicalExamination.GeneralUrineAnalyses != null)
+                foreach (var a in medicalExamination.GeneralUrineAnalyses)
+                    if (a.File != null)
+                        a.Info = await _imageHandler.UploadImagePath(a.File);
         }
 
-        public async void UloadFile(InjuriesDiseasesView injuriesDiseases)
+        public async Task UloadFile(InjuriesDiseasesView injuriesDiseases)
         {
-            foreach (var a in injuriesDiseases.MRIs)
-                if (a.File != null)
-                    a.Info = "images/" + await _imageHandler.UploadImagePath(a.File);
+            if (injuriesDiseases.MRIs != null)
+                    foreach (var a in injuriesDiseases.MRIs)
+                    if (a.File != null)
+                        a.Info = await _imageHandler.UploadImagePath(a.File);
 
-            foreach (var a in injuriesDiseases.HeartUltrasounds)
-                if (a.File != null)
-                    a.Info = "images/" + await _imageHandler.UploadImagePath(a.File);
+            if (injuriesDiseases.HeartUltrasounds != null)
+                    foreach (var a in injuriesDiseases.HeartUltrasounds)
+                    if (a.File != null)
+                        a.Info = await _imageHandler.UploadImagePath(a.File);
+
+            if (injuriesDiseases.Radiographies != null)
+                foreach (var a in injuriesDiseases.Radiographies)
+                    if (a.File != null)
+                        a.Info = await _imageHandler.UploadImagePath(a.File);
         }
 
         public async Task UloadFile(PatientView patient)

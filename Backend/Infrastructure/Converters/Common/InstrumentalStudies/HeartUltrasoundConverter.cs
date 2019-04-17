@@ -18,7 +18,8 @@ namespace Backend.Infrastructure.Converters.Common.InstrumentalStudies
                 {
                     Id = view.Id,
                     Info = view.Info,
-                    MedicalExaminationId = view.MedicalExaminationId
+                    MedicalExaminationId = view.MedicalExaminationId,
+                    InjuriesDiseasesId = view.InjuriesDiseasesId
                 };
             }
 
@@ -38,7 +39,8 @@ namespace Backend.Infrastructure.Converters.Common.InstrumentalStudies
                 {
                     Id = entity.Id,
                     Info = entity.Info,
-                    MedicalExaminationId = entity.MedicalExaminationId
+                    MedicalExaminationId = entity.MedicalExaminationId,
+                    InjuriesDiseasesId = entity.InjuriesDiseasesId
                 };
             }
 
