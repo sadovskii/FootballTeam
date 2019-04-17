@@ -57,8 +57,8 @@ namespace Backend.Controllers.Main
             return NotFound("obj not found");
         }
 
-        // GET: api/InjuriesDiseases/5/MRIs
-        [HttpGet("{id}/MRIs")]
+        // GET: api/InjuriesDiseases/5/Mris
+        [HttpGet("{id}/Mris")]
         public IActionResult GetWithMRI(int id)
         {
             if (id == 0)
@@ -104,7 +104,7 @@ namespace Backend.Controllers.Main
 
         // POST: api/Patients/5/MRI
         [HttpPost("{id}/MRI")]
-        public IActionResult PostWithMRI(int id, [FromForm] MRIView mriView)
+        public IActionResult PostWithMRI(int id, [FromForm] MRIView mri)
         {
             try
             {
@@ -113,7 +113,7 @@ namespace Backend.Controllers.Main
                 {
                     return BadRequest("id is zero");
                 }
-                if (mriView == null)
+                if (mri == null)
                 {
                     return BadRequest("Owner object is null");
                 }
@@ -123,7 +123,7 @@ namespace Backend.Controllers.Main
                     return BadRequest("Invalid model object");
                 }
 
-                _injuriesDiseasesRepository.InsertMRI(id, mriView.ViewToEntity());
+                _injuriesDiseasesRepository.InsertMRI(id, mri.ViewToEntity());
 
                 return Ok();
             }
@@ -135,7 +135,7 @@ namespace Backend.Controllers.Main
 
         // POST: api/Patients/5/HeartUltrasound
         [HttpPost("{id}/HeartUltrasound")]
-        public IActionResult PostWithHeartUltrasound(int id, [FromForm] CommonUltrasoundView commonUltrasoundView)
+        public IActionResult PostWithHeartUltrasound(int id, [FromForm] CommonUltrasoundView commonUltrasound)
         {
             try
             {
@@ -144,7 +144,7 @@ namespace Backend.Controllers.Main
                 {
                     return BadRequest("id is zero");
                 }
-                if (commonUltrasoundView == null)
+                if (commonUltrasound == null)
                 {
                     return BadRequest("Owner object is null");
                 }
@@ -154,7 +154,7 @@ namespace Backend.Controllers.Main
                     return BadRequest("Invalid model object");
                 }
 
-                _injuriesDiseasesRepository.InsertCommonUltrasound(id, commonUltrasoundView.ViewToEntity());
+                _injuriesDiseasesRepository.InsertCommonUltrasound(id, commonUltrasound.ViewToEntity());
 
                 return Ok();
             }
@@ -166,7 +166,7 @@ namespace Backend.Controllers.Main
 
         // POST: api/Patients/5/Radiography
         [HttpPost("{id}/Radiography")]
-        public IActionResult PostWithRadiography(int id, [FromForm] RadiographyView radiographyView)
+        public IActionResult PostWithRadiography(int id, [FromForm] RadiographyView radiography)
         {
             try
             {
@@ -175,7 +175,7 @@ namespace Backend.Controllers.Main
                 {
                     return BadRequest("id is zero");
                 }
-                if (radiographyView == null)
+                if (radiography == null)
                 {
                     return BadRequest("Owner object is null");
                 }
@@ -185,7 +185,7 @@ namespace Backend.Controllers.Main
                     return BadRequest("Invalid model object");
                 }
 
-                _injuriesDiseasesRepository.InsertRadiography(id, radiographyView.ViewToEntity());
+                _injuriesDiseasesRepository.InsertRadiography(id, radiography.ViewToEntity());
 
                 return Ok();
             }

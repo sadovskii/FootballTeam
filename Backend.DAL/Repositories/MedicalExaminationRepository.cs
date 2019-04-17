@@ -67,6 +67,7 @@ namespace Backend.DAL.Repositories
         public MedicalExamination GetWithHeartUltrasoundById(int id)
         {
             return context.MedicalExaminations
+                .Include(t => t.HeartUltrasounds)
                .FirstOrDefault(t => t.Id == id);
         }
 

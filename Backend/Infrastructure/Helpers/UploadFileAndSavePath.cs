@@ -39,6 +39,11 @@ namespace Backend.Infrastructure.Helpers
                 foreach (var a in medicalExamination.GeneralUrineAnalyses)
                     if (a.File != null)
                         a.Info = await _imageHandler.UploadImagePath(a.File);
+
+            if (medicalExamination.HeartUltrasounds != null)
+                foreach (var a in medicalExamination.HeartUltrasounds)
+                    if (a.File != null)
+                        a.Info = await _imageHandler.UploadImagePath(a.File);
         }
 
         public async Task UloadFile(InjuriesDiseasesView injuriesDiseases)

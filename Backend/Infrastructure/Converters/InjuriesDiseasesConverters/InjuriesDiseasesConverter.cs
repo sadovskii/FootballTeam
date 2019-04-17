@@ -23,7 +23,7 @@ namespace Backend.Infrastructure.Converters.InjuriesDiseasesConverters
                     Id = view.Id,
                     DateInjuriesOrDiseases = view.DateInjuriesOrDiseases,
                     ReleasedInMainGroup = view.ReleasedInMainGroup,
-                    DisabilityCountDay = view.DisabilityCountDay,
+                    DisabilityCountDay = (view.ReleasedInMainGroup - view.DateInjuriesOrDiseases).Days,
                     Diagnosis = view.Diagnosis,
                     DrugTherapy = view.DrugTherapy,
                     PhysiotherapyTreatment = view.PhysiotherapyTreatment,

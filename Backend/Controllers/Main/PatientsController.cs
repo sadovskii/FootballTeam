@@ -151,7 +151,7 @@ namespace Backend.Controllers.Main
 
         // POST: api/Patients
         [HttpPost]
-        public async Task<IActionResult> Post(PatientView patient )
+        public async Task<IActionResult> Post([FromForm] PatientView patient )
         {
             try
             {

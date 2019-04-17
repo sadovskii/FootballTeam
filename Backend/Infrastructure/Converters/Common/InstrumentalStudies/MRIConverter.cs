@@ -19,7 +19,6 @@ namespace Backend.Infrastructure.Converters.Common.InstrumentalStudies
                     Id = view.Id,
                     Info = view.Info,
                     InjuriesDiseasesId = view.InjuriesDiseasesId,
-                    InjuriesDiseases = view.InjuriesDiseases.ViewToEntity()
                 };
             }
 
@@ -40,7 +39,6 @@ namespace Backend.Infrastructure.Converters.Common.InstrumentalStudies
                     Id = entity.Id,
                     Info = entity.Info,
                     InjuriesDiseasesId = entity.InjuriesDiseasesId,
-                    InjuriesDiseases = entity.InjuriesDiseases.EntityToView()
                 };
             }
 
