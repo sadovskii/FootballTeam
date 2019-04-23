@@ -12,6 +12,7 @@ using Backend.Infrastructure.Helpers;
 using Backend.Views.Common.InstrumentalStudies.Components;
 using Backend.Views.Common.LaboratoryResearch.Components;
 using Backend.Views.MedicalExaminationEntities.Components;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers.Main

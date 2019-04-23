@@ -6,6 +6,7 @@ using Backend.DAL.EF;
 using Backend.DAL.Interfaces.Repositories.Other.MedicalExamination;
 using Backend.Infrastructure.Converters.Common.LaboratoryResearch;
 using Backend.Views.Common.LaboratoryResearch.Components;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

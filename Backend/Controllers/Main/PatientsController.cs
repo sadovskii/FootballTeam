@@ -13,6 +13,7 @@ using Backend.Views.Components;
 using Backend.Views.GeneralInformationEntities.Components;
 using Backend.Views.InjuriesDiseasesEntities.Components;
 using Backend.Views.MedicalExaminationEntities.Components;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

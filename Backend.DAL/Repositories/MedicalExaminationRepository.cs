@@ -160,6 +160,7 @@ namespace Backend.DAL.Repositories
                 entity.Allowance = medicalExamination.Allowance;
 
                 if(medicalExamination.DoctorsDiagnoses != null)
+                {
                     foreach (var a in entity.DoctorsDiagnoses)
                         foreach (var b in medicalExamination.DoctorsDiagnoses)
                             if (a.Id == b.Id)
@@ -167,12 +168,17 @@ namespace Backend.DAL.Repositories
                                 a.Diagnosis = b.Diagnosis;
                                 a.MedicalProfessionId = b.MedicalProfessionId;
                             }
+                }
+                    
 
                 if (medicalExamination.BloodChemistryAnalyses != null)
+                {
                     foreach (var a in entity.BloodChemistryAnalyses)
                         foreach (var b in medicalExamination.BloodChemistryAnalyses)
                             if (a.Id == b.Id)
                                 a.Info = b.Info;
+                }
+                    
 
                 if (medicalExamination.Electrocardiograms != null)
                     foreach (var a in entity.Electrocardiograms)
@@ -200,7 +206,6 @@ namespace Backend.DAL.Repositories
 
 
                 Update(entity);
-                context.SaveChanges();
                 return true;
             }
 

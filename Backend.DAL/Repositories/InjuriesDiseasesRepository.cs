@@ -100,25 +100,45 @@ namespace Backend.DAL.Repositories
                 entity.Other = injuriesDiseases.Other;
 
                 if (injuriesDiseases.MRIs != null)
+                {
                     foreach (var a in entity.MRIs)
                         foreach (var b in injuriesDiseases.MRIs)
                             if (a.Id == b.Id)
                                 a.Info = b.Info;
 
+                    foreach (var a in injuriesDiseases.MRIs)
+                        if (a.Id == 0)
+                            entity.MRIs.Add(a);
+                 
+                }
+
                 if (injuriesDiseases.CommonUltrasounds != null)
+                {
                     foreach (var a in entity.CommonUltrasounds)
                         foreach (var b in injuriesDiseases.CommonUltrasounds)
                             if (a.Id == b.Id)
                                 a.Info = b.Info;
 
+                    foreach (var a in injuriesDiseases.CommonUltrasounds)
+                        if (a.Id == 0)
+                            entity.CommonUltrasounds.Add(a);
+                }
+                    
+
                 if (injuriesDiseases.Radiographies != null)
+                {
                     foreach (var a in entity.Radiographies)
                         foreach (var b in injuriesDiseases.Radiographies)
                             if (a.Id == b.Id)
                                 a.Info = b.Info;
 
+                    foreach (var a in injuriesDiseases.Radiographies)
+                        if (a.Id == 0)
+                            entity.Radiographies.Add(a);
+                }
+                    
+
                 Update(entity);
-                context.SaveChanges();
                 return true;
             }
 

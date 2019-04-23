@@ -6,6 +6,7 @@ using Backend.DAL.EF;
 using Backend.DAL.Interfaces.Repositories.Other.InjuriesDiseases;
 using Backend.Infrastructure.Converters.Common.InstrumentalStudies;
 using Backend.Views.Common.InstrumentalStudies.Components;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

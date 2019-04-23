@@ -5,6 +5,7 @@ using Backend.DAL.Entities.Common.LaboratoryResearch;
 using Backend.DAL.Entities.GeneralInformationEntities;
 using Backend.DAL.Entities.InjuriesDiseasesEntities;
 using Backend.DAL.Entities.MedicalExaminationEntities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ using System.Text;
 
 namespace Backend.DAL.EF
 {
-    public class ApplicationContext : DbContext
+    public class ApplicationContext : IdentityDbContext<User>
     {
         public DbSet<Patient> Patients { get; set; }
         public DbSet<GeneralInformation> GeneralInformation { get; set; }
@@ -42,7 +43,9 @@ namespace Backend.DAL.EF
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Patient>().ToTable(nameof(Patient))
+            base.OnModelCreating(builder);
+
+            builder.Entity<Patient>().ToTable(nameof(Patient))  
                 .HasOne(a => a.GeneralInformation)
                 .WithOne(t => t.Patient)
                 .HasForeignKey<GeneralInformation>(e => e.PatientId)

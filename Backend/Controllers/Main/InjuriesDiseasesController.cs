@@ -12,6 +12,7 @@ using Backend.Infrastructure.Helpers;
 using Backend.Views.Common.InstrumentalStudies.Components;
 using Backend.Views.Components.Common.InstrumentalStudies;
 using Backend.Views.InjuriesDiseasesEntities.Components;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

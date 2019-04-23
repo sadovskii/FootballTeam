@@ -66,7 +66,6 @@ namespace Backend.DAL.Repositories
             if (entity == null)
                 throw new ArgumentNullException("entity");
 
-
             entities.Update(entity);
             context.SaveChanges();
         }

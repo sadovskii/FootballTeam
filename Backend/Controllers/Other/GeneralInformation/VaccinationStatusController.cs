@@ -6,6 +6,7 @@ using Backend.DAL.EF;
 using Backend.DAL.Interfaces.Repositories.Other.GeneralInformation;
 using Backend.Infrastructure.Converters.GeneralInformationConverters;
 using Backend.Views.GeneralInformationEntities.Components;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
