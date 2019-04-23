@@ -291,7 +291,9 @@ namespace Backend.Controllers.Main
                     await _uploadFileAndSavePath.UloadFile(patientView);
 
                     elem.Name = patientView.Name;
-                    elem.Photo = patientView.Photo;
+
+                    if(patientView.Photo != null)
+                        elem.Photo = patientView.Photo;
 
                     _patientRepository.Update(elem);
 

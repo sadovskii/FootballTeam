@@ -103,7 +103,7 @@ namespace Backend.DAL.Repositories
                 {
                     foreach (var a in entity.MRIs)
                         foreach (var b in injuriesDiseases.MRIs)
-                            if (a.Id == b.Id)
+                            if (a.Id == b.Id && b.Info != null)
                                 a.Info = b.Info;
 
                     foreach (var a in injuriesDiseases.MRIs)
@@ -116,7 +116,7 @@ namespace Backend.DAL.Repositories
                 {
                     foreach (var a in entity.CommonUltrasounds)
                         foreach (var b in injuriesDiseases.CommonUltrasounds)
-                            if (a.Id == b.Id)
+                            if (a.Id == b.Id && b.Info != null)
                                 a.Info = b.Info;
 
                     foreach (var a in injuriesDiseases.CommonUltrasounds)
@@ -129,7 +129,7 @@ namespace Backend.DAL.Repositories
                 {
                     foreach (var a in entity.Radiographies)
                         foreach (var b in injuriesDiseases.Radiographies)
-                            if (a.Id == b.Id)
+                            if (a.Id == b.Id && b.Info != null)
                                 a.Info = b.Info;
 
                     foreach (var a in injuriesDiseases.Radiographies)

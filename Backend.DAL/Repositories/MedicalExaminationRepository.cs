@@ -175,7 +175,7 @@ namespace Backend.DAL.Repositories
                 {
                     foreach (var a in entity.BloodChemistryAnalyses)
                         foreach (var b in medicalExamination.BloodChemistryAnalyses)
-                            if (a.Id == b.Id)
+                            if (a.Id == b.Id && b.Info != null)
                                 a.Info = b.Info;
                 }
                     
@@ -183,25 +183,25 @@ namespace Backend.DAL.Repositories
                 if (medicalExamination.Electrocardiograms != null)
                     foreach (var a in entity.Electrocardiograms)
                         foreach (var b in medicalExamination.Electrocardiograms)
-                            if (a.Id == b.Id)
+                            if (a.Id == b.Id && b.Info != null)
                                 a.Info = b.Info;
 
                 if (medicalExamination.GeneralBloodAnalyses != null)
                     foreach (var a in entity.GeneralBloodAnalyses)
                         foreach (var b in medicalExamination.GeneralBloodAnalyses)
-                            if (a.Id == b.Id)
+                            if (a.Id == b.Id && b.Info != null)
                                 a.Info = b.Info;
 
                 if (medicalExamination.GeneralUrineAnalyses != null)
                     foreach (var a in entity.GeneralUrineAnalyses)
                         foreach (var b in medicalExamination.GeneralUrineAnalyses)
-                            if (a.Id == b.Id)
+                            if (a.Id == b.Id && b.Info != null)
                                 a.Info = b.Info;
 
                 if (medicalExamination.HeartUltrasounds != null)
                     foreach (var a in entity.HeartUltrasounds)
                         foreach (var b in medicalExamination.HeartUltrasounds)
-                            if (a.Id == b.Id)
+                            if (a.Id == b.Id && b.Info != null)
                                 a.Info = b.Info;
 
 
