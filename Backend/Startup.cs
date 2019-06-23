@@ -122,6 +122,17 @@ namespace Backend
 
             app.UseHttpsRedirection();
 
+            app.Use(async (context, next) =>
+            {
+                await next();
+
+                if(context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
+                {
+                    context.Request.Path = "/index.html";
+                    await next();
+                }
+            });
+
             app.UseCors(builder => builder
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
@@ -129,16 +140,10 @@ namespace Backend
                 .AllowCredentials());
 
             app.UseAuthentication();
+            app.UseDefaultFiles();
             app.UseStaticFiles();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Patients}/{action=GetPatient}/{id?}");
-            });
-
-            //DummyData.Initialize(app);
+            app.UseMvc();
         }
     }
 }
